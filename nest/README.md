@@ -19,6 +19,7 @@ The main component is "nestClient". It is accompanied with two other utility scr
 
 ##Obtaining a Nest authentication token
 Using a REST client, such as API Kitchen for example, issue a POST request to getRequetCodeUrl ( https://api.scriptr.io/nest/authorization/getRequestCodeUrl), passing your scriptr; authentication token and a timestamp. The call should return something similar to the below
+'''
 {
     "response": {
         "metadata": {
@@ -29,11 +30,13 @@ Using a REST client, such as API Kitchen for example, issue a POST request to ge
         "result": "https://home.nest.com/login/oauth2?client_id=c246921v-0667-4677-389e-v55660e5d7h3&state=2cfb83" // example
     }
 }
+'''
 Copy the URL in the "result" field and paste it in a browser. This should route you to an authorization wizard at Nest's premises:
 
 Click on "Continue" and enter your Nest credentials in the form that is displayed, then validate with "SIGN IN"
 
 If your credentials are OK, you will be automatically redirected to the getAccessToken script, of which execution results in displaying the value of your Nest OAuth token, as in the below:
+'''
 {"response": {
   "metadata": {
     "requestId": "806a02b7-b00f-4b7b-97d2-a1125bd866c0",
@@ -44,12 +47,14 @@ If your credentials are OK, you will be automatically redirected to the getAcces
  "expires_in": 315360000
 }
 }}
+'''
 ##Configuring scriptr's Nest client
 Head to the /nest/config script and set:
 The client_id, client_secret variables respectively to the value of the CLIENT ID, CLIENT SECRET fields of the OAUTH SETTINGS section of the Nest client, 
 The access_token and expires_in properties of the token variable to the values obtained above.
 ##Try it !
 Copy/paste the below code in a new script and try the different instructions (replace the structuredId and deviceId with values obtained from your Nest home simulator) 
+'''
 var clientModule = require("nest/nestClient");
 var nest = new clientModule.NestClient(true);
  
@@ -83,4 +88,4 @@ try {
 }catch(exception){
   return exception;
 }                                  
-
+'''
