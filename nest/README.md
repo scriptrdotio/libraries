@@ -16,6 +16,7 @@ The main component is "nestClient". It is accompanied with two other utility scr
 - nest/authorization/getRequestCodeUrl
 - nest/authorization/getAccessToken
 - nest/config
+
 ##Obtaining a Nest authentication token
 Using a REST client, such as API Kitchen for example, issue a POST request to getRequetCodeUrl ( https://api.scriptr.io/nest/authorization/getRequestCodeUrl), passing your scriptr; authentication token and a timestamp. The call should return something similar to the below
 {
