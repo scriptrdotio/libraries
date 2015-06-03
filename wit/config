@@ -1,0 +1,28 @@
+/**
+ * this module contains the necessary configuration to enable
+ * proper communication with wit.ai and other parameters required
+ * by the wit.ai wrapper
+ * @module config
+ */
+ 
+// The URL root to wit.ai's APIs
+var witApiUrl = "https://api.wit.ai/";
+
+// The developer's application ID at wit.ai
+var appId = "54c92111-16e8-4bc7-861c-e087a1358042"; // example
+
+// The server to server wit.ai OAuth token
+var serverAccessToken = "JINQ8DH5MAIGOALWJTEWTSTVFLSNX6DA";  // example
+
+// fill this variable to associate a script name to an intent name and map the entities to the parameter names
+// (optional)
+var mapping = {
+  
+  "get_nearest_venue": {
+    "script": "wit/test/getNearestVenue", 
+    "params": {
+      "distance": "radius",
+      "local_search_query": "venue"
+    }
+  }
+}; 
