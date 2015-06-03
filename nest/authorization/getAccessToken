@@ -1,6 +1,6 @@
 /**
  * this is step 2 of nest's oauth 2 process.
- * this script is automatically invoked as a call-back once the end user as entered his
+ * this script is automatically invoked as a call-back once the end user has entered his
  * nest credentials and authorized the scriptr; app
  * declare this callback in your nest account : https://developer.nest.com/clients, 
  * OAUTH SETTINGS section, "Redirect URI"
