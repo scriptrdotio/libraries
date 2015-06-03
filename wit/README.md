@@ -13,16 +13,16 @@ wit/witHandler : this module handles the mapping between the intent that match t
 wit/witClient : this module handles the communication with wiit.ai's APIs
 wit/config: required configuration (wit.ai auth token, intent to script mappings, etc.)
 ##How to use
-Deploy the aforementioned scripts in your scriptr account, in a folder named "wit" (remove the .js extension of the files)
-Create an intent on https://wit.ai/
-Create a test script in scriptr, which you will use as the API to invoke upon reception of the vocal command, as in the below example
+- Deploy the aforementioned scripts in your scriptr account, in a folder named "wit" (remove the .js extension of the files)
+- Create an intent on https://wit.ai/
+- Create a test script in scriptr, which you will use as the API to invoke upon reception of the vocal command, as in the below example
 dummy API script
 ```
 function execute(params) {
   return params;
 } 
 ```
-Update the wit/config file with your wit.ai credentials (server token) and create a mapping between your test script and the intent you have created, as in the below example
+- Update the wit/config file with your wit.ai credentials (server token) and create a mapping between your test script and the intent you have created, as in the below example
 ```
 // The URL root to wit.ai's APIs
 var witApiUrl = "https://api.wit.ai/";
@@ -43,7 +43,7 @@ var mapping = {
   }
 };
 ```
-From a client application, a REST client or from the scriptr's dashboard, invoke the wit/handleCommand API as follows
+- From a client application, a REST client or from the scriptr's dashboard, invoke the wit/handleCommand API as follows
 ```
 curl -X POST  -F apsws.time=1432726939153 -F commands=@myVocalCommandFile.mp3 -H 'Authorization: bearer you_scriptr_auth_token' 'https://api.scriptr.io/wit/handleCommand'
 ```
@@ -79,11 +79,12 @@ Create an intent at wit.ai, called "get_nearest_venue". This intent knows how to
   ]
 }
 ```
-Also use the dummy API script provided in the source code (wit/test/getNearestVenue) that returns the values of the received parameter. I mapped this script to the intent using the configuration file given as an example in the "How to use" paragraph.
+Also use the dummy API script provided in the source code (wit/test/getNearestVenue) that returns the values of the received parameter. 
+Map this script to the intent using the configuration file given as an example in the "How to use" paragraph.
 Create an audio file (mp3) that contains the following vocal instruction: "get nearest gas station in a five hundred meters perimeter" and pass it to the following CURL instruction that points to your scriptr account.
 curl -X POST  -F apsws.time=1432726939153 -F commands=@command.mp3 -H 'Authorization: bearer YOUR_TOKEN' 'https://api.scriptr.io/wit/handleCommand'
 
-Below is what you should get as output
+Below is what you should get as output:
 ```
 >> curl -X POST  -F apsws.time=1432726939153 -F commands=@command.mp3 -H 'Authorization: bearer YOUR_TOKEN' 'https://api.scriptr.io/wit/handleCommand'
 2015-05-27 11:42:26,446 LOG [wit/handleCommand] instanciating wit client
