@@ -47,7 +47,7 @@ If your credentials are OK, you will be automatically redirected to the getAcces
 Head to the /nest/config script and set:
 The client_id, client_secret variables respectively to the value of the CLIENT ID, CLIENT SECRET fields of the OAUTH SETTINGS section of the Nest client, 
 The access_token and expires_in properties of the token variable to the values obtained above.
-Try it !
+##Try it !
 Copy/paste the below code in a new script and try the different instructions (replace the structuredId and deviceId with values obtained from your Nest home simulator) 
 var clientModule = require("nest/nestClient");
 var nest = new clientModule.NestClient(true);
