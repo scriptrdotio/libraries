@@ -19,7 +19,7 @@ var nestRootUrl = "https://developer-api.nest.com";
 // suffixe to add to the nest root url to manipulate devices
 var devicesUrl = "/devices";
 
-// suffixe to add to the nest root url to manipulate devices
+// suffixe to add to the nest root url to manipulate structures
 var structuresUrl = "/structures";
 
 // generate a random state to be used in the oauth 2 process' steps
