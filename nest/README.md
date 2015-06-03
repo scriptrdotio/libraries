@@ -12,10 +12,10 @@ scriptr; client for Nest
 The purpose of this client is to wrap Nest's REST APIs so they can be easily used from within scripts. It is implemented using scriptr; scripts.
 ##Components
 The main component is "nestClient". It is accompanied with two other utility scripts that cover Nest's OAuth authentication process and a configuration file that holds your client id, client secret and Nest authentication token. When deploying the scripts on scriptr; make sure to adopt the following folder structure (if not, you will have to modify the paths in the "require" statement of the scripts)
--nest/nestClient
--nest/authorization/getRequestCodeUrl
--nest/authorization/getAccessToken
--nest/config
+- nest/nestClient
+- nest/authorization/getRequestCodeUrl
+- nest/authorization/getAccessToken
+- nest/config
 ##Obtaining a Nest authentication token
 Using a REST client, such as API Kitchen for example, issue a POST request to getRequetCodeUrl ( https://api.scriptr.io/nest/authorization/getRequestCodeUrl), passing your scriptr; authentication token and a timestamp. The call should return something similar to the below
 {
