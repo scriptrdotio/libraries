@@ -8,6 +8,9 @@
 // The URL root to wit.ai's APIs
 var witApiUrl = "https://api.wit.ai/";
 
+// Default audio type of voice commands
+var audioType = "audio/mpeg3";
+
 // The developer's application ID at wit.ai
 var appId = "54c92111-16e8-4bc7-861c-e087a1358042"; // example
 
