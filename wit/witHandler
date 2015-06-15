@@ -21,11 +21,13 @@ function WitHandler() {
  * that matches the audio command
  * @method handleWitCommand
  * @param {File} audioCommand : and audio file containing a vocal command to translate
+ * @param {String} audioType : the mime type of the audio file (currently only mp3 or wav)
+ * this parameter is optional. Resolves to wit/config.audioType
  * @return {Object} the result of the execution of the developer's API
  */
-WitHandler.prototype.handleWitCommand = function(audioCommand) {
+WitHandler.prototype.handleWitCommand = function(audioCommand, audioType) {
   
-  var witCommand = this.wit.resolveAudioCommand(audioCommand);
+  var witCommand = this.wit.resolveAudioCommand(audioCommand, audioType);
   if (witCommand) {
     return this.invokeApi(witCommand);
   }else {
@@ -106,20 +108,25 @@ WitHandler.prototype.mapToScript = function(target) {
   };
   
   if (mapping) {
-    
+  
     newTarget.script = mapping.script;
-    var keys = Object.keys(target.params);
-    var key = null;
-    var params = {};
-    for (var i = 0; i < keys.length; i++) {
+    var keys = Object.keys(target.params);   
+    if (mapping.params) {       
+     
+      var params = {};
+      var key = null;
+      for (var i = 0; i < keys.length; i++) {
 
-      key = keys[i];
-      if (mapping.params[key]){
-        params[mapping.params[key]] = target.params[key];
+        key = keys[i];
+        if (mapping.params[key]){
+          params[mapping.params[key]] = target.params[key];
+        }else {
+          params[key] = target.params[key];
+        }
       }
+      
+      newTarget.params = params;
     }
-    
-    newTarget.params = params;
   }
   
   return newTarget;
