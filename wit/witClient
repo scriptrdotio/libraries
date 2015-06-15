@@ -17,9 +17,11 @@ function WitClient() {
  * This method can throw exceptions
  * @method resolveAudioCommand
  * @param audioFile : the audio file that contains the voice command (mp3 or wav)
+ * @param {String} audioType : the mime type of the audio file (currently only mp3 or wav)
+ * this parameter is optional. Resolves to wit/config.audioType
  * @return {Object} The JSON structure containing the wit.ai intent and entities
  */
-WitClient.prototype.resolveAudioCommand = function(audioFile) {
+WitClient.prototype.resolveAudioCommand = function(audioFile, audioType) {
   
   if (!audioFile) {
     
@@ -35,7 +37,7 @@ WitClient.prototype.resolveAudioCommand = function(audioFile) {
     "version": "v=20141022",
     "method": "POST",
     "headers": {
-      "Content-type": "audio/mpeg3"
+      "Content-type": audioType ? audioType : config.audioType
     },
     "files": {"body":audioFile}
   };
@@ -55,12 +57,13 @@ WitClient.prototype._invokeWitApi = function(requestDTO) {
       "errorDetail": "Failed to analyze requested command (" +  response.metadata.errorCode + ")"
     };
   }
-  
+ 
   if (response.status && response.status != "200") {
     
+    var errorDetail = response.metadata ? response.metadata.errorDetail : JSON.stringify(response.body);
     throw {
       "errorCode": "Analyze_Command_Failed",
-      "errorDetail": "Failed to analyze requested command (" +  response.metadata.errorCode + ")"
+      "errorDetail": "Failed to analyze requested command (" +  errorDetail + ")"
     };
   }
   
