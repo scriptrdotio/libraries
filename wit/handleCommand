@@ -13,10 +13,12 @@ if (request.files) {
   if (filesList && filesList.length > 0) {
    
     var audioCommand = filesList[0];
+    var audioType = audioCommand.contentType;
+    audioType = (audioType == "audio/mp3") ? "audio/mpeg3" : audioType;
     try {
       
       var handler = new witHandler.WitHandler();
-      return handler.handleWitCommand(audioCommand);
+      return handler.handleWitCommand(audioCommand, audioType);
     }catch(exception) {      
       
       if (exception.errorCode) {
