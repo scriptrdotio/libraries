@@ -22,7 +22,8 @@ permissions.
 - Once done, make sure to copy/paste the values of your Client (Consumer) Key, OAuth 2.0 Client ID and Cient (Consumer) Secret in the corresponding
 variables of the fitbit/config file.
 - Create a test script in scriptr, or use the script provided in fitbit/test. 
-*Note*Pay attention that fitbit limits the number of free API calls that you can make to 150/hour per app.
+*Note*
+Pay attention that fitbit limits the number of free API calls that you can make to 150/hour per app.
 ```
 function execute(params) {
   return params;
