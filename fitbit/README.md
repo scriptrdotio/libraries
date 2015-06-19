@@ -3,7 +3,7 @@
 [fitbit](http://www.fitbit.com/) is a company that designs wearable trackers for fitness and physical activities. 
 These trackers and the information they generate are accessible through REST APIs.
 ## Purpose of the scriptr.io connector for fitbit
-The purpose of this connector is to simplify the way you access fitbit's APIs by providing you with a few native objects that you can directly integrate into your own scripts.
+The purpose of this connector is to simplify the way you access fitbit's APIs by providing you with a few native objects that you can directly integrate into your own scripts. 
 This will hopefully allow you to create sophisticated applications that can, for example, leverage physical information about users in order to take decisions accordingly. 
 ## Components
 - fitbit/userClient: this is the main object to interact with. It provides access to data of a given user (the one for who you are passing an access token)
@@ -45,7 +45,37 @@ From a front-end application, send a request to the ```fitbit/authorization/getR
 
 From the front-end, issue a request to the obtained URL. This redirects your end user to the fitbit login page, where he has to enter his credentials then authorize the application on the requested scope. Once this is done, fitbit autimatically callback the ```fitbit/getRequestToken``` script, providing it with an access and a refresh token that it stores in your scriptr.io's global storage. The tokens are also returned by the script.
 
+*Note that scriptr.io's fitbit connector automatically takes care of refreshing you end user's access token, using the refresh token.*
 
+### Use the connector
 
+In order to use the connector, you need to import the main module: ```fitbit/userClient```, as described below:
+```
+var userClient = require("fitbit/userClient");
+```
+Then create a new instance of the FitbitUser class, defined in this module (we assume that we already otbained:
+```
+var user = new userClient.FitbitUser({username:"edison"});
+```
+The FitbitUser class provides many methods to obtains data related to the physical activity of the end user, such as:
+```
+var heartrateObj = user.getHeartRate({"date": "today", "period": "1d"}); 
+var stepsWalkedTodayObj = user.getWalkedSteps({"date": "today", "period": "1d"});
+var distanceWalkedTodayObj = user.getWalkedDistance({"date": "today", "period": "1d"});
+```
+In order to manipulate the end user's device, you first need to obtain a reference to the FitbitDevice class, simply by invoking the ```getDevice()``` method of your ```FitbitUser``` insance, as follows:
+```
+var device = user.getDevice(aDeviceId); // you can easily obtained the devices' ids using user.listDevices()
+```
+Using the device object, you now can manipulate the tracker, for example by setting a new alarm:
+```
+var alarmConfig = {
+ "enabled": true,
+ "recurring": false,
+ "time": "10:51+03:00"
+};
+  
+var alarm = device.addAlarm(alarmConfig);
+```
 
-
+*You can check the list of all available methods using the ```fitbit/test/tests``` script.
