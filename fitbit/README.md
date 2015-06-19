@@ -1,7 +1,7 @@
 #fitbit connector
 ##About fitbit
-[fitbit](http://www.fitbit.com/) is a company that designs wearable trackers for fitness and physical activity. 
-These trackers and the information they generate is accessible through REST APIs.
+[fitbit](http://www.fitbit.com/) is a company that designs wearable trackers for fitness and physical activities. 
+These trackers and the information they generate are accessible through REST APIs.
 ##Purpose of the scriptr.io connector for fitbit
 The purpose of this connector is to simplify the way you access fitbit's APIs by providing you with a few native objects that you can directly integrate into your own scripts.
 This will hopefully allow you to create sophisticated applications that can, for exa leverage physical information about users in order to take decisions accordingly. 
