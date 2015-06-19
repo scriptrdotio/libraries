@@ -15,6 +15,7 @@ The execution of this script returns an OAuth 2.0 authorization URL to invoke in
 - fitbit/authorization/getAccessToken: this is the callback that is provided by the former script to fitbit. 
 Its is automatically called by fitbit when the end user successfully authenticates against fitbit and grants you with the requested
 permissions.
+
 ## How to use
 - Deploy the aforementioned scripts in your scriptr account, in a folder named "fitbit".
 - Create an application on [fitbit](https://dev.fitbit.com/apps/new). 
