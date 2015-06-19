@@ -53,7 +53,7 @@ In order to use the connector, you need to import the main module: ```fitbit/use
 ```
 var userClient = require("fitbit/userClient");
 ```
-Then create a new instance of the FitbitUser class, defined in this module (we assume that we already otbained:
+Then create a new instance of the FitbitUser class, defined in this module (we assume that we already otbained an access token for the given user):
 ```
 var user = new userClient.FitbitUser({username:"edison"});
 ```
