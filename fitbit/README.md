@@ -26,7 +26,9 @@ variables of the fitbit/config file.
 Pay attention that fitbit limits the number of free API calls that you can make to 150/hour per app.
 
 ### Obtain access and refresh tokens from fitbit
-Front a front-end application, send a request to the ```fitbit/authorization/getRequestCodeUrl``` script, passing the ```username``` parameter. The username can be the actual end user's fitbit username or another username he decides to use in your IoT application. The result returned by the aforementioned script should resemble the following:
+
+#### Step 1
+From a front-end application, send a request to the ```fitbit/authorization/getRequestCodeUrl``` script, passing the ```username``` parameter. The username can be the actual end user's fitbit username or another username he decides to use in your IoT application. The result returned by the aforementioned script should resemble the following:
 
 ```
 >> curl -X POST  -F username=edison -F apsws.time=1434722158021 -H 'Authorization: bearer <YOUR_AUTH_TOKEN>' 'https://api.scriptr.io/fitbit/authorization/getRequestCodeUrl'
@@ -39,7 +41,9 @@ Front a front-end application, send a request to the ```fitbit/authorization/get
 	"result": "https://www.fitbit.com/oauth2/authorize?client_id=327LXS&response_type=code&scope=activity%20heartrate%20nutrition%20profile%20sleep%20weight&state=663250&redirect_uri=https%3A%2F%2Fapi.scriptr.io%2Ffitbit%2Fauthorization%2FgetAccessToken%3Fauth_token%3XRxM1KkZwAzc4Mg%3D%3D"
 }
 ```
+#### Step 2
 
+From the front-end, issue a request to the obtained URL. This redirects your end user to the fitbit login page, where he has to enter his credentials then authorize the application on the requested scope. Once this is done, fitbit autimatically callback the ```fitbit/getRequestToken``` script, providing it with an access and a refresh token that it stores in your scriptr.io's global storage. The tokens are also returned by the script.
 
 
 
