@@ -2,7 +2,6 @@ var tokenManager = require("fitbit/authorization/TokenManager");
 
 try {
   
-  console.log(JSON.stringify(request));
   var params = request.parameters;
 
   // check for errors
