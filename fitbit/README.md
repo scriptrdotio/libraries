@@ -24,8 +24,24 @@ variables of the fitbit/config file.
 - Create a test script in scriptr, or use the script provided in fitbit/test. 
 *Note*
 Pay attention that fitbit limits the number of free API calls that you can make to 150/hour per app.
+
+### Obtain access and refresh tokens from fitbit
+Front a front-end application, send a request to the ```fitbit/authorization/getRequestCodeUrl``` script, passing the ```username``` parameter. The username can be the actual end user's fitbit username or another username he decides to use in your IoT application. The result returned by the aforementioned script should resemble the following:
+
 ```
-function execute(params) {
-  return params;
-} 
+>> curl -X POST  -F username=edison -F apsws.time=1434722158021 -H 'Authorization: bearer <YOUR_AUTH_TOKEN>' 'https://api.scriptr.io/fitbit/authorization/getRequestCodeUrl'
+{
+	"metadata": {
+		"requestId": "45753a7f-a2b6-4378-a8e1-3bbddced9694",
+		"status": "success",
+		"statusCode": "200"
+	},
+	"result": "https://www.fitbit.com/oauth2/authorize?client_id=327LXS&response_type=code&scope=activity%20heartrate%20nutrition%20profile%20sleep%20weight&state=663250&redirect_uri=https%3A%2F%2Fapi.scriptr.io%2Ffitbit%2Fauthorization%2FgetAccessToken%3Fauth_token%3XRxM1KkZwAzc4Mg%3D%3D"
+}
 ```
+
+
+
+
+
+
