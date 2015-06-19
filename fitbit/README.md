@@ -4,7 +4,7 @@
 These trackers and the information they generate are accessible through REST APIs.
 ##Purpose of the scriptr.io connector for fitbit
 The purpose of this connector is to simplify the way you access fitbit's APIs by providing you with a few native objects that you can directly integrate into your own scripts.
-This will hopefully allow you to create sophisticated applications that can, for exa leverage physical information about users in order to take decisions accordingly. 
+This will hopefully allow you to create sophisticated applications that can, for example, leverage physical information about users in order to take decisions accordingly. 
 ##Components
 - fitbit/userClient: this is the main object to interact with. It provides access to data of a given user (the one for who you are passing an access token)
 - fitbit/deviceClient: you obtain an instance of this component from the former. It provides you will all the actions that you can do on a user's device (e.g. set alarm)
