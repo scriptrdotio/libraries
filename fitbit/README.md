@@ -22,8 +22,8 @@ permissions.
 - Once done, make sure to copy/paste the values of your Client (Consumer) Key, OAuth 2.0 Client ID and Client (Consumer) Secret in the corresponding
 variables of the fitbit/config file.
 - Create a test script in scriptr, or use the script provided in fitbit/test. 
-*Note*
-Pay attention that fitbit limits the number of free API calls that you can make to 150/hour per app.
+
+*Note: pay attention that fitbit limits the number of free API calls that you can make to 150/hour per app.*
 
 ### Obtain access and refresh tokens from fitbit
 
@@ -45,7 +45,7 @@ From a front-end application, send a request to the ```fitbit/authorization/getR
 
 From the front-end, issue a request to the obtained URL. This redirects your end user to the fitbit login page, where he has to enter his credentials then authorize the application on the requested scope. Once this is done, fitbit automatically calls back the ```fitbit/getRequestToken``` script, providing it with an access and a refresh token that it stores in your scriptr.io's global storage. The tokens are also returned by the script.
 
-*Note that scriptr.io's fitbit connector automatically takes care of refreshing you end user's access token, using the refresh token.*
+*Note that scriptr.io's fitbit connector automatically takes care of refreshing your end user's access token, using the refresh token.*
 
 ### Use the connector
 
