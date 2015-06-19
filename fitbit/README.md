@@ -19,7 +19,7 @@ permissions.
 ## How to use
 - Deploy the aforementioned scripts in your scriptr account, in a folder named "fitbit".
 - Create an application on [fitbit](https://dev.fitbit.com/apps/new). 
-- Once done, make sure to copy/paste the values of your Client (Consumer) Key, OAuth 2.0 Client ID and Cient (Consumer) Secret in the corresponding
+- Once done, make sure to copy/paste the values of your Client (Consumer) Key, OAuth 2.0 Client ID and Client (Consumer) Secret in the corresponding
 variables of the fitbit/config file.
 - Create a test script in scriptr, or use the script provided in fitbit/test. 
 *Note*
