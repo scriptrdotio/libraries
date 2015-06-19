@@ -57,7 +57,7 @@ Then create a new instance of the FitbitUser class, defined in this module (we a
 ```
 var user = new userClient.FitbitUser({username:"edison"});
 ```
-The FitbitUser class provides many methods to obtains data related to the physical activity of the end user, such as:
+The FitbitUser class provides many methods to obtain data related to the physical activity of the end user, such as:
 ```
 var heartrateObj = user.getHeartRate({"date": "today", "period": "1d"}); 
 var stepsWalkedTodayObj = user.getWalkedSteps({"date": "today", "period": "1d"});
