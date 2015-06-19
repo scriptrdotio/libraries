@@ -43,7 +43,7 @@ From a front-end application, send a request to the ```fitbit/authorization/getR
 ```
 #### Step 2
 
-From the front-end, issue a request to the obtained URL. This redirects your end user to the fitbit login page, where he has to enter his credentials then authorize the application on the requested scope. Once this is done, fitbit autimatically callback the ```fitbit/getRequestToken``` script, providing it with an access and a refresh token that it stores in your scriptr.io's global storage. The tokens are also returned by the script.
+From the front-end, issue a request to the obtained URL. This redirects your end user to the fitbit login page, where he has to enter his credentials then authorize the application on the requested scope. Once this is done, fitbit automatically calls back the ```fitbit/getRequestToken``` script, providing it with an access and a refresh token that it stores in your scriptr.io's global storage. The tokens are also returned by the script.
 
 *Note that scriptr.io's fitbit connector automatically takes care of refreshing you end user's access token, using the refresh token.*
 
