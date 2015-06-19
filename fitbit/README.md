@@ -78,4 +78,4 @@ var alarmConfig = {
 var alarm = device.addAlarm(alarmConfig);
 ```
 
-*You can check the list of all available methods using the ```fitbit/test/tests``` script.
+*You can check the list of all available methods using the ```fitbit/test/tests``` script.*
