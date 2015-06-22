@@ -3,7 +3,7 @@
 [fitbit](http://www.fitbit.com/) is a company that designs wearable trackers and devices for fitness and physical activities. 
 These trackers and the information they generate are accessible through REST APIs.
 ## Purpose of the scriptr.io connector for fitbit
-The purpose of this connector is to simplify the way you access fitbit's APIs by providing you with a few native objects that you can directly integrate into your own scripts. 
+The purpose of this connector is to simplify and streamline the way you access fitbit's APIs from scriptr.io, by providing you with a few native objects that you can directly integrate into your own scripts. 
 This will hopefully allow you to create sophisticated applications that can, for example, leverage physical information about users in order to take decisions accordingly. 
 ## Components
 - fitbit/userClient: this is the main object to interact with. It provides access to data of a given user (the one for who you are passing an access token)
@@ -53,11 +53,11 @@ In order to use the connector, you need to import the main module: ```fitbit/use
 ```
 var userClient = require("fitbit/userClient");
 ```
-Then create a new instance of the FitbitUser class, defined in this module (we assume that we already otbained:
+Then create a new instance of the FitbitUser class, defined in this module (we assume that we already otbained an access token for the given user):
 ```
 var user = new userClient.FitbitUser({username:"edison"});
 ```
-The FitbitUser class provides many methods to obtains data related to the physical activity of the end user, such as:
+The FitbitUser class provides many methods to obtain data related to the physical activity of the end user, such as:
 ```
 var heartrateObj = user.getHeartRate({"date": "today", "period": "1d"}); 
 var stepsWalkedTodayObj = user.getWalkedSteps({"date": "today", "period": "1d"});

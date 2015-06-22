@@ -1,6 +1,6 @@
 #Handle vocal commands using wit.ai from scriptr
 ##Vocal interfaces
-The are many cases where an end user needs to send vocal instructions to a device because she cannot use here hands (e.g. when driving, when holding a child, etc.) or because the environment she is working in prevents her to use them (e.g. surgery room to avoid contamination). More generally, the near future should see more importance given to vocal interfaces as a complement to the current tactile ones.
+The are many cases where an end user needs to send vocal instructions to a device because he cannot use his hands (e.g. when driving, when holding a child, etc.) or because the environment he is working in prevents him to use them (e.g. surgery room to avoid contamination). More generally, the near future should see more importance given to vocal interfaces as a complement to the current tactile ones.
 In this article, we will see how to use scriptr to provide you with the ability to trigger the execution of your APIs through vocal instructions.
 ##wit.ai
 wit.ai is a company that provides developers with means to map vocal commands to structured objects composed of intents (command) and entities (command targets and parameters). Using wit.ai is pretty straightforward and does not require much time from you to get started. In the remainder of this document, we will consider that we already have created an intent. Please refer to wit.ai's tutorials and documentation for more on how to create intent based on vocal commands.
