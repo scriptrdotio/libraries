@@ -28,7 +28,7 @@ var response_type = "token";
 // Possible values for "scope", i.e. authorizations requested from users. Can be empty
 var scope = "";
 
-// Where Fitbit should send the user after the user grants or denies consent. 
+// Where the 3rd party app should send the user after the user grants or denies consent. 
 // Optional if you have only specified one callback URI for your application in the settings on
 var redirect_uri = "https://api.scriptr.io/oauth2/getAccessToken?auth_token=YOUR_SCRIPTR.IO_AUTH_TOKEN_OR_ANONYMOUS_TOKEN";
 
