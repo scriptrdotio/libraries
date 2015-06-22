@@ -14,10 +14,10 @@ permissions.
 ## How to obtain an access token
 
 #### Step 1
-From a front-end application, send a request to the ```oauth2/getRequestCodeUrl``` script, passing the ```username``` parameter. The username can be the actual end user's fitbit username or another username he decides to use in your IoT application. The result returned by the aforementioned script should resemble the following:
+From a front-end application, send a request to the ```oauth2/getRequestCodeUrl``` script, passing the ```username``` parameter. The username can be the actual end user's 3rd party app username or another username he decides to use in your IoT application. The result returned by the aforementioned script should resemble the following:
 
 ```
->> curl -X POST  -F username=edison -F apsws.time=1434722158021 -H 'Authorization: bearer <YOUR_AUTH_TOKEN>' 'https://api.scriptr.io/fitbit/authorization/getRequestCodeUrl'
+>> curl -X POST  -F username=edison -F apsws.time=1434722158021 -H 'Authorization: bearer <YOUR_AUTH_TOKEN>' 'https://api.scriptr.io/3rdpartyapp/authorization/getRequestCodeUrl'
 {
 	"metadata": {
 		"requestId": "45753a7f-a2b6-4378-a8e1-3bbddced9694",
@@ -25,7 +25,7 @@ From a front-end application, send a request to the ```oauth2/getRequestCodeUrl`
 		"statusCode": "200"
 	},
 	// example result 
-	"result": "https://www.3rdpartyapp.com/oauth2/authorize?client_id=327LXS&response_type=code&scope=scope1%20scope2&state=663250&redirect_uri=https%3A%2F%2Fapi.scriptr.io%2Ffitbit%2Fauthorization%2FgetAccessToken%3Fauth_token%3XRxM1KkZwAzc4Mg%3D%3D"
+	"result": "https://www.3rdpartyapp.com/oauth2/authorize?client_id=327LXS&response_type=code&scope=scope1%20scope2&state=663250&redirect_uri=https%3A%2F%2Fapi.scriptr.io%2F3rdpartyapp%2Fauthorization%2FgetAccessToken%3Fauth_token%3XRxM1KkZwAzc4Mg%3D%3D"
 }
 ```
 #### Step 2
