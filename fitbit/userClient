@@ -23,7 +23,7 @@ function FitbitUser(dto) {
   
   if (!dto.username) {
    
-    throw {
+    throw { 
       "errorCode": "Invalid_Parameter",
       "errorDetail": "FitbitUser - dto.username cannot be null or empty. You should specify the name of the fitbit user"
     };
@@ -109,7 +109,7 @@ FitbitUser.prototype.getWalkedSteps = function(params) {
   var result = this._getActivityStats(params, url);
   var output = {
     "stats": result["activities-tracker-steps"],
-    "total": this._getTotalMinutes(result["activities-tracker-steps"])
+    "total": this._getTotalValue(result["activities-tracker-steps"])
   };
  
   return output;
@@ -131,7 +131,7 @@ FitbitUser.prototype.getWalkedDistance = function(params) {
   var result = this._getActivityStats(params, url);
   var output = {
     "stats": result["activities-tracker-distance"],
-    "total": this._getTotalMinutes(result["activities-tracker-distance"])
+    "total": this._getTotalValue(result["activities-tracker-distance"])
   };
  
   return output;
@@ -153,7 +153,7 @@ FitbitUser.prototype.getMinutesSedentary = function(params) {
   var result = this._getActivityStats(params, url);
   var output = {
     "stats": result["activities-tracker-minutesSedentary"],
-    "total": this._getTotalMinutes(result["activities-tracker-minutesSedentary"])
+    "total": this._getTotalValue(result["activities-tracker-minutesSedentary"])
   };
  
   return output;
@@ -175,7 +175,7 @@ FitbitUser.prototype.getMinutesLightlyActive = function(params) {
   var result = this._getActivityStats(params, url);
   var output = {
     "stats": result["activities-tracker-minutesLightlyActive"],
-    "total": this._getTotalMinutes(result["activities-tracker-minutesLightlyActive"])
+    "total": this._getTotalValue(result["activities-tracker-minutesLightlyActive"])
   };
  
   return output;
@@ -197,7 +197,7 @@ FitbitUser.prototype.getMinutesFairlyActive = function(params) {
   var result = this._getActivityStats(params, url);
   var output = {
     "stats": result["activities-tracker-minutesFairlyActive"],
-    "total": this._getTotalMinutes(result["activities-tracker-minutesFairlyActive"])
+    "total": this._getTotalValue(result["activities-tracker-minutesFairlyActive"])
   };
  
   return output;
@@ -219,9 +219,9 @@ FitbitUser.prototype.getMinutesVeryActive = function(params) {
   var result = this._getActivityStats(params, url);
   var output = {
     "stats": result["activities-tracker-minutesVeryActive"],
-    "total": this._getTotalMinutes(result["activities-tracker-minutesVeryActive"])
+    "total": this._getTotalValue(result["activities-tracker-minutesVeryActive"])
   };
- console.log("Result " +  JSON.stringify(output))
+ 
   return output;
 };
 
@@ -244,7 +244,7 @@ FitbitUser.prototype.getMinutesAsleep = function(params) {
   var result = this._getActivityStats(params, url);
   var output = {
     "stats": result["sleep-minutesAsleep"],
-    "total": this._getTotalMinutes(result["sleep-minutesAsleep"])
+    "total": this._getTotalValue(result["sleep-minutesAsleep"])
   };
  
   return output;
@@ -268,8 +268,29 @@ FitbitUser.prototype.getSleepEfficiency = function(params) {
   var url = config.fitbitApiUrl + "/" + config.apiVer + "/user/-/sleep/efficiency/date/";
   var result = this._getActivityStats(params, url);
   result = result["sleep-efficiency"];
-  result["total"] = this._getTotalMinutes(result["sleep-efficiency"]);
-  return result;
+  result["total"] = this._getTotalValue(result["sleep-efficiency"]);
+  return result ;
+};
+
+/**
+ * @method getSpentCalories
+ * @param  {Object} the parameters to send to fitbit
+ *	{String} toDate : the end date, "yyyy-MM-dd" or "today". Optional, defaults to "today" 
+ *	{String} fromDate  : the start date, "yyyy-MM-dd" or "today". Optional, defaults to "today"
+ * @return {Object} {"stats": Array of date, value, "total": total calories for this period} 
+ */
+FitbitUser.prototype.getSpentCalories = function(params) {
+  
+  params["period"] = params["toDate"];
+  params["date"] = params["fromDate"];
+  delete params["toDate"];
+  delete params["fromDate"];
+  var url =  config.fitbitApiUrl + "/" + config.apiVer + "/user/-/activities/tracker/calories/date/";
+  var result = this._getActivityStats(params, url);
+  return {
+    "stats": result["activities-tracker-calories"],
+    "total": this._getTotalValue(result["activities-tracker-calories"])
+  } 
 };
 
 /**
@@ -311,20 +332,23 @@ FitbitUser.prototype._getActivityStats = function(params, url, noPeriod) {
   var period = "1d";
   params["url"] = url + params.date;
   params["url"] += noPeriod ? ".json" : "/" + params.period + ".json";
+  console.log(params.url); 
   return this.fitbit.callApi(params);
 };  
 
-FitbitUser.prototype._getTotalMinutes = function(param) {
+FitbitUser.prototype._getTotalValue = function(param) {
   
   var total = 0; 
-  if (param.constructor.name == "Array") {    
-    
-    for (var i = 0; i < param.length; i++) {     
-      total += Number(param[i].value);
+  if (param) {
+    if (param.constructor.name == "Array") {    
+
+      for (var i = 0; i < param.length; i++) {     
+        total += Number(param[i].value);
+      }
+    }else {
+      total = param.value;
     }
-  }else {
-    total = param.value;
   }
-  console.log(":total " + total);
+  
   return total;
-}
+}   				
