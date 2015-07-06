@@ -28,7 +28,7 @@ regarding the acquisition of carvoyant authorization tokens for you or your user
 
 ## How to use
 - Deploy the aforementioned scripts in your scriptr account, in a folder named "carvoyant".
-- Create a developer account and an application at carvoyant [carvoyant](https://developer.carvoyant.com/member/register).
+- Create a developer account and an application at [carvoyant](https://developer.carvoyant.com/member/register).
 - Create an end user (driver) account (https://driver.carvoyant.com/)  
 - Once done, make sure to copy/paste the values of your Client (Consumer) Key, OAuth 2.0 Client ID and Client (Consumer) Secret in the corresponding
 variables of the "oauth2/config file" (respectively client_id and client_secret).
