@@ -38,7 +38,7 @@ variables of the "oauth2/config file" (respectively client_id and client_secret)
 - In the "oauth2/config" file, make sure to leave empty the value of the "apiVer" variable (empty string "")  
 - Create a test script in scriptr, or use the script provided in carvoyant/test/. 
 
-### Obtain access and refresh tokens from carvoyant
+### Obtain access tokens from carvoyant
 
 #### Step 1
 From a front-end application, send a request to the ```/oauth2/getRequestCodeUrl``` script, passing the ```username``` parameter. 
