@@ -32,8 +32,8 @@ regarding the acquisition of carvoyant authorization tokens for you or your user
 - Create an end user (driver) account (https://driver.carvoyant.com/)  
 - Once done, make sure to copy/paste the values of your Client (Consumer) Key, OAuth 2.0 Client ID and Client (Consumer) Secret in the corresponding
 variables of the "oauth2/config file" (respectively client_id and client_secret).
-- In the "oauth2/config" file, make sure that the value of the "response_type" variable to "token"
-- In the "oauth2/config" file, make sure to set the value of the "apiUrl" to the correct carovyant endpoint (sandbox or production)
+- In the "oauth2/config" file, make sure that the value of the "response_type" variable is set to "token"
+- In the "oauth2/config" file, make sure to set the value of the "apiUrl" to the correct carvoyant endpoint (sandbox or production)
 - In the "oauth2/config" file, make sure to set the value of the "app" variable to a name you choose
 - In the "oauth2/config" file, make sure to leave empty the value of the "apiVer" variable (empty string "")  
 - Create a test script in scriptr, or use the script provided in carvoyant/test/. 
