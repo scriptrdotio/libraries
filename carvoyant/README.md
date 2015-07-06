@@ -86,6 +86,7 @@ var vehicle = user.getVehicle("some_id"); // you can easily obtained the vehicle
 ```
 - second option is to create an instance of vehicle, passing a username and a vehicle id:
 ```
+var vehicleModule = require("carvoyant/vehicle");
 var vehicle = new vehicleModule.Vehicle({username:"edison", vehicleId:"some_id"});
 ```
 Using the vehicle object, you now retrieve data about the vehicle or subscribe to notifications sent by this latter,
