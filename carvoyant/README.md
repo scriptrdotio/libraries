@@ -10,18 +10,18 @@ application.
 ## Components
 - carvoyant/user: this is the main object to interact with. It provides access to data of a given user (the one for who you are passing an access token)
 - carvoyant/vehicle: you usually obtain an instance of this component from the former. It allows you to obtain all the actions that you can do on a user's vehicle, usually to retrieve data or to subscribe to notifications
-- carvoyant/notifications: handles subscriptions any type of carvoyant notifications, not only vehicle-related. 
+- carvoyant/notifications: handles subscriptions to any type of carvoyant notifications, not only vehicle-related. 
 Used by the former component but can be used directly.
 - carvoyant/common: configuration file to specify the path to notification handlers and notification callbacks.
 - carvoyant/mapping: configuration file used for internal purposes.
 - carvoyant/util: module with utilily functions used internally.
 - carvoyant/client: generic http client that handles the communication between scriptr.io and carvoyant. 
 Used by user, vehicle and notifications.
-- carvoyant/api/handleEvent: default callback invoked by carvoyant to send notifications
-The execution of this script returns an OAuth 2.0 authorization URL to invoke in order to obtain an access token for a given user.
+- carvoyant/api/handleEvent: default callback invoked by carvoyant to send notifications to.
 - carvoyant/notificationHandlers/DefaultHandler: this is the default handler that is triggered upon the occurrence of any
 carvoyant event. 
-- carvoyant/test/tests: a list of all the objects and corresponding methods, for examples on how to use them
+- carvoyant/test/tests: a list of all the objects and corresponding methods, for examples on how to use them.
+
 ## Dependencies
 The current library requires you to use the [oauth2 utility library](https://github.com/scriptrdotio/libraries/tree/master/oauth2)
 regarding the acquisition of carvoyant authorization tokens for you or your users.
@@ -31,7 +31,11 @@ regarding the acquisition of carvoyant authorization tokens for you or your user
 - Create a developer account and an application at carvoyant [carvoyant](https://developer.carvoyant.com/member/register).
 - Create an end user (driver) account (https://driver.carvoyant.com/)  
 - Once done, make sure to copy/paste the values of your Client (Consumer) Key, OAuth 2.0 Client ID and Client (Consumer) Secret in the corresponding
-variables of the oauth2/config file (respectively client_id and client_secret).
+variables of the "oauth2/config file" (respectively client_id and client_secret).
+- In the "oauth2/config" file, make sure that the value of the "response_type" variable to "token"
+- In the "oauth2/config" file, make sure to set the value of the "apiUrl" to the correct carovyant endpoint (sandbox or production)
+- In the "oauth2/config" file, make sure to set the value of the "app" variable to a name you choose
+- In the "oauth2/config" file, make sure to leave empty the value of the "apiVer" variable (empty string "")  
 - Create a test script in scriptr, or use the script provided in carvoyant/test/. 
 
 ### Obtain access and refresh tokens from carvoyant

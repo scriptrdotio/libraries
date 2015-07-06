@@ -42,7 +42,7 @@ NotificationManager.prototype.listSubscriptions = function(params) {
     };
   }
   
-  if (!params.vehicleId || !params.accountId) {
+  if (!params.vehicleId && !params.accountId) {
     
     throw {
       "errorCode": "Invalid_Parameter",
