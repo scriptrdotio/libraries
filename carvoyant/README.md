@@ -53,7 +53,7 @@ The result returned by the aforementioned script should resemble the following:
 		"status": "success",
 		"statusCode": "200"
 	},
-	"result": "https://sandbox-auth.carvoyant.com/OAuth/authorize?client_id=atkchwp98j3whpg6cjgwt98h&response_type=token&scope=activity%20heartrate%20nutrition%20profile%20sleep%20weight&state=02a0e4&redirect_uri=https%3A%2F%2Fapi.scriptr.io%2Foauth2%2FgetAccessToken%3Fauth_token%3SKzM1RnYwAzc4Mg%3D%3D%26state%3R02a1e4""
+	"result": "https://sandbox-auth.carvoyant.com/OAuth/authorize?client_id=atkchwp98j3whpg6cjgwt98h&response_type=token&state=02a0e4&redirect_uri=https%3A%2F%2Fapi.scriptr.io%2Foauth2%2FgetAccessToken%3Fauth_token%3SKzM1RnYwAzc4Mg%3D%3D%26state%3R02a1e4""
 }
 ```
 #### Step 2
