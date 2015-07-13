@@ -77,6 +77,7 @@ Vehicle.prototype.getInfo = function() {
 };
 
 /**
+ * This method can throw exceptions
  * @getFuelLevel
  * @return {Numeric} the latest measurement of the fuel level if known or -1 if unknown
  */
@@ -87,6 +88,7 @@ Vehicle.prototype.getFuelLevel = function() {
 };
 
 /**
+ * This method can throw exceptions
  * @getBatteryVoltage
  * @return {Numeric} the latest measurement of battery voltage if known or -1 if unknown
  */
@@ -172,6 +174,22 @@ Vehicle.prototype.listDataSet = function(params) {
     "paginationData": paginationData
   };
 };
+
+/**
+ * This method can throw exceptions
+ * @method getLastTrip
+ * @return {Object} last trip taken by this vehicle of {} if no trip
+ * @see listTrips for a detailed description of the structure of the resturned trip object
+ */
+Vehicle.prototype.getLastTrip = function() {
+  
+  var list = this.listTrips({"sortOrder":"desc"});
+  if (list.trips && list.trips.length > 0) {
+    return list.trips[0];
+  }
+  
+  return {};
+}
 
 /**
  * Return the list of trips done with the current vehicle
@@ -468,4 +486,4 @@ Vehicle.prototype._getFieldValue = function(fieldName) {
   }
   
   return value;
-};
+};   				

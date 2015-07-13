@@ -46,6 +46,9 @@ try {
     // paginate trough data sets
     //data.listOfDataSets = vehicle.listDataSet({"sortOrder":"desc", "fromIndex": 5, "maxRecords": 4});
     
+    // get the last trip taken by this vehicle
+    //data.lastTrip = vehicle.getLastTrip();
+    
     // list trips, do not include data
     //data.listOfTrips = vehicle.listTrips();
     
