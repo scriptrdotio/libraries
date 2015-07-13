@@ -77,6 +77,26 @@ Vehicle.prototype.getInfo = function() {
 };
 
 /**
+ * @getFuelLevel
+ * @return {Numeric} the latest measurement of the fuel level if known or -1 if unknown
+ */
+Vehicle.prototype.getFuelLevel = function() {
+  
+  var fieldName = "GEN_FUELLEVEL";
+  return this._getFieldValue(fieldName);
+};
+
+/**
+ * @getBatteryVoltage
+ * @return {Numeric} the latest measurement of battery voltage if known or -1 if unknown
+ */
+Vehicle.prototype.getBatteryVoltage = function() {
+  
+  var fieldName = "GEN_VOLTAGE";
+  return this._getFieldValue(fieldName);
+};
+
+/**
  * Return available data on the car. 
  * Since the result set can be very large, it is paginated and you can specify the index 
  * to start from and the number of records to return.
@@ -89,7 +109,7 @@ Vehicle.prototype.getInfo = function() {
  * }
  * @return {Object} {
  *	{String} "vehicleId",
- *	{Array} "dataSet", arra of datasets
+ *	{Array} "dataSet", array of datasets
  *		{Object}
  *			{String} "id", // the identifer of the dataset
  *			{String} "tripId", // the identifier of the trip this data set relates to
@@ -427,4 +447,25 @@ Vehicle.prototype.deleteSubscription = function(subscriptionId) {
   
   var notificationManager = new notifications.NotificationManager(dto);
   return notificationManager.deleteSubscription(params);
-};   				
+}; 
+
+Vehicle.prototype._getFieldValue = function(fieldName) {
+  
+  var datasetList = this.listDataSet({"sortOrder":"desc"}).dataSet;
+  var latestSet = datasetList[0];
+  var found = false;
+  var value = -1;
+  if (latestSet) {
+    var datum = latestSet.datum;
+    for (var i = 0; i < datum.length && !found; i++) {
+    
+      if (datum[i].key == fieldName) {
+     
+        found = true;
+        value = datum[i].value;
+      }
+    }
+  }
+  
+  return value;
+};

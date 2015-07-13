@@ -24,6 +24,12 @@ try {
     var id = vehicles[0].vehicleId;
     var vehicle = new vehicleModule.Vehicle({username:"johndoe", vehicleId:id});
     
+    // get the vehicle's fuel level
+    data.fuelLevel = vehicle.getFuelLevel();
+    
+    // get the vehicle's battery voltage
+    data.batteryVoltage = vehicle.getBatteryVoltage();
+    
     // get basic vehicle info
     //var vehicleInfo = vehicle.getInfo();
     //data.vehicleInfo = vehicleInfo;
