@@ -133,14 +133,22 @@ NotificationManager.prototype.subscribeToNotification = function(params) {
     
     "minimumTime": params.minimumTime ? params.minimumTime : "0",
     "postUrl": common.notificationConfig.callback,
-    "notificationType": params.notificationType,
+    //"notificationType": params.notificationType,
     "notificationPeriod": params.notificationPeriod,
     "postHeaders": {
         "Authorization": "Bearer " + common.notificationConfig.authToken
      }
   };
   
+  var keys = Object.keys(params);
+  for (var i = 0; i < keys.length; i++) {
+  	if (["notificationType", "notificationPeriod", "vehicleId"].indexOf(keys[i]) == -1 ) {
+      requestBody[keys[i]] = params[keys[i]];
+    }  
+  }
+  
   request.bodyString = JSON.stringify(requestBody);
+  console.log(JSON.stringify(request))
   var result = this.client.callApi(request);
   return result.susbscription;
 };  	
@@ -182,4 +190,4 @@ NotificationManager.prototype.deleteSubscription = function(params) {
 
   var result = this.client.callApi(request);
   return result;
-};   				
+};   				   				

@@ -130,6 +130,18 @@ User.prototype.listVehicles = function() {
 }; 
 
 /**
+ * @method getVehicle
+ * @param {String} the identifer of a vehicle owned by the current user
+ * @return {Object} instance of the Vehicle class wrapping the requested vehicle
+ */
+User.prototype.getVehicle = function(vehicleId) {
+  
+  var vehicleModule = require("carvoyant/vehicle");
+  var vehicle = new vehicleModule.Vehicle({username:this.username, vehicleId:vehicleId});
+  return vehicle;
+};
+
+/**
  * @method addVehicle
  * @param {Object} params
  * 	{String} params.deviceId: value, 
@@ -232,4 +244,4 @@ function getUserFromAccountId(accountId) {
     var key = config.app + "_accountId_" +  accountId;
     return new User({username: storage.global[key]});
   }
-};   				   				   				   				   				
+};   				   				   				   				   				   				
