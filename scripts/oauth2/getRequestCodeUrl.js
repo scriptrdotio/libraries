@@ -31,6 +31,7 @@ try {
   var queryStr = "client_id=" + config.client_id + "&response_type=" + config.response_type;
   queryStr += config.scope ? "&scope=" + encodeURIComponent(config.scope) : "";
   queryStr += "&state=" + state;
+  queryStr += config.access_type? "&access_type" + config.access_type : "";
   queryStr += "&redirect_uri=" + encodeURIComponent(redirectUrl);
 
   // associate the state to the provided username in order to further map the access token to that user
@@ -43,4 +44,4 @@ try {
     "errorCode": exception.errorCode ? exception.errorCode : "Internal_Error",
     "errorDetail": exception.errorDetail ? exception.errorDetail : exception
   };
-}   				
+}   				   				   				   				

@@ -38,6 +38,15 @@ var redirect_uri = "https://api.scriptr.io/oauth2/getAccessToken?auth_token=YOUR
 // query string of the callback URL
 var addStateToRedirectUrl = true;
 
+//optional. Chec your target API for values (e.g. "offline)
+var access_type="";
+
+//the name of the field used by the OAuth API to return the access token
+var accessTokenFieldName = "access_token";
+
+//the name of the field used by the OAuth API to return the refresh token, if any
+var refreshTokenFieldName = "refresh_Token";
+
 // generate a random state to be used in the oauth 2 process' steps
 var state = (function() {
   return ('xxxxxx'.replace(/[xy]/g, function(c) {

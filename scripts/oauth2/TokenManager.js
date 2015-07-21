@@ -18,11 +18,11 @@ var http = require("http");
  * @param {String} username : the name of the user for who we need the corresponding tokens
  * @return {Object} {accessToken, refreshToken}
  */
-function getPersistedTokens(username) {
+function getPersistedTokens(username, tokenType) {
   
   var accessToken = storage.global[config.app + "_" + username + "_accessToken"];
   var refreshToken = storage.global[config.app + "_" + username + "_refreshToken"];
-  if (!accessToken || !refreshToken) {
+  if (!accessToken) {
     
     throw {
       "errorCode": "Missing_Access_Token",
@@ -37,7 +37,7 @@ function getPersistedTokens(username) {
 }
 
 function saveTokens(dto) {
-   
+ 
   // retrieve the username who owns this token using the persisted state-username mapping
   var username = dto.username ? dto.username : storage.global[config.app + "_state_" + dto.state];
   if (!username) {
@@ -52,8 +52,9 @@ function saveTokens(dto) {
   // clean-up the state
   storage.global[config.app + "_state_" + dto.state] = null;  
   
-  storage.global[config.app + "_" + username + "_accessToken"] = dto.accessToken
-  storage.global[config.app + "_" + username + "_refreshToken"] = dto.refreshToken;
+  storage.global[config.app + "_" + username + "_accessToken"] = dto.access_token
+  storage.global[config.app + "_" + username + "_refreshToken"] = dto.refresh_token;
+  console.log("token " +  storage.global[config.app + "_" + username + "_accessToken"])
   return {
     
     "access_Token": dto.accessToken,
@@ -127,6 +128,11 @@ function refreshAccessToken(username) {
 
 function _getToken(params, username) {
  
+  var state = params.state;
+  if (!config.addStateToRedirectUrl) {
+    delete params.state;
+  }
+  
   var requestObject = {  
 
     "url": config.accessTokenUrl,
@@ -147,14 +153,13 @@ function _getToken(params, username) {
     if (response.headers["Content-Type"].indexOf("application/json") > -1) {
       
       responseObj = JSON.parse(responseBodyStr);
-         
       // persist the received access and refresh tokens in the storage and associate them to the targeted user
       var dto = {
        
-        state: params.state,
-        username: username,
-        access_token: responseObj["access_token"],
-        refresh_token: responseObj["refresh_token"]
+        state: state,
+        username: username, 
+        access_token: responseObj[config.accessTokenFieldName],
+        refresh_token: responseObj[config.refreshTokenFieldName]
       };
       
       saveTokens(dto);
@@ -193,4 +198,4 @@ function _getToken(params, username) {
       "errorDetail": errorObj
     };
   }
-}   				   				   				   				   				   				   				
+}   				   				   				   				   				   				   				   				   				   				

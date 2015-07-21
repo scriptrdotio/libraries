@@ -21,8 +21,8 @@ try {
     
     var dto = {
     
-      accessToken: params.access_token, 
-      refreshToken: params.refresh_token,
+      accessToken: params[config.accessTokenFieldName], 
+      refreshToken: params[config.refreshTokenFieldName],
       state: params.state
     };
     
@@ -41,10 +41,10 @@ try {
 // without noticing that scriptr.io already sent some other parameters (mainly the aut_token and the state).
 // therefore, we need to parse the request again starting from state=xxx?someother_params
 function _parseRequestOnIncorrectCallbackQueryString(request) {
- 
+
   var parameters = {};
-  var stateWithAllOtherParams = request.parameters.state;
-  var splitOnQuestionMark = stateWithAllOtherParams.split("?")
+  var stateWithAllOtherParams = request.parameters.state;  
+  var splitOnQuestionMark = stateWithAllOtherParams ? stateWithAllOtherParams.split("?") : [];
   if (splitOnQuestionMark.length > 1) {
     
     parameters["state"] = splitOnQuestionMark[0];
@@ -55,9 +55,9 @@ function _parseRequestOnIncorrectCallbackQueryString(request) {
       currentP = restOfParams[i].split("=");
       parameters[currentP[0]] = currentP[1];
     }
-  }else {
+  }else {   
     return request.parameters;
   }
   
   return parameters;
-}
+}    				   				
