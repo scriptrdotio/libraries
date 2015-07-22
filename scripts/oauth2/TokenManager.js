@@ -52,9 +52,13 @@ function saveTokens(dto) {
   // clean-up the state
   storage.global[config.app + "_state_" + dto.state] = null;  
   
-  storage.global[config.app + "_" + username + "_accessToken"] = dto.access_token
-  storage.global[config.app + "_" + username + "_refreshToken"] = dto.refresh_token;
-  console.log("token " +  storage.global[config.app + "_" + username + "_accessToken"])
+  // save the new tokens
+  storage.global[config.app + "_" + username + "_accessToken"] = dto.access_token;
+  if (dto.refresh_token) {
+  	storage.global[config.app + "_" + username + "_refreshToken"] = dto.refresh_token;
+  }
+  
+  console.log("token " +  storage.global[config.app + "_" + username + "_accessToken"]);
   return {
     
     "access_Token": dto.accessToken,
