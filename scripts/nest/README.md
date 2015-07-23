@@ -70,13 +70,15 @@ try {
   console.log(JSON.stringify(nest.listThermostats()));
   console.log(JSON.stringify(nest.listSmokeAlarms()));
   console.log(JSON.stringify(nest.setAway(structureId)));
-    
+  console.log(JSON.stringify(nest.getThermostatByName("Upstairs")));
+  console.log(JSON.stringify(nest.getSmokeAlarmByName("Downstairs")));  
  // More generic functions
  //var dto = {
    //"deviceTypes": ["thermostats"],
   // deviceIds: ["A6dAEP1gLizQKLBd_M3Ml2Yp-ibWxUCQ"]
  // }
  // var updateParams = {"target_temperature_c": 25};
+ // console.log(JSON.stringify(nest.getDeviceName("Downstairs", "thermostats")));  
  // console.log(JSON.stringify(nest.listDevices(dto)));
  // console.log(JSON.stringify(nest.updateDevice(deviceId, "thermostats", updateParams)));
  // console.log(JSON.stringify(nest.getDeviceOfType(deviceId, "thermostats")));

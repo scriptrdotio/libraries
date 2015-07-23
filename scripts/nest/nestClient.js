@@ -110,7 +110,7 @@ NestClient.prototype.getStructure = function(id) {
 };
 
 /**
- * set the target temporature of the specified thermostat to the provided value
+ * set the target temperature of the specified thermostat to the provided value
  * This method can throw exceptions
  * @method setTargetTemperature
  * @param {String} id : the device's id
@@ -219,6 +219,16 @@ NestClient.prototype.getThermostat = function(id) {
 
 /**
  * This method can throw exceptions
+ * @method getThermostatByName
+ * @param {String} name : the thermostat's short name
+ * @return {Object} data that relates to the requested thermostat
+ */
+NestClient.prototype.getThermostatByName = function(name) {
+  return this.getDeviceByName(name, "thermostats");
+};
+
+/**
+ * This method can throw exceptions
  * @method listThermostats
  * @param {String} id : the device's id
  * @return an object containing data structures of all available thermostats
@@ -239,6 +249,16 @@ NestClient.prototype.getSmokeAlarm = function(id) {
 
 /**
  * This method can throw exceptions
+ * @method getSmokeAlarmByName
+ * @param {String} name : the smoke detector's short name
+ * @return {Object} data that relates to the requested smoke detector
+ */
+NestClient.prototype.getSmokeAlarmByName = function(name) {
+  return this.getDeviceByName(name, "smoke_co_alarms");
+};
+
+/**
+ * This method can throw exceptions
  * @method listSmokeAlarms
  * @param {String} id : the device's id
  * @return an object containing data structures of all available smoke alarms
@@ -249,9 +269,50 @@ NestClient.prototype.listSmokeAlarms = function() {
 
 /**
  * This method can throw exceptions
+ * @method getDeviceByName
+ * @param {String} name : the device's short name
+ * @return {Object} data that relates to the requested device
+ */
+NestClient.prototype.getDeviceByName = function(name, type) {
+  
+  if (!name || !type) {
+    
+    throw {
+      "errorCode": "Invalid_parameter",
+      "errorDetail": "You need to provide a name and a type as parameters"
+    };
+  }
+  
+  var list = this.listDevicesOfType(type);
+  if (!list || list.length == 0) {
+    
+    throw {
+      "errorCode": "Device_not_found",
+      "errorDetail": "You currently have no " + type + " in your structure"
+    };
+  }
+  
+  var target = null;      
+  for(var device in list) {
+    target = list[device].name == name ? list[device] : null
+  }
+  
+  if (!target) {
+    
+    throw {
+      "errorCode": "Thermostat_not_found",
+      "errorDetail": "Could not find a " + type + " with name '" + name + "'"
+    };
+  }
+  
+  return target;
+}
+
+/**
+ * This method can throw exceptions
  * @method getDeviceOfType
  * @param {String} id : the device's id
- * @param {String} type : the device's type (on of "vailableTypes")
+ * @param {String} type : the device's type (on of "availableTypes")
  * @return {Object} data that relates to the requested device
  */
 NestClient.prototype.getDeviceOfType = function(id, type) {
@@ -464,4 +525,4 @@ NestClient.prototype._hasToRefreshCache = function() {
   
   var now = new Date().getTime();
   return storage.local.lastTimeCachedURL && storage.local.lastTimeCachedURL <= now - 86400000;  
-}   				   				
+}   				   				   				   				   				
