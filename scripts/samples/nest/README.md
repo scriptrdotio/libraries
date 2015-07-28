@@ -1,5 +1,5 @@
 #About this application#
-This application leverages scriptr.io's capabilities and Nest connector to provides insights on thermostat's data.
+This application leverages scriptr.io's capabilities and its Nest connector to provide insights on thermostat's data.
 Demonstrated scriptr.io's features are:
 - Nest connector
 - Messaging (sendMail)
