@@ -11,3 +11,5 @@ each day (since the scheduled "daemonCheck" script started executing).
 - The "stub.js"file allows you to define stub data in case you need to work on the UI without connecting to scriptr.io. 
 To switch from stub mode to connected mode comment/uncomment the corresponding lines at the end of the "chart.html" file.
 - Chart.js the JavaScript library to draw charts.
+
+*Important: The scripts in this folder are not scriptr.io script, i.e. they only execute on the front-end*
