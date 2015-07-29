@@ -1,0 +1,143 @@
+<html>
+	<head>
+		<title>Nest insights</title>
+	
+		<script src="Chart.js"></script>
+		<script src="config.js"></script>
+		<script src="metricsLoader.js"></script>
+		<script src="stub.js"></script>
+	</head>	
+	<body>	
+		<div id="canvas">			
+		</div>		
+
+		<script>
+			
+			function buildData(list) {
+				
+				var keys = Object.keys(list);
+				var labels = [];
+				var datasetsTemp = [];
+				var datasetsHumid = [];
+				var doneLabels = false;
+				var colorPicker = JSON.stringify(colors);
+				colorPicker = JSON.parse(colorPicker);
+				
+				for (thermo in list) {
+					
+					var colorIndex = Math.random() * colorPicker.length;
+					var color = colorPicker.splice(colorIndex, 1);
+					
+					var objTemp = {
+					
+						label: thermo,
+						fillColor: "rgba(" +  color + ",0.2)",
+						strokeColor: "rgba(" +  color + ",1)",
+						pointColor: "rgba(" +  color + ",1)",
+						pointStrokeColor: "#fff",
+						pointHighlightFill: "#fff",
+						pointHighlightStroke: "rgba(" +  color + ",1)",
+						data: []
+					};
+					
+					var objHumid = {
+					
+						label: thermo,
+						fillColor: "rgba(" +  color + ",0.2)",
+						strokeColor: "rgba(" +  color + ",1)",
+						pointColor: "rgba(" +  color + ",1)",
+						pointStrokeColor: "#fff",
+						pointHighlightFill: "#fff",
+						pointHighlightStroke: "rgba(" +  color + ",1)",
+						data: []
+					};
+					
+					for (var i = 0;  i < list[thermo].length; i++) {
+					
+						if (!doneLabels) {
+							labels.push(list[thermo][i].time);
+						}
+						
+						objTemp.data.push(list[thermo][i].values.temperature);
+						objHumid.data.push(list[thermo][i].values.humidity);						
+					}
+					
+					doneLabels = true;
+					datasetsTemp.push(objTemp);
+					datasetsHumid.push(objHumid);
+				}
+				
+				return {
+					temp: datasetsTemp,
+					humid: datasetsHumid,
+					labels: labels
+				};
+			}
+			
+			function addCanvas(id) {
+				
+				var canvasBlock = document.createElement("div");
+				canvasBlock.style.float = "left";
+				
+				var newCanvas = document.createElement("canvas");
+				newCanvas.id = id;
+				newCanvas.style.width = "600px";
+				newCanvas.style.height = "400px";
+				var canvasDiv = document.getElementById("canvas");
+				
+				var newLegend = document.createElement("div");
+				newLegend.id = id;
+				newLegend.style.fontFamily = "calibri";
+				newLegend.style.fontWeight = "bold";
+				newLegend.innerHTML = id;
+				
+				canvasBlock.appendChild(newCanvas);
+				canvasBlock.appendChild(newLegend);
+				canvasDiv.appendChild(canvasBlock);
+				
+				return id;			
+			}
+			
+			function createChart(data, canvasId, canvasOptions) {
+			
+				var ctx = document.getElementById(canvasId).getContext("2d");
+				var myLineChart = new Chart(ctx).Line(data, canvasOptions);
+			}
+ 						
+			function createDailyCharts(dailyMetrics) {
+			
+				var builtData = buildData(dailyMetrics.values);
+				var dataTemp = {
+					labels: builtData.labels,
+					datasets: builtData.temp
+				};
+				
+				var id = addCanvas(dailyMetrics.date + "_temperature");
+				createChart(dataTemp, id, options);	
+				
+				var dataHumid = {
+					labels: builtData.labels,
+					datasets: builtData.humid
+				};
+				
+				var id = addCanvas(dailyMetrics.date + "_humidity");
+				createChart(dataHumid, id, options);
+
+			}
+			
+			function createChartForAllDays(allMetrics) {
+			
+				for (var i = 0; i < allMetrics.length; i++) {			
+					createDailyCharts(allMetrics[i]);
+				}
+			}
+            
+			// comment the below for stub mode
+			//loadMetrics(createChartForAllDays);
+
+			// Uncomment the below for stub mode		
+			createChartForAllDays(metrics);		
+			
+		</script>
+	</body>
+</html>
