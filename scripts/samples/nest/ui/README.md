@@ -12,4 +12,4 @@ each day (since the scheduled "daemonCheck" script started executing).
 To switch from stub mode to connected mode comment/uncomment the corresponding lines at the end of the "chart.html" file.
 - Chart.js the JavaScript library to draw charts.
 
-*Important: The scripts in this folder are not scriptr.io script, i.e. they only execute on the front-end*
+*Important: The scripts in this folder are not scriptr.io scripts, i.e. they only execute on the front-end*
