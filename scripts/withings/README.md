@@ -2,7 +2,7 @@
 ## About Withings
 [Withings](http://www2.withings.com/) is a company that designs and sells fitness and health trackers, monitors and analyzers.
 The device's data and services are exposed to developers as REST APIs.
-## Purpose of the scriptr.io connector for carvoyant
+## Purpose of the scriptr.io connector for withings
 The purpose of this connector is to simplify and streamline the way you access withings' APIs from scriptr.io, by providing you with a few native objects that you can directly integrate into your own scripts. 
 This will hopefully allow you to create sophisticated health and fitness oriented applications. 
 ## Components
@@ -25,23 +25,24 @@ withings event. You can define your own handlers and map them to event using the
 - Once done, make sure to copy/paste the values of your API key and API secret in the corresponding
 variables of the "config" file (respectively client_id and client_secret).
 - Create an end user account (https://account.withings.com/)  
-- Create a test script in scriptr, or use the script provided in carvoyant/test/. 
+- Create a test script in scriptr, or use the script provided in withings/test/. 
 
-### Obtain access tokens from carvoyant
+### Obtain access tokens from withings
 
 #### Step 1
 From a front-end application, send a request to the ```/authorization/getRequestTokenUrl``` script.
 The result returned by the aforementioned script should resemble the following:
 
 ```
->> curl -X POST  -F username=edison -F apsws.time=1434722158021 -H 'Authorization: bearer <YOUR_AUTH_TOKEN>' 'https://api.scriptr.io/oauth2/getRequestCodeUrl'
+>> curl -X POST  -H 'Authorization: bearer <YOUR_AUTH_TOKEN>' 'https://api.scriptr.io/withings/authorization/getRequestTokenUrl'
+
 {
 	"metadata": {
-		"requestId": "45753a7f-a2b6-4378-a8e1-3bbddced9694",
+		"requestId": "f88395ff-c150-4e6b-ac7a-d771b698ceb1",
 		"status": "success",
 		"statusCode": "200"
 	},
-	"result": "https://sandbox-auth.carvoyant.com/OAuth/authorize?client_id=atkchwp98j3whpg6cjgwt98h&response_type=token&state=02a0e4&redirect_uri=https%3A%2F%2Fapi.scriptr.io%2Foauth2%2FgetAccessToken%3Fauth_token%3SKzM1RnYwAzc4Mg%3D%3D%26state%3R02a1e4""
+	"result": "https://oauth.withings.com/account/authorize?oauth_consumer_key=231cef543c960eld70bck08p8b4e3081dc407e8984eb914e46e93f649c77ce&oauth_nonce=164c1554f4nc6oe7533691c4510a939b&oauth_signature=QyXJoKQaOJwXaSZ9lvWyhTa1LA0%3D&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1440595329&oauth_token=64094794f2c6cd2k8e475b25f647010503f9d9d598789e62223355c2b28&oauth_version=1.0"
 }
 ```
 #### Step 2
