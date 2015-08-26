@@ -509,7 +509,7 @@ NestClient.prototype._parseResponse = function(response) {
 NestClient.prototype._parseBody = function(response) {
   
   var responseBodyStr = response.body;
-  if (response.headers["Content-Type"].indexOf("application/json") > -1) {
+  if (response.headers["Content-Type"].indexOf("application/json") > -1  && responseBodyStr!="") {
     	return JSON.parse(responseBodyStr);
   	}
   
