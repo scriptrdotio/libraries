@@ -380,6 +380,30 @@ User.prototype.getAverageSleepSummaryMeasures = function(params) {
   
   var results = [];
   var res = this.listSleepSummaryMeasures(params);
+  
+  res = {     series:
+    [ 
+     {
+       "id":16616514,
+       "timezone":"\"Europe/Paris\"",
+       "model":32,
+       "startdate":1410521659,
+       "enddate":1410542577,
+       "date":"2014-09-11",
+       "data":
+       { 
+         "wakeupduration":1800,
+         "lightsleepduration":18540,
+         "deepsleepduration":8460,
+         "remsleepduration":10460,
+         "durationtosleep":420,
+         "durationtowakeup":360,
+         "wakeupcount":3
+        },
+        "modified":1412087110
+      }
+   ]};
+  
   var totalWakeupDuration = 0;
   var totalLightsleepduration = 0;
   var totalDeepsleepduration = 0;
@@ -387,7 +411,7 @@ User.prototype.getAverageSleepSummaryMeasures = function(params) {
   var totalDurationtosleep = 0;
   var totalDurationtowakeup = 0;
   var totalWakeupcount = 0;
-  for (var i = 0; i < res && res.series.length; i++) {
+  for (var i = 0; res && i < res.series.length; i++) {
     
     totalWakeupDuration +=  res.series[i].data.wakeupduration;
     totalLightsleepduration += res.series[i].data.lightsleepduration;
