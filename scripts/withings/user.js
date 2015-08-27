@@ -329,14 +329,29 @@ User.prototype.listSleepMeasures = function(params) {
 /**
  * This method can throw exceptions
  * @method listSleepSummaryMeasures
- * @param {Date} from: (optional) start retrieving sleep measures from that date and after
- * @param {Date} to: (optional) retrieve sleep measures before that date
- * @return {Array} array of sleep measures objects
+ * @param {Date} from: start retrieving sleep measures from that date
+ * @param {Date} to: retrieve sleep measures before that date
+ * @return {Array} array of sleep measures series objects
  *	{
  *		{Date} startdate: The starting datetime for the sleep state data
  *		{Date} enddate: The end datetime for the sleep data
- *		{Numeric} state: the state of the end user at that time 
- *		{String} stateDesription: a human readable text describing the state ("awake", "deep sleep", etc.)
+ *		{Date} date: the date of the measurement
+ *		{String} id: identifier of the measurement
+ *      {String} timezone: time zone of the current user at the time of measure
+ *      {Numeric} model:  withings code for the withings monitoring device,
+ *      {String} modelDescription
+ *      {Array} data: array of measure objects
+ *      { 
+ *        {Numeric} wakeupduration: total time during which the end user was awake during the sleep period, in seconds 
+ *        {Numeric} lightsleepduration: total time during which the end user had a light sleep during the sleep period, in seconds
+ *        {Numeric} deepsleepduration: total time during which the end user had a deep sleep during the sleep period, in seconds
+ *        {Numeric} remsleepduration:total time during which the end user had a deep sleep during the sleep period, in seconds
+ *        {Numeric} durationtosleep: time needed by the end user to fall asleep
+ *        {Numeric} durationtowakeup: time needed by the end user to wake up,
+ *        {Numeric} wakeupcount: number of times the end user woke up during the sleep period
+ *       },
+ *      {Numeric} modified: time in seconds when the monitoring device was synchronized
+ *     }
  *	}
  */
 User.prototype.listSleepSummaryMeasures = function(params) {
@@ -344,6 +359,55 @@ User.prototype.listSleepSummaryMeasures = function(params) {
   params = params ? params : {};
   params["action"] = "getsummary"; 
   return this._sleepMeasures(params);
+};
+
+/**
+ * compute the average of sleep summary data for a given period of time
+ * @method getAverageSleepSummaryMeasures
+ * @param {Date} from: start retrieving sleep measures from that date
+ * @param {Date} to: retrieve sleep measures before that date
+ * @return {Object} {
+ *   avgWakeupDuration: average duration of wake up time within a sleep period, in seconds
+ *   avgLightsleepduration: average duration of light sleep time within a sleep period, in seconds
+ *   avgDeepsleepduration: average duration of deep sleep time within a sleep period, in seconds
+ *   avgRemsleepduration: average duration of rem sleep time within a sleep period, in seconds
+ *   avgDurationtosleep: average time needed to fall asleep, in seconds
+ *   avgDurationtowakeup: average time needed to wake up, in seconds
+ *   avgWakeupcount: average number of time the user woke up during a sleep period
+ * }
+ */
+User.prototype.getAverageSleepSummaryMeasures = function(params) {
+  
+  var results = [];
+  var res = this.listSleepSummaryMeasures(params);
+  var totalWakeupDuration = 0;
+  var totalLightsleepduration = 0;
+  var totalDeepsleepduration = 0;
+  var totalRemsleepduration = 0;
+  var totalDurationtosleep = 0;
+  var totalDurationtowakeup = 0;
+  var totalWakeupcount = 0;
+  for (var i = 0; i < res && res.series.length; i++) {
+    
+    totalWakeupDuration +=  res.series[i].data.wakeupduration;
+    totalLightsleepduration += res.series[i].data.lightsleepduration;
+    totalDeepsleepduration += res.series[i].data.deepsleepduration;
+    totalRemsleepduration += res.series[i].data.remsleepduration;
+    totalDurationtosleep += res.series[i].data.durationtosleep;
+    totalDurationtowakeup += res.series[i].data.durationtowakeup;
+    totalWakeupcount += res.series[i].data.wakeupcount;
+  }
+  
+  return {
+    
+    avgWakeupDuration: Math.round(totalWakeupDuration / res.series.length),
+    avgLightsleepduration: Math.round(totalLightsleepduration / res.series.length),
+    avgDeepsleepduration: Math.round(totalDeepsleepduration / res.series.length),
+    avgRemsleepduration: Math.round(totalRemsleepduration / res.series.length),
+    avgDurationtosleep: Math.round(totalDurationtosleep / res.series.length),
+    avgDurationtowakeup: Math.round(totalDurationtowakeup / res.series.length),
+    avgWakeupcount: Math.round(totalWakeupcount / res.series.length)
+  };
 };
 
 User.prototype._sleepMeasures = function(params) {
@@ -369,7 +433,13 @@ User.prototype._sleepMeasures = function(params) {
       
       results.series[i].startdate = new Date(results.series[i].startdate * 1000);
       results.series[i].enddate = new Date(resuts.series[i].enddate * 1000);
-      results.series[i].stateDescription = mappings.sleepStates[results.series[i].state];
+      if (results.series[i].state) {
+      	results.series[i].stateDescription = mappings.sleepStates[results.series[i].state];
+      }
+      
+      if (results.series[i].model) {
+        results.series[i].modelDescription = mappings.sleepTracker[results.series[i].model];
+      }
     }
   }
   
@@ -393,4 +463,4 @@ User.prototype.getNotificationManager = function() {
 
 User.prototype._invokeApi = function(path, params) {
   return this.withings.callApi(path, params);
-} 			   				   				   				   				   				   				
+} 			   				   				   				   				   				   				   				
