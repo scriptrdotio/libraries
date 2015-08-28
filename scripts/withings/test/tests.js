@@ -11,10 +11,10 @@ try {
   //results.weightMeasures = user.listWeightMeasures();
   //results.heightMeasures = user.listHeightMeasures();
   //results.bodyMeasures = user.listBodyMeasures();
+  //results.averageActivityMeasures = user.getAverageActivityMeasures({from: "2015-07-21"});
   
   //var from = new Date("2015-08-24T11:01:12.000Z");
   //results.bodyMeasuresFromDate = user.listBodyMeasures({from:from});
-  
   //var to = new Date("2015-09-29T11:01:12.000Z");
   //results.bodyMeasuresToDate = user.listBodyMeasures({to:to});
   
