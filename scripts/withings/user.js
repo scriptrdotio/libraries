@@ -79,24 +79,74 @@ User.prototype.getActivityAtDate = function(date) {
  */
 User.prototype.listActivities = function(params) {  
   
-  params = params ? params : {};
-  params["action"] = "getactivity";  
-  if (params.from) {
+  var newParams = JSON.parse(JSON.stringify(params ? params : {}));
+  newParams["action"] = "getactivity";  
+  if (newParams.from) {
     
-    params["startdateymd"] = params.from;
-    delete params.from;
+    newParams["startdateymd"] = newParams.from;
+    delete newParams.from;
   }
   
-  if (params.to) {
+  if (newParams.to) {
     
-    params["enddateymd"] = params.to;
-    delete params.to;
+    newParams["enddateymd"] = newParams.to;
+    delete newParams.to;
   }
   
-  return this._invokeApi("v2/measure", params).activities;
+  return this._invokeApi("v2/measure", newParams).activities;
 };
 
-/* 
+/**
+ * Compute the average of different activity measures for a given period of time.
+ * This method can throw exceptions
+ * @method getAverageActivityMeasures
+ * @param {String} from: (optional) get the activities starting since that date. YYYY-mm-dd
+ * @param {String} to: (optional) get the activities starting up to that date. YYYY-mm-dd
+ * @return {Object} average measures
+ * {
+ *  avgCalories: average calories consumption for the specified period
+ *  avgDistance: average distance walked for the specified period, in meters
+ *  avgElevation: avergae elevation for the specified period, in meters
+ *  avgSoftActivityDuration: average duration of soft activities for the specified period, in seconds
+ *  avgModerateActivityDuration: average duration of moderate activities for the specified period, in seconds
+ *  avgIntenseActivityDuration: average duration of intense activities for the specified period, in seconds
+ * }
+ */
+User.prototype.getAverageActivityMeasures = function(params) {
+  
+  var newParams = JSON.parse(JSON.stringify(params ? params : {}));
+  var results = this.listActivities(newParams);  
+  var totalCalories = 0;
+  var totalSoftActivityDuration = 0;
+  var totalModerateActivityDuration = 0;
+  var totalIntenseActivityDuration = 0;
+  var totalDistance = 0;
+  var totalElevation = 0;
+  if (results) {
+    
+    for (var i = 0; i < results.length; i++) {
+      
+      totalCalories += results[i].calories ? results[i].calories : 0;
+      totalDistance += results[i].distance ? results[i].distance : 0;
+      totalElevation += results[i].elevation ?  results[i].elevation : 0;
+      totalSoftActivityDuration += results[i].soft ? results[i].soft : 0;
+      totalModerateActivityDuration += results[i].moderate ? results[i].moderate : 0;
+      totalIntenseActivityDuration += results[i].intense ? results[i].intense : 0;
+    }
+  }
+  
+  return {
+    
+    avgCalories: Math.round(totalCalories / results.length),
+    avgDistance: Math.round(totalDistance / results.length),
+    avgElevation: Math.round(totalElevation / results.length),
+    avgSoftActivityDuration: Math.round(totalSoftActivityDuration / results.length),
+    avgModerateActivityDuration: Math.round(totalModerateActivityDuration / results.length),
+    avgIntenseActivityDuration: Math.round(totalIntenseActivityDuration / results.length)
+  };
+};
+
+/** 
  * This method can throw exceptions
  * Only returns user's weight measures
  * @see listBodyMeasures for parameters and returned values
@@ -104,12 +154,12 @@ User.prototype.listActivities = function(params) {
  */
 User.prototype.listWeightMeasures = function(params) {  
   
-  params = params ? params : {};
-  params["meastype"] = mappings.meas.WEIGHT;
-  return this.listBodyMeasures(params);
+  var newParams = JSON.parse(JSON.stringify(params ? params : {}));
+  newParams["meastype"] = mappings.meas.WEIGHT;
+  return this.listBodyMeasures(newParams);
 };
 
-/* 
+/** 
  * This method can throw exceptions
  * Only returns user's height measures
  * @see listBodyMeasures for parameters and returned values
@@ -117,12 +167,12 @@ User.prototype.listWeightMeasures = function(params) {
  */
 User.prototype.listHeightMeasures = function(params) {  
   
-  params = params ? params : {};
-  params["meastype"] = mappings.meas.HEIGHT;
-  return this.listBodyMeasures(params);
+  var newParams = JSON.parse(JSON.stringify(params ? params : {}));
+  newParams["meastype"] = mappings.meas.HEIGHT;
+  return this.listBodyMeasures(newParams);
 };
 
-/* 
+/** 
  * This method can throw exceptions
  * Only returns fat free mass measures
  * @see listBodyMeasures for parameters and returned values
@@ -130,12 +180,12 @@ User.prototype.listHeightMeasures = function(params) {
  */
 User.prototype.listFatFreeMassMeasures = function(params) {  
   
-  params = params ? params : {};
-  params["meastype"] = mappings.meas.FREE_FAT_MASS;
-  return this.listBodyMeasures(params);
+  var newParams = JSON.parse(JSON.stringify(params ? params : {}));
+  newParams["meastype"] = mappings.meas.FREE_FAT_MASS;
+  return this.listBodyMeasures(newParams);
 };
 
-/* 
+/** 
  * This method can throw exceptions
  * Only returns fat ratio measures
  * @see listBodyMeasures for parameters and returned values
@@ -143,12 +193,25 @@ User.prototype.listFatFreeMassMeasures = function(params) {
  */
 User.prototype.listFatRatioMeasures = function(params) {  
   
-  params = params ? params : {};
-  params["meastype"] = mappings.meas.FAT_RATIO;
-  return this.listBodyMeasures(params);
+  var newParams = JSON.parse(JSON.stringify(params ? params : {}));
+  newParams["meastype"] = mappings.meas.FAT_RATIO;
+  return this.listBodyMeasures(newParams);
 };
 
-/* 
+/** 
+ * This method can throw exceptions
+ * Only returns fat ratio measures
+ * @see listBodyMeasures for parameters and returned values
+ * @method listFatRatioMeasures
+ */
+User.prototype.listFatRatioMeasures = function(params) {  
+  
+  var newParams = JSON.parse(JSON.stringify(params ? params : {}));
+  newParams["meastype"] = mappings.meas.FAT_RATIO;
+  return this.listBodyMeasures(newParams);
+};
+
+/** 
  * This method can throw exceptions
  * Only returns fat mass  measures
  * @see listBodyMeasures for parameters and returned values
@@ -156,12 +219,12 @@ User.prototype.listFatRatioMeasures = function(params) {
  */
 User.prototype.listFatMassMeasures = function(params) {  
   
-  params = params ? params : {};
-  params["meastype"] = mappings.meas.FAT_MASS_WEIGHT;
-  return this.listBodyMeasures(params);
+  var newParams = JSON.parse(JSON.stringify(params ? params : {}));
+  newParams["meastype"] = mappings.meas.FAT_MASS_WEIGHT;
+  return this.listBodyMeasures(newParams);
 };
 
-/* 
+/** 
  * This method can throw exceptions
  * Only returns diastolic blood pressure measures
  * @see listBodyMeasures for parameters and returned values
@@ -169,12 +232,12 @@ User.prototype.listFatMassMeasures = function(params) {
  */
 User.prototype.listDiastolicBloodPressureMeasures = function(params) {  
   
-  params = params ? params : {};
-  params["meastype"] = mappings.meas.DIASTOLIC_BLOOD_PRES;
-  return this.listBodyMeasures(params);
+  var newParams = JSON.parse(JSON.stringify(params ? params : {}));
+  newParams["meastype"] = mappings.meas.DIASTOLIC_BLOOD_PRES;
+  return this.listBodyMeasures(newParams);
 };  
 
-/* 
+/** 
  * This method can throw exceptions
  * Only returns systolic blood pressure measures
  * @see listBodyMeasures for parameters and returned values
@@ -182,12 +245,12 @@ User.prototype.listDiastolicBloodPressureMeasures = function(params) {
  */
 User.prototype.listSystolicBloodPressureMeasures = function(params) {  
   
-  params = params ? params : {};
-  params["meastype"] = mappings.meas.SYSTOLIC_BLOOD_PRES;
-  return this.listBodyMeasures(params);
+  var newParams = JSON.parse(JSON.stringify(params ? params : {}));
+  newParams["meastype"] = mappings.meas.SYSTOLIC_BLOOD_PRES;
+  return this.listBodyMeasures(newParams);
 };
 
-/* 
+/** 
  * This method can throw exceptions
  * Only returns heart pulse measures
  * @see listBodyMeasures for parameters and returned values
@@ -195,12 +258,12 @@ User.prototype.listSystolicBloodPressureMeasures = function(params) {
  */
 User.prototype.listHeartPulseMeasures = function(params) {  
   
-  params = params ? params : {};
-  params["meastype"] = mappings.meas.HEART_PULSE;
-  return this.listBodyMeasures(params);
+  var newParams = JSON.parse(JSON.stringify(params ? params : {}));
+  newParams["meastype"] = mappings.meas.HEART_PULSE;
+  return this.listBodyMeasures(newParams);
 };
 
-/* 
+/** 
  * This method can throw exceptions
  * Only returns oxymetry measures
  * @see listBodyMeasures for parameters and returned values
@@ -208,9 +271,9 @@ User.prototype.listHeartPulseMeasures = function(params) {
  */
 User.prototype.listSPO2Measures = function(params) {  
   
-  params = params ? params : {};
-  params["meastype"] = mappings.meas.SPO2;
-  return this.listBodyMeasures(params);
+  var newParams = JSON.parse(JSON.stringify(params ? params : {}));
+  newParams["meastype"] = mappings.meas.SPO2;
+  return this.listBodyMeasures(newParams);
 };
 
 /**
@@ -221,17 +284,17 @@ User.prototype.listSPO2Measures = function(params) {
  */
 User.prototype.listWorkoutMeasures = function(params) {
   
-  params = params ? params : {};
-  params["action"] = "getworkouts"; 
-  var results = this._invokeApi("v2/measure", params);
+  var newParams = JSON.parse(JSON.stringify(params ? params : {}));
+  newParams["action"] = "getworkouts"; 
+  var results = this._invokeApi("v2/measure", newParams);
 };
 
  /**
   * This method can throw exceptions
   * @method listBodyMeasures
   * @param {Numeric} meastype: (optional) the type of measure (wight, height, etc.). If not specified, all types are considered
-  * @param {String} from: (optional) get the activities starting since that date. YYYY-mm-dd
-  * @param {String} to: (optional) get the activities starting up to that date. YYYY-mm-dd
+  * @param {Date} from: (optional) get the activities starting since that date.
+  * @param {Date} to: (optional) get the activities starting up to that date.
   * @param {Numeric} category: (optional) 1 for real measurements, 2 for user objectives (you can use the constants in "withings/mappings".catg)
   * @param {Numeric} maxRecords: (optional) maximum number of measure groups to return. Results are always sorted from the most recent one first to the oldest one
   * @param {Numeric} offset: (optional) the number of most recent measure groups to skip. Can be combined with "maxRecords".
@@ -255,29 +318,31 @@ User.prototype.listWorkoutMeasures = function(params) {
   *		}
   */ 
 User.prototype.listBodyMeasures = function(params) { 
+
+  var newParams = JSON.parse(JSON.stringify(params ? params : {}));
+  newParams["action"] = "getmeas";
   
-  params = params ? params : {};
-  params["action"] = "getmeas";
-  
-  if (params["from"]) {    
+  if (newParams["from"]) {    
     
-    params["startdate"]= Math.round(params.from.getTime() / 1000);
-    delete params["from"];
+    newParams.from = new Date(newParams.from);
+    newParams["startdate"]= Math.round(newParams.from.getTime() / 1000);
+    delete newParams["from"];
   }
   
-  if (params["to"]) {
+  if (newParams["to"]) {
     
-    params["enddate"] = Math.round(params.to.getTime() / 1000);   
-    delete params["to"];
+    newParams.to = new Date(newParams.to);    
+    newParams["enddate"] = Math.round(newParams.to.getTime() / 1000);   
+    delete newParams["to"];
   }
   
-  if (params["maxRecords"]) {
+  if (newParams["maxRecords"]) {
     
-    params["limit"] = params["maxRecords"];
-    delete params["maxRecords"];
+    newParams["limit"] = newParams["maxRecords"];
+    delete newParams["maxRecords"];
   }
   
-  var results = this._invokeApi("measure", params);
+  var results = this._invokeApi("measure", newParams);
   results.updatetime = new Date(results.updatetime * 1000);
   if (results.more) {
     
@@ -321,9 +386,9 @@ User.prototype.listBodyMeasures = function(params) {
  */
 User.prototype.listSleepMeasures = function(params) {
   
-  params = params ? params : {};
-  params["action"] = "get"; 
-  return this._sleepMeasures(params);  
+  var newParams = JSON.parse(JSON.stringify(params ? params : {}));
+  newParams["action"] = "get"; 
+  return this._sleepMeasures(newParams);  
 };
 
 /**
@@ -356,9 +421,9 @@ User.prototype.listSleepMeasures = function(params) {
  */
 User.prototype.listSleepSummaryMeasures = function(params) {
   
-  params = params ? params : {};
-  params["action"] = "getsummary"; 
-  return this._sleepMeasures(params);
+  var newParams = JSON.parse(JSON.stringify(params ? params : {}));
+  newParams["action"] = "getsummary"; 
+  return this._sleepMeasures(newParams);
 };
 
 /**
@@ -378,32 +443,9 @@ User.prototype.listSleepSummaryMeasures = function(params) {
  */
 User.prototype.getAverageSleepSummaryMeasures = function(params) {
   
+  var newParams = JSON.parse(JSON.stringify(params ? params : {}));
   var results = [];
-  var res = this.listSleepSummaryMeasures(params);
-  
-  res = {     series:
-    [ 
-     {
-       "id":16616514,
-       "timezone":"\"Europe/Paris\"",
-       "model":32,
-       "startdate":1410521659,
-       "enddate":1410542577,
-       "date":"2014-09-11",
-       "data":
-       { 
-         "wakeupduration":1800,
-         "lightsleepduration":18540,
-         "deepsleepduration":8460,
-         "remsleepduration":10460,
-         "durationtosleep":420,
-         "durationtowakeup":360,
-         "wakeupcount":3
-        },
-        "modified":1412087110
-      }
-   ]};
-  
+  var res = this.listSleepSummaryMeasures(newParams);
   var totalWakeupDuration = 0;
   var totalLightsleepduration = 0;
   var totalDeepsleepduration = 0;
@@ -422,16 +464,21 @@ User.prototype.getAverageSleepSummaryMeasures = function(params) {
     totalWakeupcount += res.series[i].data.wakeupcount;
   }
   
-  return {
+  if (res) {
     
-    avgWakeupDuration: Math.round(totalWakeupDuration / res.series.length),
-    avgLightsleepduration: Math.round(totalLightsleepduration / res.series.length),
-    avgDeepsleepduration: Math.round(totalDeepsleepduration / res.series.length),
-    avgRemsleepduration: Math.round(totalRemsleepduration / res.series.length),
-    avgDurationtosleep: Math.round(totalDurationtosleep / res.series.length),
-    avgDurationtowakeup: Math.round(totalDurationtowakeup / res.series.length),
-    avgWakeupcount: Math.round(totalWakeupcount / res.series.length)
-  };
+    return {
+    
+      avgWakeupDuration: Math.round(totalWakeupDuration / res.series.length),
+      avgLightsleepduration: Math.round(totalLightsleepduration / res.series.length),
+      avgDeepsleepduration: Math.round(totalDeepsleepduration / res.series.length),
+      avgRemsleepduration: Math.round(totalRemsleepduration / res.series.length),
+      avgDurationtosleep: Math.round(totalDurationtosleep / res.series.length),
+      avgDurationtowakeup: Math.round(totalDurationtowakeup / res.series.length),
+      avgWakeupcount: Math.round(totalWakeupcount / res.series.length)
+  	};
+  }else {
+    return {};
+  }  
 };
 
 User.prototype._sleepMeasures = function(params) {
@@ -444,9 +491,11 @@ User.prototype._sleepMeasures = function(params) {
     }
   }
   
+  params.from = new Date(params.from);
   params["startdate"]= Math.round(params.from.getTime() / 1000);
   delete params["from"];
   
+  params.to = new Date(params.to);
   params["enddate"] = Math.round(params.to.getTime() / 1000);   
   delete params["to"];
   
@@ -487,4 +536,4 @@ User.prototype.getNotificationManager = function() {
 
 User.prototype._invokeApi = function(path, params) {
   return this.withings.callApi(path, params);
-} 			   				   				   				   				   				   				   				
+} 			   				   				   				   				   				   				   				   				   				
