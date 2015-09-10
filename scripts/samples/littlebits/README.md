@@ -20,6 +20,7 @@ In addition to the connector, the application is composed of the following:
 - the api/light.js script that is invoked by the web page to fetch the light's status
 - the api/handle.js script that is subscribed as a callback to littlebits voltage jump events
 - the ui/led-control.html page that provides the User Interface
+- the ui/images folder contains images used in the web page
 
 #Configuration#
 Replace the value of the "token" variable in the /littlebits/config file with your littlebits authentication token. 
