@@ -109,8 +109,20 @@ var anotherSocket = myfox.getSocket({siteId:"12345", label:"wall_socket"});
 // note that in the above examples, if the label is not unique you will get the first device of the required type found with that label 
 ```
 *Note* 
-You can also directly create an instance of the required device type, you will have to pass an OAuth token
-or an instance of the FoxClient class, in addition to the site id and the device id (or device label). 
+You can also directly create an instance of the required device type. You will have to pass an OAuth token
+or an instance of the FoxClient class, in addition to the site id and the device id (or device label). It is however
+preferable to always use the factory methods of the Fox class. 
+```
+// example
+var gateModule = require("myfox/gate");
+var dto = {
+	siteId: "12345",
+	id: "234",
+	token: "448963650354110060232763db2d36beb983c6ad
+};
+
+var gate = new gateModule.Gate(dto);
+```
 
 All device types have a getData() method that returning data about the current device (the returned properties might vary depending
 on the device's type)
