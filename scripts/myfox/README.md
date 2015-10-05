@@ -118,7 +118,7 @@ var gateModule = require("myfox/gate");
 var dto = {
 	siteId: "12345",
 	id: "234",
-	token: "448963650354110060232763db2d36beb983c6ad
+	token: "448963650354110060232763db2d36beb983c6ad"
 };
 
 var gate = new gateModule.Gate(dto);
