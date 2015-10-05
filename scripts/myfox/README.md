@@ -96,18 +96,35 @@ var scenarios = myfox.listScenarios(someSite); // list all automation scenarios 
 ```
 In order to manipulate the end user's devices in a specific site, you first need to obtain a reference to the corresponding device class. 
 You can do this:
-- by invoking the ```getYourDeviceType({siteId:"A_Site_Id", id: "A_Device_Id")``` method of your ```Fox``` instance, as follows:
+- by invoking the ```getYourDeviceType({siteId:"A_Site_Id", id: "A_Device_Id")``` method of your ```Fox``` instance, as in the following example:
 ```
 var aGate = myfox.getGate({siteId:"12345", id:"123"}); 
+var aSocket = myfox.getSocket({siteId:"12345", id:"456"});
+
 ```
 - Another option is to obtain the instance of the device, passing a device label
 ```
-var aGate = myfox.getGate({siteId:"12345", label:"front_gate"});
-// note that in the above gate, if the label is not unique you will get the first device of the required type found with that label 
+var anotherGate = myfox.getGate({siteId:"12345", label:"front_gate"});
+var anotherSocket = myfox.getGate({siteId:"12345", label:"wall_socket"});
+// note that in the above examples, if the label is not unique you will get the first device of the required type found with that label 
 ```
-- Note that you can also directly create an instance of the required device type, you will have to pass an OAuth token
-or an instance of the FoxClient class, in addition to the site id and the device id (or device label)
+*Note* 
+You can also directly create an instance of the required device type, you will have to pass an OAuth token
+or an instance of the FoxClient class, in addition to the site id and the device id (or device label). 
 
+All device type have a getData() method that returning data about the current device (the returned properties might vary depending
+on the device's type)
+```
+// example
+var latestData = aGate.getData()
+```
 
-*You can check the list of all available methods using the ```myfox/test/tests``` script.*
+You can get obtain the current security status of a given site or update it as follows:
+
+```
+var securityStatus = myfox.getSecurityStatus("12345");
+myfox.setSecurity({siteId: 12345, securityLevel: mappings.securityLevels.DISARMED}); // the possible security levels are defined in the ```mappings``` module
+```
+
+*Check the list of all available objects and methods in the ```myfox/test/tests``` script.*
 
