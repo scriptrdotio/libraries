@@ -1,7 +1,7 @@
 # myfox connector
 ## About myfox
 [myfox](http://www.getmyfox.com/) is one of the market leaders in smart home and home automation. 
-They provide a large variety of products, among which smart cameras, alarms and thermostats
+They provide a large variety of products, among which smart cameras, alarms and thermostats.
 Myfox device's data and services are exposed to developers as REST APIs.
 ## Purpose of the scriptr.io connector for myfox
 The connector simplifies how scriptr.io's developers can leverage myfox's APIs from within their scripts, by providing
@@ -112,7 +112,7 @@ var anotherSocket = myfox.getGate({siteId:"12345", label:"wall_socket"});
 You can also directly create an instance of the required device type, you will have to pass an OAuth token
 or an instance of the FoxClient class, in addition to the site id and the device id (or device label). 
 
-All device type have a getData() method that returning data about the current device (the returned properties might vary depending
+All device types have a getData() method that returning data about the current device (the returned properties might vary depending
 on the device's type)
 ```
 // example
