@@ -105,7 +105,7 @@ var aSocket = myfox.getSocket({siteId:"12345", id:"456"});
 - Another option is to obtain the instance of the device, passing a device label
 ```
 var anotherGate = myfox.getGate({siteId:"12345", label:"front_gate"});
-var anotherSocket = myfox.getGate({siteId:"12345", label:"wall_socket"});
+var anotherSocket = myfox.getSocket({siteId:"12345", label:"wall_socket"});
 // note that in the above examples, if the label is not unique you will get the first device of the required type found with that label 
 ```
 *Note* 
