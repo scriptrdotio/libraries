@@ -100,7 +100,6 @@ You can do this:
 ```
 var aGate = myfox.getGate({siteId:"12345", id:"123"}); 
 ```
-```
 - Another option is to obtain the instance of the device, passing a device label
 ```
 var aGate = myfox.getGate({siteId:"12345", label:"front_gate"});
