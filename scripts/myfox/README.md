@@ -48,7 +48,7 @@ The username can be the actual end user's myfox username or another username he 
 The result returned by the aforementioned script should resemble the following:
 
 ```
->> curl -X POST  -F username=edison -F apsws.time=1434722158021 -H 'Authorization: bearer <YOUR_AUTH_TOKEN>' 'https://api.scriptr.io/oauth2/getRequestCodeUrl'
+>> curl -X POST  -F username=galileo -F apsws.time=1434722158021 -H 'Authorization: bearer <YOUR_AUTH_TOKEN>' 'https://api.scriptr.io/oauth2/getRequestCodeUrl'
 {
 	"metadata": {
 		"requestId": "45753a7f-a2b6-4378-a8e1-3bbddced9694",
