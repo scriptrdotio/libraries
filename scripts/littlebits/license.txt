@@ -1,8 +1,3 @@
-# libraries
-Useful scriptr; libraries (scripts) that can be used in your scriptr; apps
-
-# License
-
 Copyright (c) 2015 scriptr.io
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

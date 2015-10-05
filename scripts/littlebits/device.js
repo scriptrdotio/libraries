@@ -145,7 +145,7 @@ Device.prototype.listSubscribers = function() {
 Device.prototype.removeSubscriber = function(subscriberId) {
   	
   var notificationMgr = new notificationsModule.NotificationManager();
-  return notificationsMgr.deleteSubscription({publisherId:this.id, subscriberId: subscriberId});
+  return notificationMgr.deleteSubscription({publisherId:this.id, subscriberId: subscriberId});
 };
 
 // initialize the storage bucket if needed
