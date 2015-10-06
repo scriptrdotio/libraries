@@ -2,12 +2,12 @@ var foxModule = require("myfox/fox");
 var mappings = require("myfox/mappings");
 
 try {
-  var myfox = new foxModule.Fox({token:"700e68124c5da7df0f6e080f1f5380e37983bb0b"});
+  var myfox = new foxModule.Fox({token:"349227e312479c7f26ced9324f6e152e212ad8af"});
   var results = {};
   results.sites = myfox.listSites();
-  results.home = myfox.getSiteByLabel("Home");
-  results.lights = myfox.listLights(results.sites[0].siteId);
-  results.temperatureSensors = myfox.listTemperatureSensors(results.sites[0].siteId);
+  //results.home = myfox.getSiteByLabel("Home");
+  //results.lights = myfox.listLights(results.sites[0].siteId);
+  //results.temperatureSensors = myfox.listTemperatureSensors(results.sites[0].siteId);
   
   /************************
    * working with cameras *
@@ -40,6 +40,18 @@ try {
   
   var shutter2 = myfox.getShutter({siteId: results.sites[0].siteId, label: results.shutters[2].label});
   results.shutter2Info = shutter2.getData();
+  */
+  
+  /*******************************
+   * working with shutter groups *
+   *******************************/
+  
+  /*
+  results.shutterGroups = myfox.listShutterGroups(results.sites[0].siteId);
+  var shutterGroup1 = myfox.getShutterGroup({siteId: results.sites[0].siteId, id: results.shutterGroups[0].groupId});
+  results.shutterGroup1Info = shutterGroup1.getData();
+  var shutterGroup2 = myfox.getShutterGroup({siteId: results.sites[0].siteId, label: results.shutterGroups[1].label});
+  results.shutterGroup2Info = shutterGroup2.getData();
   */
   
   /************************

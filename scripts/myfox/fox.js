@@ -4,6 +4,7 @@ var mappings = require("myfox/mappings");
 var gate = require("myfox/gate");
 var heater = require("myfox/heater");
 var shutter = require("myfox/shutter");
+var shutterGroup = require("myfox/shutterGroup");
 var socket = require("myfox/socket");
 var camera = require("myfox/camera");
 var foxModule = require("myfox/foxModule");
@@ -302,6 +303,39 @@ Fox.prototype.getShutter = function(dto) {
  
   dto.client = this.client;
   return new shutter.Shutter(dto);
+};
+
+/**
+ * @method listShutterGroups
+ * @return Array of ShutterGroup objects
+ *  {
+ *	{Numeric} groupId: the group identifier,
+ *  {String} label: the group label,
+ *	{String} type: the group type,
+ *	{Array} devices { //the group devices list
+ * 		{Numeric} deviceId: the device identifier,
+ *		{String} label: the device label,
+ *		{String} modelId: the device model identifier,
+ *		{String} modelLabel: the device model label
+ *	  }
+ *  }
+ */
+Fox.prototype.listShutterGroups = function(siteId) {
+  return shutterGroup._listShutterGroups(siteId, this.client) ;
+};
+
+/**
+ * This method can throw exceptions
+ * @method getShutterGroup
+ * @param {Object} dto {
+ *	{String} siteId: the identifier of a given site that belongs to the user
+ * }
+ * @return {Object} an instance of the shutter.ShutterGroup class
+ */
+Fox.prototype.getShutterGroup = function(dto) {
+ 
+  dto.client = this.client;
+  return new shutterGroup.ShutterGroup(dto);
 };
 
 /**

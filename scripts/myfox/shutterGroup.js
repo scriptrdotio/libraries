@@ -20,13 +20,52 @@ var endpoint = config.apiUrl + "/" +  config.apiVer + "/site/$siteId/group/shutt
  * }
  */
 function ShutterGroup(dto) {
+
+  if (!dto || !dto.siteId) {
+    
+    throw {
+      "errorCode": "Invalid_Parameter",
+      "errorDetail": this.constructor.name + " - dto.siteId cannot be null or empty"
+    };
+  }
+  
+  if (!dto.id && !dto.label) {
+    
+    throw {
+      "errorCode": "Invalid_Parameter",
+      "errorDetail": this.constructor.name + " - You need to provide one of dto.id or dto.label"
+    };
+  }  
+  
+  if (!dto.token && !dto.client) {
+    
+    throw {
+      "errorCode": "Invalid_Parameter",
+      "errorDetail": this.constructor.name + " - you should pass a token or a fox client"
+    };
+  }
   
   dto.endpoint = _getEndpoint(dto.siteId);
-  deviceModule.Device.call(this, dto); 
+  if (dto.client) {
+    this.client = dto.client
+  }else {
+     this.client = new clientModule.MyFoxClient({token:dto.token});
+  }
+  
+  this.siteId = dto.siteId;
+  this.endpoint = dto.endpoint;
+  if (dto.id) {
+   
+    this.id = dto.id;
+    var data = this._getDataById();
+    this.label = data.label;
+  }else {
+    
+    this.label = dto.label;
+    var data = this._getDataByLabel();
+    this.id = data.deviceId;
+  } 
 }
-
-ShutterGroup.prototype = new deviceModule.Device();
-ShutterGroup.prototype.constructor = ShutterGroup;
 
 /**
  * Open the current shutter group
@@ -62,12 +101,73 @@ ShutterGroup.prototype.close = function() {
 ShutterGroup.prototype._switch = function(status) {
   
   var params = { 
-    url: config.apiUrl + "/" +  config.apiVer + "/site/" + this.siteId + "/device/" +  this.id + "/shutter/" + status
+    url: config.apiUrl + "/" +  config.apiVer + "/site/" + this.siteId + "/group/" +  this.id + "/shutter/" + status
   };
   
   var response = this.client.callApi(params);
   return response;
 };
+
+/**
+ * Return information on the current device instance
+ * Fresh data is always retrieved when invoking this method
+ * @method getData
+ * @return {Object}
+ */
+ShutterGroup.prototype.getData = function() {
+
+  if (this.id) {
+    return this._getDataById();
+  }else {
+    return this._getDataByLabel();
+  }
+};
+
+/*
+ * return data on a device using its id
+ */
+ShutterGroup.prototype._getDataById = function() {
+  
+  var groups = _listShutterGroups(this.siteId, this.client, this.endpoint);
+  var group = null;
+  for (var i = 0; i < groups.length && !group; i++) {
+    group = (groups[i].groupId == this.id) ? groups[i] : null;
+  }
+  
+  if (group) {
+  	return group;  
+  }else {
+    
+     throw {
+      "errorCode": "Entity_NotFound",
+      "errorDetail": this.constructor.name + " - no item was found with the following id " +  this.id + " for the given site id " + this.siteId
+    };
+  }  
+};
+
+/*
+ * return data on a device using its label. If more that one devices have the same label
+ * the first one is returned
+ */
+ShutterGroup.prototype._getDataByLabel = function() {
+  
+  var groups = _listShutterGroups(this.siteId, this.client, this.endpoint);
+  var group = null;
+  for (var i = 0; i < groups.length && !group; i++) {
+    group = (groups[i].label == this.label) ? groups[i] : null;
+  }
+  
+  if (group) {
+  	return group;  
+  }else {
+    
+     throw {
+      "errorCode": "Entity_NotFound",
+      "errorDetail": this.constructor.name + " - no item was found with the following label " +  this.label + " for the given site id " + this.siteId
+    };
+  }  
+};
+
 
 /**
  * static method that returns the list of all shutter groups on a given site
