@@ -2,9 +2,10 @@ var foxModule = require("myfox/fox");
 var mappings = require("myfox/mappings");
 
 try {
-  var myfox = new foxModule.Fox({token:"a4a5e9e7c24642f6539480b6a2bef3f3833b6632"});
+  var myfox = new foxModule.Fox({token:"700e68124c5da7df0f6e080f1f5380e37983bb0b"});
   var results = {};
   results.sites = myfox.listSites();
+  results.home = myfox.getSiteByLabel("Home");
   results.lights = myfox.listLights(results.sites[0].siteId);
   results.temperatureSensors = myfox.listTemperatureSensors(results.sites[0].siteId);
   

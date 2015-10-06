@@ -79,6 +79,51 @@ Fox.prototype.listSites =  function() {
 };
 
 /**
+ * Return the data of a given site, using the site's label. If more that one
+ * site have the same label, the first match is returned
+ * This method can throw exceptions
+ * @method getSiteByLabel
+ * @param {String} siteLabel: the label of the site
+ * @return {Object}
+ * {
+ *	{Numeric} siteId: the site unique identifier,
+ *	{String} label: the site's label,
+ *	{String} brand: the brand of the site,
+ * 	{String} timezone: the timezone of the site's location,
+ *  {String} AXA: AXA Assistance identifier if any,
+ *	{Numeric} cameraCount: number of cameras on the site,
+ * 	{Numeric} gateCount: number of gates on the site,
+ * 	{Numeric} shutterCount: number of shutters on the site,
+ * 	{Numeric} socketCount: number of sockets on the site,
+ * 	{Numeric} moduleCount: number of modules on the site,
+ * 	{Numeric} heaterCount: number of heaters on the site,
+ * 	{Numeric} scenarioCount: number of scenarios on the site,
+ * 	{Numeric} deviceTemperatureCount: number of temperature sensors on the site,
+ * 	{Numeric} deviceStateCount: number of IntelliTag on the site,
+ * 	{Numeric} deviceLightCount: number of light sensors on the site,
+ * 	{Numeric} deviceDetectorCount: number of generic detectors on the site
+ * }
+ */
+Fox.prototype.getSiteByLabel = function(label) {
+  
+  var sites = this.listSites();
+  var site = null;
+  for (var i = 0;  i < sites.length && site == null; i++) {
+    site = sites[i].label == label ?  sites[i] : null;
+  }
+  
+  if (!site) {
+    
+    throw {
+      erroCode: "Entity_Not_Found",
+      errorDetail: "Fox.getSiteByLabel - could not find a site with the following label " + label
+    };
+  }
+  
+  return site;
+};
+
+/**
  * List all cameras available at a given site
  * This method can throw exceptions
  * @method listCameras 
