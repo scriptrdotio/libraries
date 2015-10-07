@@ -16,6 +16,7 @@ JavaScript objects that act as wrappers on top of the APIs.
 - myfox/client: generic http client that handles the communication between scriptr.io and myfox
 - myfox/light: wraps myfox light sensors
 - myfox/shutter: allows you to interact with shutters
+- myfox/shutterGroup: interact with groups of shutters defined using myfox control app
 - myfox/socket: allows you to interact with sockets
 - myfox/scenarios: allows you to enable, play or disable predefined usage scenarios
 - myfox/test/tests: a list of all the objects and corresponding methods, for examples on how to use them.
@@ -80,13 +81,15 @@ Or
 ```
 var myfox = new foxModule.Fox({username:"galileo"}); // option 2
 ```
-The Fox class provides many methods to obtain data related to the user's myfox devices:
+#### Listing all available devices 
+The Fox class provides many methods to obtain data related to the devices owned by a myfox user:
 ```
 var sites = myfox.listSites(); // list all the sites defined by the end user
 var lights = myfox.listLights(someSite); // list all the light sensors of the user in the specified site
 var temperatureSensors = myfox.listTemperatureSensors(someSite); // list all the light sensors of the user in the specified site
 var cameras = myfox.listCameras(someSite); // list all cameras of the specified site
 var shutters = myfox.listShutters(someSite); // list all shutters of the specified site
+var shutterGroups = myfox.listShutterGroups(someSite); // list all shutter groups of the specified site 
 var sockets = myfox.listSockets(someSite); // list all sockets of the specified site
 var gates = myfox.listGates(someSite); // list all gate controllers of the specified site
 var modules = myfox.listModules(someSite); // list all myfox modules used in the specified site
@@ -94,6 +97,7 @@ var heaters = myfox.listHeaters(someSite); // list all heaters of the specified 
 var scenarios = myfox.listScenarios(someSite); // list all automation scenarios defined for that site
 
 ```
+#### Interacting with a specific device
 In order to manipulate the end user's devices in a specific site, you first need to obtain a reference to the corresponding device class. 
 You can do this:
 - by invoking the ```getYourDeviceType({siteId:"A_Site_Id", id: "A_Device_Id")``` method of your ```Fox``` instance, as in the following example:
@@ -124,13 +128,13 @@ var dto = {
 var gate = new gateModule.Gate(dto);
 ```
 
-All device types have a getData() method that returning data about the current device (the returned properties might vary depending
-on the device's type)
+All device types expose a getData() method (inherited from the device.Device class), which returns data about the current device 
+(the returned properties might vary depending on the device's type)
 ```
 // example
 var latestData = aGate.getData()
 ```
-
+#### Confiuring security for a given site 
 You can get obtain the current security status of a given site or update it as follows:
 
 ```
