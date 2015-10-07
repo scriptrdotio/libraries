@@ -99,14 +99,14 @@ var scenarios = myfox.listScenarios(someSite); // list all automation scenarios 
 ```
 #### Interacting with a specific device
 In order to manipulate the end user's devices in a specific site, you first need to obtain a reference to the corresponding device class. 
-You can do this:
-- by invoking the ```getYourDeviceType({siteId:"A_Site_Id", id: "A_Device_Id")``` method of your ```Fox``` instance, as in the following example:
+You can do this by invoking the ```getYourDeviceType``` method of your ```Fox``` instance, as in the following example:
+- Using a device identifier
 ```
 var aGate = myfox.getGate({siteId:"12345", id:"123"}); 
 var aSocket = myfox.getSocket({siteId:"12345", id:"456"});
 
 ```
-- Another option is to obtain the instance of the device, passing a device label
+- Using a device label
 ```
 var anotherGate = myfox.getGate({siteId:"12345", label:"front_gate"});
 var anotherSocket = myfox.getSocket({siteId:"12345", label:"wall_socket"});
@@ -134,7 +134,7 @@ All device types expose a getData() method (inherited from the device.Device cla
 // example
 var latestData = aGate.getData()
 ```
-#### Confiuring security for a given site 
+#### Configuring security for a given site 
 You can get obtain the current security status of a given site or update it as follows:
 
 ```
