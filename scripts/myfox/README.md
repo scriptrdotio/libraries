@@ -99,7 +99,7 @@ var scenarios = myfox.listScenarios(someSite); // list all automation scenarios 
 ```
 #### Interacting with a specific device
 In order to manipulate the end user's devices in a specific site, you first need to obtain a reference to the corresponding device class. 
-You can do this by invoking the ```getYourDeviceType``` method of your ```Fox``` instance, as in the following example:
+You can do this by invoking the get*DeviceType* method of your ```Fox``` instance, as in the following example:
 - Using a device identifier
 ```
 var aGate = myfox.getGate({siteId:"12345", id:"123"}); 
