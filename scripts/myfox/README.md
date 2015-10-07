@@ -1,6 +1,6 @@
 # myfox connector
 ## About myfox
-[myfox](http://www.getmyfox.com/) is one of the market leaders in smart home and home automation. 
+[myfox](http://www.getmyfox.com/) is one of the market leaders of smart home and home automation solutions. 
 They provide a large variety of products, among which smart cameras, alarms and thermostats.
 Myfox device's data and services are exposed to developers as REST APIs.
 ## Purpose of the scriptr.io connector for myfox
