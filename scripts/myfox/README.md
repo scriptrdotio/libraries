@@ -1,6 +1,6 @@
 # myfox connector
 ## About myfox
-[myfox](http://www.getmyfox.com/) is one of the market leaders in smart home and home automation. 
+[myfox](http://www.getmyfox.com/) is one of the market leaders of smart home and home automation solutions. 
 They provide a large variety of products, among which smart cameras, alarms and thermostats.
 Myfox device's data and services are exposed to developers as REST APIs.
 ## Purpose of the scriptr.io connector for myfox
@@ -99,7 +99,7 @@ var scenarios = myfox.listScenarios(someSite); // list all automation scenarios 
 ```
 #### Interacting with a specific device
 In order to manipulate the end user's devices in a specific site, you first need to obtain a reference to the corresponding device class. 
-You can do this by invoking the ```getYourDeviceType``` method of your ```Fox``` instance, as in the following example:
+You can do this by invoking the get*DeviceType* method of your ```Fox``` instance, as in the following example:
 - Using a device identifier
 ```
 var aGate = myfox.getGate({siteId:"12345", id:"123"}); 
