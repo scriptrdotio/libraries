@@ -384,6 +384,41 @@ FlowerPower.prototype.getSyncData = function() {
 };
 
 /**
+ * Return an object containing locations basic data 
+ * This method can throw exceptions
+ * @return {Object} {
+ *	{Object} some_location_id : {
+ *		{String} "sensor_serial": the serial id of a given senor,
+ *		{String} "plant_id": the identifier of the plant monitored by the sensor,
+ *  	{String} "plant_assigned_date": UTC date/time when the plant was assigned to the sensor using the mobile app,
+ *  	{String} "plant_nickname",
+ *		{Boolean} "is_indoor",
+ *		{Boolean} "in_pot",
+ *		{String} "location_identifier": identifier of the corresponding garden location,
+ *		{Numeric} "latitude": latitude of the corresponding garden location,
+ *		{Numeric} "longitude": longitude of the corresponding garden location,
+ *		{Array} "images": array of images objects {url, location_identifier, image_identifier},
+ *		{Numeric} "display_order": display order of the current plant in the mobile app,
+ *		{Boolean} "ignore_fertilizer_alert",
+ *		{Boolean} "ignore_light_alert",
+ *		{Boolean} "ignore_moisture_alert": false,
+ *		{Boolean} "ignore_temperature_alert": false,
+ *		{String} "avatar_url"
+ *	}
+ * }
+ */
+FlowerPower.prototype.listLocations = function() {
+  
+  var locations = this.getSyncData().locations;
+  var locationsObj = {};
+  for (var i = 0; i < locations.length; i++) {  
+    locationsObj[locations[i].location_identifier] = locations[i];
+  }
+  
+  return locationsObj;
+};
+
+/**
  * This method returns all data samples for a given plant for a specified period of time
  * This method can throw exceptions
  * @method getPlantSamples
