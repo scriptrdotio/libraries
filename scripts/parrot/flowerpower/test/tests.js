@@ -1,9 +1,10 @@
 var flowerPowerModule = require("parrot/flowerpower/client");
 
 var flowerPower = new flowerPowerModule.FlowerPower({
-  "baseUrl": "https://apiflowerpower.parrot.com",
-  "access_id": "", // Your Parrot application's access_id
-  "access_secret": "" // Your Parrout applications' secret
+  "username": "some_user_name",	
+  "baseUrl": "https://apiflowerpower.parrot.com", // optional if defined in config
+  "access_id": "", // Your Parrot application's access_id, optional if defined in config
+  "access_secret": "" // Your Parrout applications' secret, optional if defined in config
 });
 
 var results = {};
@@ -24,6 +25,7 @@ var results = {};
 /************************************
  * Gardens, plants and devices data *
  ************************************/
+//results.locationsData = flowerPower.listLocations();
 //results.gardenLocationStatus = flowerPower.getGardenLocationsStatus();
 //results.locationSamples = flowerPower.getLocationSamples("gsOPKo8zOE1444293497204", "2015-10-07T12:00:00Z", "2015-10-09T12:00:00Z");
 //results.syncData = flowerPower.getSyncData();
