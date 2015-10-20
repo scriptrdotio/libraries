@@ -14,8 +14,14 @@ var config = require("parrot/flowerpower/config");
  * }
  */
 function FlowerPower(options) {
+ 
+  if (!options || !options.username) {   
+    throw "You should at least provide a user name";
+  }
+  
   this.options = options;
-  this.options.baseUrl = this.options.baseUrl ? this.options.baseUrl : config.baseUrl;
+  this.username = this.options.username;
+  this.options.baseUrl = this.options.baseUrl ? this.options.baseUrl : config.flowerpowerUrl;
   this.options.access_id = this.options.access_id ? this.options.access_id : config.access_id;
   this.options.access_secret = this.options.access_secret ? this.options.access_secret : config.access_secret;
   this.storageAppName = config.storageAppName;
@@ -583,7 +589,7 @@ FlowerPower.prototype.getPlantStatus = function(plantNickName) {
 FlowerPower.prototype.refreshToken = function() {
   try {
     var accessTokenStorageFieldName = this.storageAppName + "_" + this.username.replace(/\./g, "_") + "_" + this.storageAccessTokenName;
-    var tokenInfo = storage.local[accessTokenStorageFieldName];
+    var tokenInfo = storage.global[accessTokenStorageFieldName];
 
     var requestObj = {
       "url": this.options.baseUrl + "/user/v1/authenticate",
@@ -605,7 +611,7 @@ FlowerPower.prototype.refreshToken = function() {
       tokenInfo.expiresIn = (new Date().getTime()) + ((responseBody.expires_in - 60) * 1000);
       this.saveAccessTokenInfoInStorage(tokenInfo);
     } else {
-      delete storage.local[accessTokenStorageFieldName];
+      delete storage.global[accessTokenStorageFieldName];
       throw "An error occured while refreshing token: " + response.body;
     }
     
@@ -623,19 +629,19 @@ FlowerPower.prototype.refreshToken = function() {
 
 FlowerPower.prototype.saveAccessTokenInfoInStorage = function(tokenInfo) {
   var accessTokenStorageFieldName = this.storageAppName + "_" + this.username.replace(/\./g, "_") + "_" + this.storageAccessTokenName;
-  storage.local[accessTokenStorageFieldName] = tokenInfo;
+  storage.global[accessTokenStorageFieldName] = tokenInfo;
 };
 
 FlowerPower.prototype.getAccessTokenInfoFromStorage = function() {
   var accessTokenStorageFieldName = this.storageAppName + "_" + this.username.replace(/\./g, "_") + "_" + this.storageAccessTokenName;
-  var tokenInfo = storage.local[accessTokenStorageFieldName];
+  var tokenInfo = storage.global[accessTokenStorageFieldName];
   if (tokenInfo && tokenInfo.expiresIn) {
     var currentTime = new Date().getTime();
     if (currentTime >= tokenInfo.expiresIn) {
       this.refreshToken();
     }
   }
-  return storage.local[accessTokenStorageFieldName];
+  return storage.global[accessTokenStorageFieldName];
 };
 
 FlowerPower.prototype.getAccessTokenFromStorage = function() {
