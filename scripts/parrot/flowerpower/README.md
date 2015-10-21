@@ -34,7 +34,7 @@ You then need to create an instance of the FlowerPower class, using one of the f
 ```
 // option 1: you provide your app's credentials and the URL of the Parrot API
 var flowerPower = new flowerPowerModule.FlowerPower({
-  "username": "some_user",
+  "username": "galileo@scriptr.io",
   "baseUrl": "https://apiflowerpower.parrot.com",
   "access_id": "edison", // Your Parrot application's access_id (example)
   "access_secret": "WtFxqKvWe9HLuDAYswsSMaHS7fQb7kqHVT2eqr6RZqRtvIAv" // Your Parrot applications' secret (example)
@@ -43,7 +43,7 @@ var flowerPower = new flowerPowerModule.FlowerPower({
 // option 2: you have specified your app's credentials and the URL of the Parrot API in the config file
 // using the "flowerpowerUrl", "access_id" and "access_secret" variables
  
-var flowerPower = new flowerPowerModule.FlowerPower({username:"some_user"});
+var flowerPower = new flowerPowerModule.FlowerPower({username:"galileo@scriptr.io"});
 ``` 
 Step 3
 
