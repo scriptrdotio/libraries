@@ -62,4 +62,4 @@ Issue the request by invoking the send() method of the Scriptr instance
 ```
 scriptr.send(dto);
 ```
-
+** Note: keep watching this folder as new features (e.g. web socket support) will be added soon **
