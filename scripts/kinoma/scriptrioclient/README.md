@@ -5,9 +5,9 @@ The companions [Kinoma Studio IDE](http://kinoma.com/develop/studio/index.php) a
 simplify the implementation of IoT applications on the device side.
 
 ## Purpose of the scriptr.io client
-The purpose of this simple client is to shield Kinoma Create developers from having to having to implement
-the calls to scriptr.io by themselves. Rather, they can directly create instance of the Scriptr class and
-invoke its send() method. 
+The purpose of this simple client is to shield Kinoma Create developers from having to implement
+the calls to scriptr.io by themselves. Rather, they can directly create instances of the Scriptr class and
+invoke their send() method. 
 
 ## Components
 
@@ -16,8 +16,8 @@ invoke its send() method.
 /scriptrioclient/src/scriptrio.js : the actual client (Kinoma JavaScript module). 
 
 ## How to use
-Checkout the scriptrioclient folder as a new module project in Kinoma Studio or just check-out the scriptrio.js
-file directly into your Kinoma application project.
+Checkout the "scriptrioclient" folder as a new "Library project" in Kinoma Studio or just check-out the scriptrio.js
+file directly into your Kinoma "Application project".
 
 ### Use the client
 
