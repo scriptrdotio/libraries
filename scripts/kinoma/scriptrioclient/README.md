@@ -30,7 +30,7 @@ Create an instance of the Scriptr class, passing a scrtiprio auth token or anony
 *note that calls made using an anonymous token can only target anonymous scripts on scriptr.io*
 
 ```
-var scriptr = new Scriptr("RzM1RkYwQzc4Mg==");
+var scriptr = new Scriptr("YOUR_AUTH_TOKEN");
 ```
 
 Prepare two callback methods, one to handle successful calls to scriptr.io, the other for handling errors
