@@ -35,7 +35,7 @@ function callback() {
 
 client.subscribe("someChannel", callback);
 ```
-*Note* When a function successfuly subscribes to a channel, it receives the following message:
+*Note* When a function successfuly subscribes to a channel, it receives a message similar to the following:
 ```
 { "id": "51b8763a-0cff-789c-e3e6-cf2b546a3523", "status": "success", "statusCode": "200"}
 ```
