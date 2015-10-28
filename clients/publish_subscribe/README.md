@@ -20,8 +20,6 @@ it is automatically broadcasted to the subsriber functions.
 ## How to use
 Checkout the "PubSubClient.js" into your client-side app project
 
-### Use the client
-
 Create an instance of the client
 ```
 var client = new PubSubClient(YOUR_SCRIPTR_AUTH_TOKEN);
@@ -52,7 +50,7 @@ Publish a message
 client.publish("someChannel", "{\"msg\":\"Hello World\"}");
 ```
 
-### handling errors 
+## handling errors 
 - When attempting to subscribe a function to a non existing channel, the function receives the following message:
 ```
 { "id": "4b25494e-e434-fc9f-03d4-ff400a625a8b", "status": "failure", "statusCode": "404", "errorCode": "CHANNEL_NOT_FOUND", "errorDetail": "The channel [someChannel] does not exist."}
