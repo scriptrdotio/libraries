@@ -7,8 +7,10 @@ and subscribe server-side or client-side scripts to them [more](http://www.scrip
 published on a channel are automatically broadcasted to subscribers.
 
 ## Purpose of the PubSubclient class
-The purpose of this simple client is to make to easily subscribe client-side JavaScript functions
-to Scriptr.io channels and to publish message to them, using JavaScript. 
+This simple client leverages the publish/subscribe APIs exposed by Scriptr.io, using web socket connections.
+Its is to easily allow for subscribing client-side JavaScript functions to Scriptr.io channels and for publishing
+message to them, using JavaScript.
+
 Functions can be subscribed to multiple channels and vice-versa. Once a message is published to a channel, 
 it is automatically broadcasted to the subsriber functions.
 
