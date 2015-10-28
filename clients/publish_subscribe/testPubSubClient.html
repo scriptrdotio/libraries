@@ -1,0 +1,93 @@
+<html>
+	<head>
+		<title>PubSubClient test</title>
+		<script src="PubSubClient.js"></script>
+		<script>
+		
+			// Replace YOUR_TOKEN below with your scriptr.io auth token
+			var token = "YOUR_AUTH_TOKEN";
+			
+			var client = new PubSubClient(token);
+			
+			// this function will be subscribed to channels
+			var callback1 = function (msg) {
+				var message = "callback1 \n" +  msg;
+				console.log(message);
+				_log(message);
+			};
+
+			// this function will be subscribed to channels
+			var callback2 = function (msg) {
+				var message = "callback2 \n" +  msg;
+				console.log(message);
+				_log(message);
+			};
+			
+			/*
+			 * publish "{'msg':'hello world'}" to the channel specified in the text field
+			 */
+			function publish() {
+			
+				var channel = document.getElementById("txtChannel").value;
+				client.publish(channel, "{\"msg\":\"Hello World\"}");
+			}
+			
+			/*
+			 * subscribe both callback1 and callback2 to the given channel
+			 */
+			function subscribe() {
+			
+				var channel = document.getElementById("txtChannel").value;
+				if (channel) {
+					client.subscribe(channel, callback1);
+					client.subscribe(channel, callback2);
+				}
+			}
+			
+			/*
+			 * unsubscribe both callback1 and callback2 from the given channel
+			 */
+			function unsubscribe() {
+			
+				var channel = document.getElementById("txtChannel").value;
+				if (channel) {
+					client.unsubscribe(channel, callback1);
+					client.unsubscribe(channel, callback2);
+				}
+			}		
+			
+			/*
+			 * subscribe callback1 and callback2 from all channels
+			 */
+			function unsubscribeAll() {
+				client.unsubscribeAll();
+			}
+			
+			function clear() {
+				
+				var txtChannel = document.getElementById("txtChannel");
+				txtChannel.value = "";
+				var textArea = document.getElementById("log");
+				textArea.value = "";
+			}
+			
+			function _log(text) {
+				
+				var textArea = document.getElementById("log");
+				textArea.value = textArea.value + text + "\n";
+			}
+		</script>
+	</head>
+	<body onload="clear()" onbeforeunload="unsubscribeAll()">		
+		<form>
+				<!-- enter the name of a channel that exists in your scriptr.io account -->
+				<input type="text" id="txtChannel" placeholder="Set to an existing channel" size="30"/> 
+				<input type="button" value="publish" onclick="publish()">
+				<input type="button" value="subscribe" onclick="subscribe()">
+				<input type="button" value="un-subscribe" onclick="unsubscribe()">
+				<input type="button" value="un-subscribe all " onclick="unsubscribeAll()">
+		</form>
+		<textarea id="log" style="width:600px; height:300px"></textarea>
+	</body>
+</html>
+	
