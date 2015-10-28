@@ -7,8 +7,8 @@
  */
 function PubSubClient(token) {  
  
-  this.url = "wss://api.scriptr.io/" +  token;
-  this.subscriptions = {}; // list of channels subscriptions
+	this.url = "wss://api.scriptr.io/" +  token;
+	this.subscriptions = {}; // list of channels subscriptions
 	this.publishWS = null; // this Web Socket connection is used for publishing only
 	this.ready = false; // status of publish Web Socket connection
 }
