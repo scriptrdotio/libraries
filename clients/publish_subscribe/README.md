@@ -43,6 +43,8 @@ Unsubscribe a function from a channel
 ```
 client.unsubscribe("someChannel", callback);
 ```
+*Note* If the function is the last subscriber, the corresponding web socket connection is closed
+
 Unsubscribe all functions that are subscribed to all channels (this closes the corresponding ws connections)
 ```
 client.unsubscribeAll();
