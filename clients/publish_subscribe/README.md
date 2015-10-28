@@ -3,8 +3,8 @@
 ## About The publish/subscribe feature
 [Scriptr.io](http://www.scriptr.io) supports communication through Web Sockets (you can invoke your scriptrs from the client 
 side using web sockets). It also provides you with a very neat publish/subscribe feature, allowing you to create "channels" 
-and subscribe server-side or client-side scripts to them ([read more])(http://www.scriptr.io/documentation). Messages that are 
-published on a channel are automatically broadcasted to subscribers.
+and subscribe server-side or client-side scripts to them. [Read more about this.](http://www.scriptr.io/documentation). 
+Messages that are published on a channel are automatically broadcasted to subscribers.
 
 ## Purpose of the PubSubclient class
 This simple client leverages the publish/subscribe APIs exposed by Scriptr.io, using web socket connections.
