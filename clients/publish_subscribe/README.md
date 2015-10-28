@@ -43,7 +43,7 @@ Unsubscribe a function from a channel
 ```
 client.unsubscribe("someChannel", callback);
 ```
-Unsubscribe all functions that are subscribed to a channel (this closes the corresponding ws connection)
+Unsubscribe all functions that are subscribed to all channels (this closes the corresponding ws connections)
 ```
 client.unsubscribeAll();
 ```
