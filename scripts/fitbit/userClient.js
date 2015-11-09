@@ -1,4 +1,4 @@
-var fitbitModule = require("/fitbit/fitbitClient");
+var fitbitModule = require("fitbit/fitbitClient");
 var config = require("fitbit/config");
 
 /**
@@ -316,7 +316,7 @@ FitbitUser.prototype.listDevices = function() {
  */
 FitbitUser.prototype.getDevice = function(deviceId) {
   
-  var deviceModule = require("/fitbit/deviceClient");
+  var deviceModule = require("fitbit/deviceClient");
   var dto = {
     "username": this.username,
     "deviceId": deviceId,
