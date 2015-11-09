@@ -294,7 +294,8 @@ NestClient.prototype.getDeviceByName = function(name, type) {
   
   var target = null;      
   for(var device in list) {
-    target = list[device].name == name ? list[device] : null
+    target = list[device].name == name ? list[device] : null;
+    if (target) break;
   }
   
   if (!target) {
