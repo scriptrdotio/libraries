@@ -196,14 +196,22 @@ NestClient.prototype.updateDevice = function(id, type, params) {
     }
   }
   
+  var useUrl = config.getDevicesUrl() + "/" + type + "/" + id + "?auth=" + config.token.access_token;
+  var cachedUrl = storage.local.cachedDevicesURL ? storage.local.cachedDevicesURL : "";
+  if (cachedUrl) {
+
+    var index = cachedUrl.indexOf("?");
+    cachedUrl = cachedUrl.indexOf(id) > - 1 ? cachedUrl : cachedUrl.substring(0, index) + "/" +  id + cachedUrl.substring(index);
+  }
+ 
   var requestParams = {  
   	
- 	"url": storage.local.cachedDevicesURL ? storage.local.cachedDevicesURL : config.getDevicesUrl() + "/" + type + "/" + id + "?auth=" + config.token.access_token,
+ 	"url": cachedUrl ? cachedUrl : useUrl,
     "bodyString": JSON.stringify(params),
     "method": "PUT",
     "headers": {"Content-Type": "application/json"}
   };
-   
+  
   return this._callApi(requestParams);
 };
 
