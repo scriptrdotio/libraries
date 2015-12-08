@@ -28,7 +28,7 @@ try {
   var state =  urlConfig.state;
   var redirectUrl = config.redirect_uri ? config.redirect_uri : "";
   redirectUrl += (config.addStateToRedirectUrl ? "&state=" + state : "");
-  var queryStr = "client_id=" + config.client_id + "&response_type=" + config.response_type;
+  var queryStr = "client_id=" + config.client_id + (config.responseType ? "&response_type=" + config.response_type : "");
   queryStr += config.scope ? "&scope=" + encodeURIComponent(config.scope) : "";
   queryStr += "&state=" + state;
   queryStr += config.access_type? "&access_type" + config.access_type : "";
