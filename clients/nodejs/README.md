@@ -142,8 +142,8 @@ scriptr.send(wsDto);
 
 ### Subscribe and publish to scriptr.io channels defined in your account
 
-*Note: make sure you have created the corresponding channels first on your scriptr.io account
-channels can be created from the scriptr.io IDE, from your scriptr.io scripts or remotely from the client*
+*Note: make sure you have created the corresponding channels first on your scriptr.io account.
+Channels can be created from the scriptr.io IDE, from your scriptr.io scripts or remotely from the client*
   
 First, specify a callback function
 ```
@@ -164,7 +164,7 @@ scriptr.publish("channel2", {"msg": "howdy"});
 
 ## Dependencies
 The client relies on the [websocket](https://www.npmjs.com/package/websocket) module to create WebSocket connections.
-You need to install it on your client device before using the current modeule (npm install websocket). 
+You need to install it on your client device before using the current modeule (```npm install websocket```). 
 
 We recommend using websocket, however, if you decide to use another library, make sure to resort to one that implements the W3C
 WebSockets specifications. In that latter case, modify the "require" instruction in the "wasfactory.js" script in order to
