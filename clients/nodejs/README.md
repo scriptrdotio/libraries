@@ -79,7 +79,7 @@ Prepare your parameters, notice the "asJson" property set to true
 ```
 var dto3 = {
 	api: "someScript",
-	params: { // the JSON object that is send along the request body
+	params: { // the JSON object that is sent along the request body
 		p: {
 			p1: "abc",
 			p2: 123
@@ -129,7 +129,7 @@ Prepare you parameters
 ```
 var wsDto = {
 	method: "someScript", // the API (script) to execute on your scriptr.io account
-	params: {"msg": "hello world"}, // the message to send. Should be {msg:some_object_or_string}
+	params: {"msg": "hello world"}, // the message to send. Should be {msg:some_stringified_object_or_string}
 	onSuccess: onSuccess, // success callback
 	onFailure: onFailure // failure callback
 };
@@ -145,19 +145,21 @@ scriptr.send(wsDto);
 *Note: make sure you have created the corresponding channels first on your scriptr.io account.
 Channels can be created from the scriptr.io IDE, from your scriptr.io scripts or remotely from the client*
   
-First, specify a callback function
+First, specify a callback function (or just refer to an existing one)
 ```
 function pubsubCallback(message) {
 	console.log("PubSub -- " +  JSON.stringify(message));
 }
 ```
 
-Subscribe to a channel using the "subscribe()" method of the scriptr.io client
+Subscribe to a channel using the "subscribe()" method of the scriptr.io client, passing the channel name and 
+the reference to the callback function
 ```
 scriptr.subscribe("channel1", pubsubCallback);
 ```
 
-Publish to channels using the "publisj()" method of the scriptr.io client
+Publish to channels using the "publisj()" method of the scriptr.io client, passing the channel name and 
+the reference to the callback function
 ```
 scriptr.publish("channel2", {"msg": "howdy"});
 ```
