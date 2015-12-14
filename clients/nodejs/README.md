@@ -4,6 +4,8 @@ This is a simple node.js module that serves as a client to scriptr.io. Use it to
 
 The client allows you to send HTTP(s) requests, send messages over WebSockets and use the publish/subscribe feature of scriptr.io.  
 
+*Note: The client relies on the websocket module to create WebSocket connections. Check the "Dependencies" paragraph for more info.*
+
 ## Usage
 
 ### Creating an instance of the scriptrio client
