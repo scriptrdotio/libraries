@@ -177,11 +177,20 @@ Scriptr.prototype.send = function(wsDto) {
 		};
 		
 		this.ws.onclose = function(event) {
+			
 			console.log("Connection to scriptr.io was closed");
+			self.ws = null;
+			if (wsDto && wsDto.onFailure) {
+				wsDto.onFailure({msg:"socket was closed"});
+			}
 		};
 		
 		this.ws.onerror = function(error) {
+
 			console.log("An error occured " + JSON.stringify(error));
+			if (wsDto && wsDto.onFailure) {
+				wsDto.onFailure(error)
+			}
 		};
 	}else {
 		this.ws.send(JSON.stringify(wsDto));
