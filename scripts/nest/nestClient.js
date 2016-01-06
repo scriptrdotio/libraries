@@ -501,7 +501,23 @@ NestClient.prototype._callApi = function(requestParams) {
  */
 NestClient.prototype._parseResponse = function(response) {
   
+  if (response.metadata && response.metadata.status == "failure") {
+    
+    throw {
+      "errorCode": "nest_error",
+      "errorDetail": "Remote nest API returned an error " + response.metdata.errorCode
+    };
+  }
+  
   if (response.status == "200") {
+    
+    if (response.timeout) {
+      
+      throw {
+        "errorCode": "nest_error",
+        "errorDetail": "Remote nest API timed out"
+      };
+    }
   	return this._parseBody(response);  	
   }
     
