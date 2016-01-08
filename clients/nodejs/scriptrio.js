@@ -243,7 +243,7 @@ Scriptr.prototype.subscribe = function(channel, callback) {
 Scriptr.prototype.unsubscribe = function(channel, callback) {
 	
 	if (this.pubsub) {
-		this.pubsub.subscribe(channel, callback);
+		this.pubsub.unsubscribe(channel, callback);
 	}
 };
 
