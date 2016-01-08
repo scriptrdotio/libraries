@@ -15,7 +15,7 @@ Include the scriptrio module into your HTML5 script
 ```
 <script src= "./scriptrio.js"></script>
 ```
-In a <script> section or in another JavaScript script, create an instance of the Scriptr class, passing your scriptr; authentication token
+In a ```<script>``` section or in another JavaScript script, create an instance of the Scriptr class, passing your scriptr; authentication token
 ```
 var scriptr = new Scriptr({token:"YOUR_AUTH_TOKEN_HERE"});
 ```
