@@ -269,7 +269,7 @@ Scriptr.prototype._get = function(method, dto) {
 	var xmlhttp = new XMLHttpRequest();
 	var url = "https://" + URL + "/" +  dto.api + "?auth_token=" + this.token;
 	if (paramStr) {
-		url += "&=" + paramStr;
+		url += "&" + paramStr;
 	} 
 	
 	url += "&" +  new Date().getTime(); // add timestamp
