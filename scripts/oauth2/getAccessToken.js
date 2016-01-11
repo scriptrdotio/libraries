@@ -2,9 +2,8 @@ var tokenManager = require("oauth2/TokenManager");
 var config = require("oauth2/config");
 
 try {
-  
   var params = _parseRequestOnIncorrectCallbackQueryString(request);
-
+  //return params;
   // check for errors
   if (params.error) {
 
@@ -17,6 +16,7 @@ try {
 
   if (config.response_type == "code") {
   	return tokenManager.getAccessToken(params); 
+    
   }else {
     
     var dto = {
@@ -39,25 +39,40 @@ try {
 
 // Sometimes the OAuth authorization api directly appends its results to the queryString using "?",
 // without noticing that scriptr.io already sent some other parameters (mainly the aut_token and the state).
-// therefore, we need to parse the request again starting from state=xxx?someother_params
+// therefore, we need to normalize the request 
 function _parseRequestOnIncorrectCallbackQueryString(request) {
 
-  var parameters = {};
-  var stateWithAllOtherParams = request.parameters.state;  
-  var splitOnQuestionMark = stateWithAllOtherParams ? stateWithAllOtherParams.split("?") : [];
-  if (splitOnQuestionMark.length > 1) {
-    
-    parameters["state"] = splitOnQuestionMark[0];
-    var restOfParams = splitOnQuestionMark[1].split("&");
-    var currentP = null;
-    for (var i = 0;  i < restOfParams.length; i++) {
+var parameters = {};
+  
+// find any parameter value that contains a question mark (should only be one)
+for (var param in request.parameters) {
+   
+  var value = request.parameters[param];
+  if (value.indexOf("?") > -1) {
 
-      currentP = restOfParams[i].split("=");
-      parameters[currentP[0]] = currentP[1];
-    }
-  }else {   
-    return request.parameters;
-  }
+    value = param + "=" + value.replace(/\?/g, "&");
+    var newParams = _split(value);
+    for (var param in newParams) {
+		  parameters[param] = newParams[param];
+	  }
+  }else {
+    parameters[param] = value;
+  }  
+}
+ 
+return parameters;
+}  
+
+function _split(expression) {
+  
+  var parameters = {};
+  expression = expression.replace(/\?/g, "&");
+  var paramsExpr = expression.split("&");
+  for (var i = 0; i < paramsExpr.length; i++) {
+    
+    var keyValue = paramsExpr[i].split("=");
+    parameters[keyValue[0]] = keyValue[1];
+  }    
   
   return parameters;
-}    				   				
+}
