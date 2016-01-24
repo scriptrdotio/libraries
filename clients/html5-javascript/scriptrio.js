@@ -31,6 +31,8 @@ function Scriptr(dto) {
 	
 	// a publish/subscribe client using WebSockets on scriptr.io
 	this.pubsub = null;
+	
+	this.messageQueue = [];
 }
 
 /**
@@ -122,30 +124,37 @@ Scriptr.prototype.send = function(wsDto) {
 		};
 	}
 	
-	// lazy initialization of websocket connection
-	if (!this.ws) {
-		this.ws = new WebSocket("wss://" + URL + "/" +  this.token);
-	}
-	
+	this.messageQueue.push(wsDto);
 	var self = this;
-	if (this.ws.readyState !== WebSocket.OPEN) {
+	if (!this.ws || this.ws.readyState !== WebSocket.OPEN || this.wsready) {
 	
+		// lazy initialization of websocket connection
+		if (!this.ws) {
+			this.ws = new WebSocket("wss://" + URL + "/" +  this.token);
+		}
+		
 		this.ws.onopen = function() {
-			
 			console.log("Connected to scriptr.io");
-			self.ws.send(JSON.stringify(wsDto));
 		};
 		
 		this.ws.onmessage = function(event) {
 			
 			if (self.wsready) {
 				
-				// console.log("Received the following message from scriptr.io " + event.data);
-				if (event.data) {					
-					self._handleResponse(JSON.parse(event.data), wsDto.onSuccess, wsDto.onFailure);
+				console.log("Received the following message from scriptr.io " + event.data);
+				if (event.data) {
+					
+					var dto = self.messageQueue[0];
+					if (dto) {
+					
+						console.log("Handler for " + JSON.stringify(dto.params));
+						self._handleResponse(JSON.parse(event.data), dto.onSuccess, dto.onFailure);
+						self.messageQueue.splice(0,1);
+					}
 				}
 			}else {
 				self.wsready = true;
+				self._send();
 			}
 		};
 		
@@ -153,20 +162,40 @@ Scriptr.prototype.send = function(wsDto) {
 			
 			console.log("Connection to scriptr.io was closed");
 			self.ws = null;
-			if (wsDto && wsDto.onFailure) {
-				wsDto.onFailure({msg:"socket was closed"});
+			for (var i = 0; i < self.messageQueue.length; i++) {					
+				
+				var dto = self.messageQueue[i];
+				if (dto.onFailure) {
+					dto.onFailure({msg:"socket was closed"});
+				}
+				
+				self.messageQueue[i].splice(0,1);
 			}
 		};
 		
 		this.ws.onerror = function(error) {
 	
 			console.log("An error occured " + JSON.stringify(error));
-			if (wsDto && wsDto.onFailure) {
-				wsDto.onFailure(error)
+			var dto = self.messageQueue[0];
+			if (dto && dto.onFailure) {
+				
+				dto.onFailure(error)
+				self.messageQueue[i].splice(0,1);
 			}
 		};
 	}else {
-		this.ws.send(JSON.stringify(wsDto));
+		
+		console.log("Sending directly");
+		this._send();
+	}
+};
+
+Scriptr.prototype._send = function() {
+	
+	for (var i = 0; i < this.messageQueue.length; i++) {					
+		
+		var dto = this.messageQueue[i];
+		this.ws.send(JSON.stringify(dto));
 	}
 };
 
