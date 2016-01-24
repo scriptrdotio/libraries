@@ -169,7 +169,7 @@ Scriptr.prototype.send = function(wsDto) {
 					dto.onFailure({msg:"socket was closed"});
 				}
 				
-				self.messageQueue[i].splice(0,1);
+				self.messageQueue.splice(0,1);
 			}
 		};
 		
@@ -180,7 +180,7 @@ Scriptr.prototype.send = function(wsDto) {
 			if (dto && dto.onFailure) {
 				
 				dto.onFailure(error)
-				self.messageQueue[i].splice(0,1);
+				self.messageQueue.splice(0,1);
 			}
 		};
 	}else {
