@@ -2,16 +2,18 @@
  * @module scriptrio
  */
 
-importScript("./PubSubClient.js");
-
-var URL = "api.scriptr.io";
+var SCRIPTRIO_URL = "api.scriptr.io";
 var SUPPORTED_VERBS = "GET, POST, PUT";
-var pubsubLoaded = false;
+
 
 /**
  * Simple js client to scriptr.io
  * @class Scriptr
  * @constructor
+ * @param {Object} dto {
+ * 	{String} token: scriptr.io authentication token
+ * 	{String} url : the url to the scriptr.io's APIs (optional)
+ * }
  */
 function Scriptr(dto) {
 	
@@ -23,6 +25,7 @@ function Scriptr(dto) {
 		};
 	}
 	
+	this.url = dto.url ? dto.url : SCRIPTRIO_URL;	
 	this.token = dto.token;
 	
 	// a web socket connection to scriptr.io. Created upon first call to send
@@ -30,7 +33,7 @@ function Scriptr(dto) {
 	this.wsready = false;
 	
 	// a publish/subscribe client using WebSockets on scriptr.io
-	this.pubsub = null;
+	this.pubsub = dto.pubsub ? dto.pubsub :  null;
 	
 	this.messageQueue = [];
 }
@@ -130,7 +133,7 @@ Scriptr.prototype.send = function(wsDto) {
 	
 		// lazy initialization of websocket connection
 		if (!this.ws) {
-			this.ws = new WebSocket("wss://" + URL + "/" +  this.token);
+			this.ws = new WebSocket("wss://" + this.url + "/" +  this.token);
 		}
 		
 		this.ws.onopen = function() {
@@ -207,17 +210,11 @@ Scriptr.prototype._send = function() {
  */
 Scriptr.prototype.publish = function(channel, message) {
 	
-	if (!this.pubsub) {
-	
-		var self = this;
-		var goAhead = function() {
-			self.pubsub.publish(channel, message);
-		}
-		
-		this._getPubSubClient(this.token, goAhead);
-	}else {
-		this.pubsub.publish(channel, message);
+	if (!this.pubsub) {		
+		this.pubsub = new PubSubClient(this.token, this.url);
 	}
+	
+	this.pubsub.publish(channel, message);
 };
 
 /**
@@ -296,7 +293,7 @@ Scriptr.prototype._get = function(method, dto) {
 	
 	var paramStr = queryString.stringify(dto.params);	
 	var xmlhttp = new XMLHttpRequest();
-	var url = "https://" + URL + "/" +  dto.api + "?auth_token=" + this.token;
+	var url = "https://" + this.url + "/" +  dto.api + "?auth_token=" + this.token;
 	if (paramStr) {
 		url += "&" + paramStr;
 	} 
@@ -318,7 +315,7 @@ Scriptr.prototype._post = function(method, dto) {
 	
 	var postData = null;
 	var xmlhttp = new XMLHttpRequest();
-	var url = "https://" + URL + "/" +  dto.api + "?auth_token=" + this.token;
+	var url = "https://" + this.url + "/" +  dto.api + "?auth_token=" + this.token;
 	var self = this;	
 	xmlhttp.onload = function(responseObj) {self._onHttpSuccess(responseObj, dto)};
 	xmlhttp.onerror = function(responseObj) {self._onHttpFailure(responseObj, dto)};
@@ -454,28 +451,6 @@ Scriptr.prototype._handleResponse = function(data, onSuccess, onFailure) {
 };
 
 /*
- * This factory method waits for the PubSubClient.js script to be loaded
- * then creates an instance of PubSubClient that it allocates to the pubsub 
- * property of the Scriptr instance. It the invokes the goAhead callback 
- * that it received as a parameter
- */
-Scriptr.prototype._getPubSubClient = function(token, goAhead) {
-	
-	var self = this;
-	var interval = setInterval(
-		
-		function(){ 
-				
-			if (pubsubLoaded) {
-				
-				self.pubsub = new PubSubClient(self.token);
-				goAhead();
-				clearInterval(interval);
-			} 
-		}, 50);
-};
-
-/*
  * A simple utility object to produce a query string from a map, "a la node.js"
  */
 var queryString = {
@@ -495,17 +470,3 @@ var queryString = {
 		return queryString;
 	}
 };
-
-/*
- * Simple tuility function to dynamically load a JavaScript library
- * Once the script is loaded, it set the global pubsubLoaded variable to true
- */
-function importScript(scriptSource) {
-	
-	var head = document.getElementsByTagName("head")[0];         
-	var importedScript = document.createElement("script");
-	importedScript.type = "text/javascript";
-	importedScript.src = scriptSource;
-	importedScript.onload = function() {pubsubLoaded = true;}
-	head.appendChild(importedScript);
-}
