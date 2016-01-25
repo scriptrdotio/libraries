@@ -153,7 +153,7 @@ Scriptr.prototype.send = function(wsDto) {
 	
 	this.messageQueue.push(wsDto);
 	var self = this;
-	if (!this.ws || this.ws.readyState !== WebSocket.OPEN || this.wsready) {
+	if (!this.ws || this.ws.readyState !== WebSocket.OPEN || !this.wsready) {
 	
 		// lazy initialization of websocket connection
 		if (!this.ws) {
