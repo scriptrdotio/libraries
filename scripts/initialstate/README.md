@@ -12,7 +12,7 @@ The purpose of this connector is to simplify and streamline the way you access I
 
 ### Deployment
 - Deploy the aforementioned scripts in your scriptr account, in a folder named "initialstate",
-- Make sure to replace the value of the "accessKey" variable in "initialstate/config" with the value of your actual accessKey,
+- Make sure to replace the value of the "accessKey" variable in "initialstate/config" with the value of your actual accessKey (note that you can also pass the accessKey to the InitialState constructor),
 - Create a test script in scriptr, or use the script provided in initialstate/test,
 
 ### Use the connector
@@ -20,7 +20,7 @@ The purpose of this connector is to simplify and streamline the way you access I
 Require the initialstateclient from a script, then create an instance of the InitialState class
 ```
 var initialStateModule = require('initialstate/initialstateclient');
-var initialState = new initialStateModule.InitialState();
+var initialState = new initialStateModule.InitialState(); // In this case the connector uses the accessKey defined in initialstate/config
 ```
 
 Create an event bucket
