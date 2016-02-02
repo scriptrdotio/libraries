@@ -1,6 +1,6 @@
 # Initial State connector
 ## About Initial State
-[Initial State](https://www.initialstate.com) is a data analytics service for the Internet of Things. They provide valuable SDKs and REST APIs to allow store events on their premises, run analytics and queries on your data and display them through charts.  
+[Initial State](https://www.initialstate.com) is a data analytics service for the Internet of Things. They provide valuable SDKs and REST APIs to store events on their premises, run analytics and queries on your data and display them through charts.  
 ## Purpose of the scriptr.io connector for Initial State
 The purpose of this connector is to simplify and streamline the way you access Initial State's APIs from scriptr.io, by providing you with a few native objects that you can directly integrate into your own scripts to leverage Initial State' service. 
 ## Components
