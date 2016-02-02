@@ -17,10 +17,11 @@ The purpose of this connector is to simplify and streamline the way you access I
 
 ### Use the connector
 
-Require the initialstateclient from a script, then create an instance of the InitialState class
+Require the initialstateclient from a script, then create an instance of the InitialState class.
+Note that you can pass an access key to the constructor or just rely on the one defined in the config file.
 ```
 var initialStateModule = require('initialstate/initialstateclient');
-var initialState = new initialStateModule.InitialState(); // In this case the connector uses the accessKey defined in initialstate/config
+var initialState = new initialStateModule.InitialState(); // Use the accessKey defined in initialstate/config
 ```
 
 Create an event bucket
@@ -38,7 +39,11 @@ Send events to a given bucket
 ```
 try {
 
-	var events = [{'key': 'temperature', 'value': '22.0'}, {'key': 'door', 'value': 'locked'}];	
+    var events = [
+    	{'key': 'temperature', 'value': '22.0', 'iso8601': (new Date()).toISOString()}, 
+    	{'key': 'door', 'value': 'locked', 'iso8601': (new Date()).toISOString()}
+    ]; 	
+    
   	initialState.sendEvents({'bucketKey': 'home', 'events': events})
 } catch (exception) {
   return exception;
