@@ -1,6 +1,8 @@
 # libraries
 Useful scriptr; libraries (scripts) that can be used in your scriptr; apps
 
+You can send feedback and questions to support@scriptr.io
+
 # License
 
 Copyright (c) 2015 scriptr.io
