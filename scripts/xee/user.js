@@ -1,7 +1,7 @@
 var clientModule = require("xee/client");
 var vehicleModule = require("xee/vehicle");
 var notifications = require("xee/notifications/notificationsManager");
-var config = require("oauth2/config");
+var config = require("xee/oauth2/config");
 
 /**
  * This class represents a Xee user. Use instances of it to obtain data a bout a given Xee user
@@ -14,9 +14,7 @@ var config = require("oauth2/config");
  * }
  */
 function User(userDto) {
-  
   if (!userDto || !userDto.username) {
-  
     throw {
       errorCode: "Invalid_Parameter",
       errorDetail: "User - userDto and userDto.username cannot be null"

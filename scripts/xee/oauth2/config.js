@@ -14,20 +14,20 @@ var authorizationUrl = "https://cloud.xee.com/v1/auth/auth";
 var accessTokenUrl = "https://cloud.xee.com/v1/auth/access_token.json"; 
 
 // OAuth 2.0 Client ID
-var client_id = "YOUR_XEE_CLIENT_ID"; 
+var client_id = "YOUR_APP_ID"; 
 
 // OAuth 2.0 grant type, can be left empty
 var grantType = "authorization_code"; 
 
 // Client (consumer) secret
-var client_secret = "YOUR_XEE_CLIENT_SECRET"; 
+var client_secret = "YOUR_APP_SECRET"; 
 
 // Possible values for "scope", i.e. authorizations requested from users. Can be empty
 var scope = "user_get email_get car_get data_get location_get address_all accelerometer_get";
 
-// Where Fitbit should send the user after the user grants or denies consent. 
+// Where Xee should send the user after the user grants or denies consent. 
 // Optional if you have only specified one callback URI for your application in the settings on
-var redirect_uri = "https://api.scriptr.io/oauth2/getAccessToken?auth_token=YOUR_SCRIPTR_AUTH_TOKEN";
+var redirect_uri = "https://api.scriptr.io/xee/oauth2/getAccessToken?auth_token=YOUR_SCRIPTR_AUTH_TOKEN";
 
 // Some OAuth API do not redirect the parameters you send to the authorization URL so you have
 // to add them to the redirectUrl. Notably we need to send the "state" in order to match the

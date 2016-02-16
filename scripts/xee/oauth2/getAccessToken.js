@@ -1,5 +1,5 @@
-var tokenManager = require("oauth2/TokenManager");
-var config = require("oauth2/config");
+var tokenManager = require("xee/oauth2/TokenManager");
+var config = require("xee/oauth2/config");
 
 try {
   

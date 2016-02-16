@@ -10,17 +10,25 @@
  * the one of the user's account
  */
 
-var config = require("oauth2/config");
+var config = require("xee/oauth2/config");
 
 try {
+  
   var username = request.parameters.username;
   if (!username) {
-
+  
     return {
-
       "status": "failure",
       "errorCode": "Missing_Parameter",
       "errorDetail": "You need to send the mandatory 'username' parameter with a value"
+    };
+  }
+  
+  if (username.indexOf(".") > -1) {
+    return {
+      "status": "failure",
+      "errorCode": "Invalid_Parameter",
+      "errorDetail": "username cannot contain special characters such as ', ., \"" 
     };
   }
 
@@ -37,8 +45,7 @@ try {
   // associate the state to the provided username in order to further map the access token to that user
   storage.global[config.app + "_state_" + state] = username;
   return urlConfig.url + "?" + queryStr;  	
-}catch(exception) {
-  
+} catch(exception) {
   return {
     "status": "failure",
     "errorCode": exception.errorCode ? exception.errorCode : "Internal_Error",

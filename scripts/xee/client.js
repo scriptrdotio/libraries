@@ -1,6 +1,6 @@
-var config = require("oauth2/config");
+var config = require("xee/oauth2/config");
 var http = require("http");
-var tokenMgr = require("oauth2/TokenManager");
+var tokenMgr = require("xee/oauth2/TokenManager");
 
 /**
  * A generic http client that handles the communication with remote APIs
@@ -11,10 +11,8 @@ var tokenMgr = require("oauth2/TokenManager");
  * 	All subsequent operations made using the current instance will target this user
  */
 function Client(dto) {
-  
   this.clientId = "";
   if (!dto) {
-   
     throw {
       "errorCode": "Invalid_Parameter",
       "errorDetail": "Client - dto cannot be null or empty"
@@ -22,7 +20,6 @@ function Client(dto) {
   }
   
   if (!dto.username) {
-   
     throw {
       "errorCode": "Invalid_Parameter",
       "errorDetail": "Client - dto.username cannot be null or empty. You should specify the name of the user"
@@ -46,17 +43,14 @@ function Client(dto) {
  *	{Object} params.params: (optional) the parameters that are expected by the API
  */
 Client.prototype.callApi = function(params) {
-  
   try {   
      return this._callApi(params);
-  }catch(response) {
-    
+  } catch(response) {
     if (response.status == "401" && response.body.indexOf("expired") > -1) {
-    
       this._refreshToken();
       try {
         return this._callApi(params);
-      }catch(response) {
+      } catch(response) {
         this._handleError(response);
       }
     }else {
@@ -66,18 +60,14 @@ Client.prototype.callApi = function(params) {
 };
 
 Client.prototype._callApi = function(params) {
-  
   if (params.params) {
     params.params = this._paramsToString(params.params);
   }
-  
   params.url = params.url + "?access_token=" +  this.accessToken;  
-  
   console.log(JSON.stringify(params));
   var response = http.request(params);
   //console.log("Received following response  : " + JSON.stringify(response));
   if (response.status >= "200" && response.status < "300") {
-    
     var responseBody = JSON.parse(response.body);
     if (responseBody.message) {
       throw response;

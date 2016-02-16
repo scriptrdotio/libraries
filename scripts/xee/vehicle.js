@@ -1,7 +1,7 @@
 var clientModule = require("xee/client");
 var util = require("xee/util");
 var notifications = require("xee/notifications/notificationsManager");
-var config = require("oauth2/config");
+var config = require("xee/oauth2/config");
 
 /**
  * Use instance of this class to obtain data about a given vehicle

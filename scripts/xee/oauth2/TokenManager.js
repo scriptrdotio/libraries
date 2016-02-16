@@ -7,8 +7,8 @@
  * @module TokenManager
  */
 
-var config = require("oauth2/config");
-var util = require("oauth2/util");
+var config = require("xee/oauth2/config");
+var util = require("xee/oauth2/util");
 var http = require("http");
 
 /** 
