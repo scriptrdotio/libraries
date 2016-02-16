@@ -67,7 +67,7 @@ var vehicles = user.listVehicles(); // lists the vehicles added by this user to 
 ```
 In order to manipulate the end user's vehicles, you first need to obtain a reference to an instance of the Vehicle class. You can do this by invoking the ```getVehicle(id)``` method of your ```User``` instance, as follows:
 ```
-var vehicle = user.getVehicle({id:"some_id"}); // you can easily obtained the vehicles' ids using user.listVehicles()
+var vehicle = user.getVehicle({id:"some_id"}); // you can easily obtain the vehicles' ids using user.listVehicles()
 ```
 You can also obtain an instance of vehicle by passing its plate number of the name that was given by the user to it
 ```
