@@ -1,6 +1,6 @@
 # vinli connector
 ## About vinli
-[vinli](http://www.vin.li) Turns cars into connected vehicles. The vinli device exposes a multitude of features through REST APIs, opening great opportunities to buils vertical application.
+[vinli](http://www.vin.li) Turns cars into connected vehicles. The vinli device exposes a multitude of features through REST APIs, opening great opportunities to build vertical applications.
 
 ## Purpose of the scriptr.io connector for Vinli
 This connector simplifies and streamlines the way you access Vinli's APIs from scriptr.io, by providing you with a few native objects that you can seamlessly integrate into your own scripts.
