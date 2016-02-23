@@ -14,6 +14,8 @@ function PubSubClient(token) {
 	this.subscriptions = {}; // list of channels subscriptions
 	this.publishWS = null; // this Web Socket connection is used for publishing only
 	this.ready = false; // status of publish Web Socket connection
+	this.connected = false;
+	this.publishMessageQueue = [];
 }
 
 /**
@@ -29,32 +31,36 @@ PubSubClient.prototype.publish = function(channel, message) {
 		message = JSON.stringify(message);
 	}
 	
+	this.publishMessageQueue.push({
+		channel: channel,
+		message: message
+	});
+		
 	// Lazy initialization of the publish web socket connection
-	if (!this.publishWS || this.publishWS.readyState == 3) {
+	if (!this.publishWS || this.publishWS.readyState !== WebSocket.OPEN || !this.ready) {
 	
-		this.publishWS = new WebSocket(this.url);
+		if (!this.publishWS) {
+			this.publishWS = new WebSocket(this.url);
+		}	
+		
 		this.publishWS.onopen = function() {
-			console.log("WS connection established for publishing");
-		};
-		
-		this.publishWS.onmessage = function(incoming) {
-		
-			if (incoming && incoming.data) {
-				
-				var dataJson = JSON.parse(incoming.data);
-				if (dataJson.errorCode) {
-					
-					console.log("An error occured" + incoming.data);
-					return;
-				}
-			}
 			
+			console.log("WS connection established for publishing");  
+			self.connected = true;
+		}
+	
+		this.publishWS.onmessage = function(incoming) {
+			
+			console.log("Incoming " + incoming.data);
 			if (!self.ready) {
 				
 				self.ready = true;
-				if (message) {
-					self.publishWS.send(JSON.stringify({"method": "Publish", "params":{"channel":channel, "message":message}}));
-				}
+				self._publish();									
+			}else {
+				
+				if (self.publishMessageQueue.length > 0) {
+					self.publishMessageQueue.splice(0,1);
+				}	
 			}
 		};
 		
@@ -70,7 +76,17 @@ PubSubClient.prototype.publish = function(channel, message) {
 			self.ready = false;
 		};
 	}else {
-		this.publishWS.send(JSON.stringify({"method": "Publish", "params":{"channel":channel, "message":message}}));
+		this._publish();
+	}
+};
+
+PubSubClient.prototype._publish = function() {
+	
+	for (var i = 0; i < this.publishMessageQueue.length; i++) {
+		
+		var msgObj = this.publishMessageQueue[i];
+		console.log("Sending " + JSON.stringify(msgObj));
+		this.publishWS.send(JSON.stringify({"method": "Publish", "params":{"channel":msgObj.channel, "message":msgObj.message}}));
 	}
 };
 
