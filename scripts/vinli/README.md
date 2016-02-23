@@ -32,7 +32,7 @@ uri variable
 
 #### Step 1
 From a front-end application, send a request to the ```/oauth2/getRequestCodeUrl``` script, passing the ```username``` parameter. 
-The username can be the actual end user's vinli username or another username he decides to use in your IoT application. 
+The username can be the actual end user's vinli username or another username he decides to use in your IoT application (for this version the username can only have an alpha-numeric value). 
 The result returned by the aforementioned script should resemble the following:
 
 ```
