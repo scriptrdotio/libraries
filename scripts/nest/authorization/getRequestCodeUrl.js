@@ -6,6 +6,12 @@
  */
 
 var config = require("nest/config");
+var util = require("nest/util");
 
 var urlConfig = config.getNestAuthUrl();
-return urlConfig.url + "&state=" +  urlConfig.state;   				   				   				
+var username = request.parameters.username;
+var state = urlConfig.state;
+if (username) {
+  storage.global[state] = username;
+}
+return urlConfig.url + "&state=" + state;
