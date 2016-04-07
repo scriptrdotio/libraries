@@ -31,14 +31,19 @@ var responseBodyStr = response.body;
 if (response.status == "200") {
   
   if (response.headers["Content-Type"].indexOf("application/json") > -1) {
-    return JSON.parse(responseBodyStr);
+    
+    var response = JSON.parse(responseBodyStr);
+    if (request.parameters.state) {
+      
+      var username = storage.global[request.parameters.state];
+      storage.global["nest_" + username + "_accessToken"] = response.access_token;
+      delete storage.global[request.parameters.state];
+    }
+    
+    return response;
   }
   
   return responseBodyStr;
 }else {
   return "Remote API returned an error " + response.status;
 }
-
-
-
-   				   				   				
