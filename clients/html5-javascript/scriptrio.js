@@ -367,7 +367,7 @@ Scriptr.prototype._onHttpSuccess = function(responseObj, dto) {
 		}		
 	}catch(exception) {
 		
-		exception = (typeof exception == "object" && exception.constructor.name == "Error") ? exception.message : JSON.stringify(exception);
+		exception = (typeof exception == "object" && exception.constructor.name.indexOf("Error") > -1) ? exception.message : JSON.stringify(exception);
 		var error = {
 			
 			errorCode: "Parsing_Error",
