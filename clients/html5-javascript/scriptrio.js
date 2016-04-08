@@ -370,7 +370,7 @@ Scriptr.prototype._onHttpSuccess = function(responseObj, dto) {
 		var error = {
 			
 			errorCode: "Parsing_Error",
-			errorDetail: "Error occured while parsing script.io's response: " +  JSON.stringify(exception)
+			errorDetail: "Error occured while parsing script.io's response: " +  exception
 		};
 		
 		dto.onFailure(error);
