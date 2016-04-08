@@ -231,16 +231,10 @@ Scriptr.prototype.publish = function(channel, message) {
 Scriptr.prototype.subscribe = function(channel, callback) {
 	
 	if (!this.pubsub) {
-				
-		var self = this;
-		var goAhead = function() {
-			self.pubsub.subscribe(channel, callback);
-		}
-		
-		this._getPubSubClient(this.token, goAhead);
-	}else {
-		this.pubsub.subscribe(channel, callback);
+		this.pubsub = new PubSubClient(this.token, this.url);		
 	}
+	
+	this.pubsub.subscribe(channel, callback);
 };
 
 /**
@@ -253,17 +247,11 @@ Scriptr.prototype.subscribe = function(channel, callback) {
  */
 Scriptr.prototype.unsubscribe = function(channel, callback) {
 	
-	if (this.pubsub) {
-		this.pubsub.unsubscribe(channel, callback);
-	}else {
-		
-		var self = this;
-		var goAhead = function() {
-			self.pubsub.unsubscribe(channel, callback);
-		}
-		
-		this._getPubSubClient(this.token, goAhead);
+	if (!this.pubsub) {
+		this.pubsub = new PubSubClient(this.token, this.url);		
 	}
+	
+	this.pubsub.unsubscribe(channel, callback);
 };
 
 /**
@@ -272,17 +260,11 @@ Scriptr.prototype.unsubscribe = function(channel, callback) {
  */
 Scriptr.prototype.unsubscribeAll = function() {
 	
-	if (this.pubsub) {
-		this.pubsub.unsubscribeAll();
-	}else {
-		
-		var self = this;
-		var goAhead = function() {
-			self.pubsub.unsubscribeAll(channel, callback);
-		}
-		
-		this._getPubSubClient(this.token, goAhead);
+	if (!this.pubsub) {
+		this.pubsub = new PubSubClient(this.token, this.url);		
 	}
+	
+	this.pubsub.unsubscribeAll();
 };
 
 /*
