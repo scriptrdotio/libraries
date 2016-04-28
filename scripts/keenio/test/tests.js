@@ -123,7 +123,7 @@ try {
 	};
 
 	// execute a count unique query 
-	var countUnique = return analyses.countUnique(params2);
+	var countUnique =  analyses.countUnique(params2);
 
 	// prepare analysis criteria
 	var params3 = {
