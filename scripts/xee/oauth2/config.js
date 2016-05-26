@@ -1,33 +1,39 @@
-// The name of the app you need to connect to, e.g, 'Xee'
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
+ // The name of the app you need to connect to, e.g, 'Xee'
 var app = "Xee";
 
 // The URL prefix to all the app's APIs
 var apiUrl = "https://cloud.xee.com"; 
 
 // API version to use (can be empty)
-var apiVer = "v1";
+var apiVer = "v3";
 
 // OAuth 2.0: Authorization URI - step1 of OAuth process
-var authorizationUrl = "https://cloud.xee.com/v1/auth/auth"; 
+var authorizationUrl = "https://cloud.xee.com/v3/auth/auth"; 
 
 // OAuth 2.0: Authorization URI - step2 of OAuth process (if response_type is "code" usually)
-var accessTokenUrl = "https://cloud.xee.com/v1/auth/access_token.json"; 
+var accessTokenUrl = "https://cloud.xee.com/v3/auth/access_token"; 
 
 // OAuth 2.0 Client ID
-var client_id = "YOUR_APP_ID"; 
+var client_id = "YOUR_XEE_APP_CLIENT_ID"; 
 
 // OAuth 2.0 grant type, can be left empty
 var grantType = "authorization_code"; 
 
 // Client (consumer) secret
-var client_secret = "YOUR_APP_SECRET"; 
+var client_secret = "YOUR_XEE_APP_CLIENT_SECRET"; 
 
 // Possible values for "scope", i.e. authorizations requested from users. Can be empty
-var scope = "user_get email_get car_get data_get location_get address_all accelerometer_get";
+var scope = "user_get email_get car_get data_get location_get address_all accelerometer_get users_read cars_read " + 
+ 				"trips_read signals_read locations_read status_read";
 
 // Where Xee should send the user after the user grants or denies consent. 
 // Optional if you have only specified one callback URI for your application in the settings on
-var redirect_uri = "https://api.scriptr.io/xee/oauth2/getAccessToken?auth_token=YOUR_SCRIPTR_AUTH_TOKEN";
+var redirect_uri = "https://api.scriptrapps.io/xee/oauth2/getAccessToken?auth_token=YOUR_SCRIPTR_AUTH_TOKEN";
 
 // Some OAuth API do not redirect the parameters you send to the authorization URL so you have
 // to add them to the redirectUrl. Notably we need to send the "state" in order to match the
@@ -62,4 +68,4 @@ function getAuthUrl() {
     "url": authorizationUrl,
     "state": state
   }
-}
+}			

@@ -1,4 +1,9 @@
-/*************************************************************************************************
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
+ /*************************************************************************************************
 *
 *  Base64 encode
 *  http://www.webtoolkit.info/
@@ -69,4 +74,4 @@ _utf8_encode : function (string) {
 
    return utftext;
 }
-}
+}   				   							

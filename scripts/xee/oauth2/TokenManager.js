@@ -1,4 +1,9 @@
-/**
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
+ /**
  * This module is in charge of obtaining an OAuth 2.0 access token, either from 
  * a provided code or from a provided refresh token, for a given user.
  * The module stores the access and refresh token in the global storage
@@ -39,6 +44,7 @@ function getPersistedTokens(username, tokenType) {
 function saveTokens(dto) {
  
   // retrieve the username who owns this token using the persisted state-username mapping
+  console.log("State : " + config.app + "_state_" + dto.state);
   var username = dto.username ? dto.username : storage.global[config.app + "_state_" + dto.state];
   if (!username) {
 
@@ -59,6 +65,7 @@ function saveTokens(dto) {
   }
   
   console.log("token " +  storage.global[config.app + "_" + username + "_accessToken"]);
+  console.log("For user " +  username);
   return {
     
     "access_Token": dto.accessToken,
@@ -144,10 +151,10 @@ function _getToken(params, username) {
     "params": params,
     "headers": {
       "Authorization": "Basic " +  util.Base64.encode(config.client_id + ":" + config.client_secret),
-      //"Content-Type": "application/x-www-form-urlencoded"
+      "Content-Type": "application/x-www-form-urlencoded"
     }
   };
-console.log("request " +  JSON.stringify(requestObject));
+  console.log("request " +  JSON.stringify(requestObject));
   var response = http.request(requestObject);
   console.log("Received response " +  JSON.stringify(response));
   var responseBodyStr = response.body;
@@ -202,4 +209,4 @@ console.log("request " +  JSON.stringify(requestObject));
       "errorDetail": errorObj
     };
   }
-}
+}			

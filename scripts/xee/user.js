@@ -1,7 +1,13 @@
-var clientModule = require("xee/client");
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
+ var clientModule = require("xee/client");
 var vehicleModule = require("xee/vehicle");
 var notifications = require("xee/notifications/notificationsManager");
 var config = require("xee/oauth2/config");
+var util = require("xee/util");
 
 /**
  * This class represents a Xee user. Use instances of it to obtain data a bout a given Xee user
@@ -21,7 +27,7 @@ function User(userDto) {
     };
   }
   
-  this.username = userDto.username;
+  this.username = util.toStorableUserName(userDto.username);
   this.client = new clientModule.Client({username : this.username});
   this.notificationsMgr = null;
   var userData = this._getUserData(); 
@@ -35,6 +41,7 @@ function User(userDto) {
  *	{Numeric} id: The Xee identifier of the user,
  *	{String} name: user's last name,
  *	{String} firstName: user's first name,
+ *  {String} lastName: user's last name,
  *	{Numeric} gender: 0 for women, 1 for men, can be empty
  *	{String} role: one of "user", "dev" or "admin"
  *	{Date} brithDate: can be empty
@@ -47,6 +54,8 @@ User.prototype.getAccount = function() {
     id: this.id,
   	name: this.name,
   	firstName: this.firstName,
+    lastName: this.lastName,
+    nickName: this.nickName,
   	gender: this.gender ? (this.gender ==  1 ? "M" : "F") : "",
   	role: this.role,
   	brithDate: this.birthDate,
@@ -73,7 +82,7 @@ User.prototype.listVehicles = function() {
   
   var query = {
     
-    url : config.apiUrl + "/" +  config.apiVer + "/user/" + this.id + "/car.json",
+    url : config.apiUrl + "/" +  config.apiVer + "/users/" + this.id + "/cars",
     method : "GET"
   };
   
@@ -174,28 +183,32 @@ User.prototype._getUserData = function() {
   
   var query = {
     
-    url: config.apiUrl + "/" +  config.apiVer + "/user/me.json",
+    url: config.apiUrl + "/" +  config.apiVer + "/users/me",
     method: "GET"
   };
   
   var userData = this.client.callApi(query);
-  this.id = userData.id;
+  /*this.id = userData.id;
   this.name = userData.name;
   this.firstName = userData.firstName;
   this.gender = userData.gender;
   this.role = userData.role;
   this.birthDate = userData.birthDate ? userData.birthDate : "";
   this.licenseDeliveryDate = userData.licenseDeliveryDate ? userData.licenseDeliveryDate : "";
+  */
+  for (var prop in userData) {
+    this[prop] = userData[prop] ? userData[prop] : "";
+  }
 };
 
 User.prototype._saveVehicle = function(params, update) {
   
   var request = {
     
-    url : config.apiUrl + "/" +  config.apiVer + "/user/car.json",
+    url : config.apiUrl + "/" +  config.apiVer + "/users/cars",
     method : "PUT"
   };
   
   var result = this.client.callApi(request);
   return result.vehicle;
-};
+};			

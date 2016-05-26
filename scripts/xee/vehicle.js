@@ -1,4 +1,9 @@
-var clientModule = require("xee/client");
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
+ var clientModule = require("xee/client");
 var util = require("xee/util");
 var notifications = require("xee/notifications/notificationsManager");
 var config = require("xee/oauth2/config");
@@ -120,7 +125,11 @@ Vehicle.prototype.listSubscriptions = function() {
  * Return the list of last known locations of this vehicle, sorted in descending date/time order.
  * This method can throw exceptions
  * @method getLocationRecords
- * @param {String} order: one of ASC or DESC to sort the results (optional, default to DESC)
+ * @param {Object} [dto]
+ * @param {String} [dto.order]: one of ASC or DESC to sort the results (optional, default to DESC)
+ * @param {String} [dto.since] : date in ISO string format, to specify the min time boundary of data to return (optional)
+ * @param {String} [dto.until] : date in ISO string format, to specify the max time boundary of data to return (optional)
+ * @param {Numeric} [dto.maxRecords] : max number of data records to returns (optional)
  * @return {Array} an array of location objects 
  * [{
  *	{String} id: the identified of the current location record at Xee,
@@ -134,28 +143,51 @@ Vehicle.prototype.listSubscriptions = function() {
  * // ... other location objects
  *]
  */
-Vehicle.prototype.getLocationRecords = function(order) {
+Vehicle.prototype.getLocationRecords = function(dto) {
  
+  dto = dto ? dto : {};
   var query = {
     
-    url : config.apiUrl + "/" +  config.apiVer + "/car/" + this.id + "/location.json",
+    url : config.apiUrl + "/" +  config.apiVer + "/cars/" + this.id + "/locations",
     method : "GET"
   };
   
-  if (!order || order.toUpperCase() == "DESC") {
+  if (!dto.order || dto.order.toUpperCase() == "DESC") {
   	return this.client.callApi(query);
   }
   
-  if (order && order.toUpperCase() == "ASC") {
+  if (dto.order && dto.order.toUpperCase() == "ASC") {
     return this.client.callApi(query).reverse();
   } 
+  
+  query.params = {};
+  if (dto.since) {
+    query.params.begin =  dto.since;
+  }
+  
+  if (dto.until) {
+    query.params.end =  dto.until;
+  }
+  
+  if (dto.maxRecords) {
+    query.params.limit = dto.maxRecords;
+  }
 };
 
 /**
- * Return a map of all know measures for the different car components, sorted in descending date order.
+ * Return a map of all know signals for the different car components, sorted in descending date order.
  * This method can throw exceptions
- * @method getInfo
- * @param {String} order
+ * @method getSignals
+ * @param {Object} [dto]
+ * @param {String} [dto.order]
+ * @param {String} [dto.signals] : a list of comma separated signal names (one of:
+ * HighBeamsSts,LowBeamsSts,HeadLightsSts,HazardSts,LeftIndicatorSts,RightIndicatorSts,FrontFogLightSts,
+ * RearFogLightSts,FuelLevel,IgnitionSts,EngineSpeed,VehiculeSpeed,Odometer,BatteryVoltage,IntermittentWiperSts,
+ * LowSpeedWiperSts,ManualWiperSts,HighSpeedWiperSts,AutoRearWiperSts,ManualRearWiperSts,LockSts)
+ * @param {String} [dto.order]: one of ASC or DESC to sort the results (optional, default to DESC)
+ * @param {String} [dto.since] : date in ISO string format, to specify the min time boundary of data to return (optional)
+ * @param {String} [dto.until] : date in ISO string format, to specify the max time boundary of data to return (optional)
+ * @param {Numeric} [dto.maxRecords] : max number of data records to returns (optional)
  * @return {Object} {
  *	{Array} some_component [ // e.g. "Odometer", an array of known values for the current component
  *		{Object} {
@@ -170,16 +202,34 @@ Vehicle.prototype.getLocationRecords = function(order) {
  *		// ... other components
  *}
  */
-Vehicle.prototype.getInfo = function(order) {
+Vehicle.prototype.getSignals = function(dto) {
   
+  dto = dto ? dto : {};
   var query = {
     
-    url : config.apiUrl + "/" +  config.apiVer + "/car/" + this.id + "/event.json",
+    url : config.apiUrl + "/" +  config.apiVer + "/cars/" + this.id + "/signals",
     method : "GET"
   };
   
+  query.params = {};
+  if (dto.signals) {
+  	query.params.name = dto.signals;  
+  }
+  
+  if (dto.since) {
+    query.params.begin =  dto.since;
+  }
+  
+  if (dto.until) {
+    query.params.end =  dto.until;
+  }
+  
+  if (dto.maxRecords) {
+    query.params.limit = dto.maxRecords;
+  }
+  
   var result = this.client.callApi(query);
-  if (order && order.toUpperCase() == "ASC") {
+  if (dto.order && dto.order.toUpperCase() == "ASC") {
     result.reverse();
   }
   
@@ -266,7 +316,7 @@ Vehicle.prototype.getCurrentStatus = function() {
   
   var query = {
     
-    url : config.apiUrl + "/" +  config.apiVer + "/car/" + this.id + "/carstatus.json",
+    url : config.apiUrl + "/" +  config.apiVer + "/cars/" + this.id + "/status",
     method : "GET"
   };
   
@@ -663,4 +713,4 @@ Vehicle.prototype._getNotificationManager = function() {
   }
   
   return this.notificationMgr;
-};
+};			

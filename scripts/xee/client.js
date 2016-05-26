@@ -1,4 +1,9 @@
-var config = require("xee/oauth2/config");
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
+ var config = require("xee/oauth2/config");
 var http = require("http");
 var tokenMgr = require("xee/oauth2/TokenManager");
 
@@ -46,7 +51,9 @@ Client.prototype.callApi = function(params) {
   try {   
      return this._callApi(params);
   } catch(response) {
-    if (response.status == "401" && response.body.indexOf("expired") > -1) {
+    
+    var status = Number(response.status);
+    if (status >= 400 && status < 500 && response.body.indexOf("expired") > -1) {
       this._refreshToken();
       try {
         return this._callApi(params);
@@ -63,10 +70,14 @@ Client.prototype._callApi = function(params) {
   if (params.params) {
     params.params = this._paramsToString(params.params);
   }
-  params.url = params.url + "?access_token=" +  this.accessToken;  
+  params.url = params.url;
+  params.headers = {
+    "Authorization": "Bearer " + this.accessToken
+  };
+  
   console.log(JSON.stringify(params));
   var response = http.request(params);
-  //console.log("Received following response  : " + JSON.stringify(response));
+  console.log("Received following response  : " + JSON.stringify(response));
   if (response.status >= "200" && response.status < "300") {
     var responseBody = JSON.parse(response.body);
     if (responseBody.message) {
@@ -124,4 +135,4 @@ Client.prototype._paramsToString = function(params) {
   }
   
   return newParams;
-};
+};			

@@ -1,4 +1,9 @@
-/**
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
+ /**
  * This is the configuration file of the connector. All configurable elements should be defined here.
  * @modile config
  */
@@ -35,4 +40,4 @@ var channelPrefix = "Xee_";
  * If end users (vehicle owner) did not specify their email in their Xee account
  * use the below as a default email to send monitoring notifications to
  */
-var defaultEmail = "SOME_DEFAULT_EMAIL";
+var defaultEmail = "YOUR_EMAIL";			
