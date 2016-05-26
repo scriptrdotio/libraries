@@ -14,17 +14,15 @@ var config = require("xee/oauth2/config");
  * The constructor can throw exceptions
  * @class Vehicle
  * @constructor Vehicle
- * @param {Object} vehicleDto {
- *	{Object} data {
- *  	{String} brand: the vehicle's brand / make (can be null)
- *   	{Numeric} id: the vehicle's identifier in the Xee system,
- *   	{String} model: the vehicle's model (can be null),
- *   	{String} name: the vehilce's name as given by the user,
- *   	{String} plateNumber: the vehicle's plate,
- *   	{String} year: the vehicle's commissionning year (yyyy)
- *	}
- *	{String} username: the username if the user (owner)
- * }
+ * @param {Object} [vehicleDto] 
+ * @param {Object} [vehicleDto.data] 
+ * @param {String} [vehicleDto.data.brand]: the vehicle's brand / make (can be null)
+ * @param {Numeric} [vehicleDto.data.id]: the vehicle's identifier in the Xee system,
+ * @param {String} [vehicleDto.data.model]: the vehicle's model (can be null),
+ * @param {String} [vehicleDto.data.name]: the vehilce's name as given by the user,
+ * @param {String} [vehicleDto.data.plateNumber]: the vehicle's plate,
+ * @param {String} [vehicleDto.data.year]: the vehicle's commissionning year (yyyy)
+ * @param {String} [vehicleDto.username]: the username if the user (owner)
  */
 function Vehicle(vehicleDto) {
   
@@ -57,10 +55,10 @@ function Vehicle(vehicleDto) {
  * the subscription.
  * This method can throw exceptions.
  * @method subscribeToNotification
- * @param {Object} dto {
- * 	{String} event: the component to monitor (e.g. EngineSpeed, FuelLevel),
- *	{String} rule: a comparison operator (<, <=, >, >=, ==, !=),
- *	{String} value: a threshold or reference value (e.g. 500)
+ * @param {Object} [dto]
+ * @param {String} [dto.event]: the component to monitor (e.g. EngineSpeed, FuelLevel),
+ * @param {String} [dto.rule]: a comparison operator (<, <=, >, >=, ==, !=),
+ * @param {String} [dto.value]: a threshold or reference value (e.g. 500)
  * }
  */
 Vehicle.prototype.subscribeToNotification = function(dto) {

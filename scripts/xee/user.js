@@ -15,9 +15,8 @@ var util = require("xee/util");
  * The constructor can throw exceptions
  * @class User
  * @constructor User
- * @param {Object} userDto {
- *	{String} username: the username of the current user (the one used to obtain the OAuth auth token !)
- * }
+ * @param {Object} [userDto]
+ * @param {String} [userDto.username]: the username of the current user (the one used to obtain the OAuth auth token !)
  */
 function User(userDto) {
   if (!userDto || !userDto.username) {
@@ -91,13 +90,12 @@ User.prototype.listVehicles = function() {
 
 /**
  * Return an instance of Vehicle for a specific vehicle owned by the current user
- * The vehicle can be obtained by id, plate number of name
+ * The vehicle can be obtained by id, plate number or name
  * @method getVehicle
- * @param {Object} dto {
- *	{Numeric} id: the Xee identifier of the vehicle // optional if plateNumber or name is provided
- *	{String} plateNumber: the vehicle's plate number // optional if id or name is provided
- *	{String} name: the vehicle's name as given by the end user // // optional if plateNumber or id is provided
- * }
+ * @param {Object} [dto]
+ * @param {Numeric} [dto.id]: the Xee identifier of the vehicle // optional if plateNumber or name is provided
+ * @param {String} [dto.plateNumber]: the vehicle's plate number // optional if id or name is provided
+ * @param {String} [dto.name]: the vehicle's name as given by the end user // // optional if plateNumber or id is provided
  * @return {Object} instance Vehicle (@see xee/vehicle)
  */
 User.prototype.getVehicle = function(dto) {
@@ -188,14 +186,6 @@ User.prototype._getUserData = function() {
   };
   
   var userData = this.client.callApi(query);
-  /*this.id = userData.id;
-  this.name = userData.name;
-  this.firstName = userData.firstName;
-  this.gender = userData.gender;
-  this.role = userData.role;
-  this.birthDate = userData.birthDate ? userData.birthDate : "";
-  this.licenseDeliveryDate = userData.licenseDeliveryDate ? userData.licenseDeliveryDate : "";
-  */
   for (var prop in userData) {
     this[prop] = userData[prop] ? userData[prop] : "";
   }
