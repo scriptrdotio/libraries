@@ -41,4 +41,27 @@ Firebase.prototype.getData = function(tree) {
   }
   
   return response;
+};
+
+/**
+ * @method putData
+ * @param {String} [key] : name of the location to save the data.
+ * @param {Object,String} [data] : Object or string to save at key
+ */
+Firebase.prototype.putData = function(key, data) {
+  var req = {};
+
+  req.url = this.projectName + key + ".json";
+  req.method = "PUT";
+  req.bodyString = JSON.stringify(data);
+  
+  var response  = this.httpClient.callApi(req);
+  if (response.timeout) {
+    throw {
+      errorCode: "Invocation_Error",
+      errorDetail: "timeout"
+    }
+  }
+  
+  return response;
 };			
