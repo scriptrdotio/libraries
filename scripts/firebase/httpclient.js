@@ -1,4 +1,9 @@
-var http = require("http");
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
+ var http = require("http");
 var config = require("firebase/config");
 
 /**
@@ -29,24 +34,14 @@ HttpClient.prototype.callApi = function(params) {
   
   try {   
      return this._callApi(params);
-  }catch(response) {
+  } catch(response) {
      this._handleError(response);    
   }
 };
 
 HttpClient.prototype._callApi = function(params) {
   
-  if (params.params && (!params.method || params.method == "GET")) {
-    params.params = this._paramsToString(params.params);
-  }
-  
-  if (params.params && params.method == "POST") {
-    
-    params.bodyString = JSON.stringify(params.params);
-    delete params.params;
-  }
-  
-  params.url = config.apiUrl + params.endpoint;
+  params.headers = { "Content-Type": "application/json" };
   
   console.log(JSON.stringify(params));
   var response = http.request(params);
@@ -107,4 +102,4 @@ HttpClient.prototype._paramsToString = function(params) {
   }
   
   return newParams;
-};
+};			
