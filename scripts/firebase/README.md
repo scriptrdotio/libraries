@@ -23,11 +23,18 @@ var firebaseModule = require('firebase/firebaseclient');
 var firebase = new firebaseModule.Firebase();
 ```
 
+Create some data
+```
+var data = {
+  "alanisawesome": {
+    "name": "Alan Turing",
+    "birthday": "June 23, 1912"
+  }
+}
+firebase.putData("users", data);
+```
+
 Get some data
 ```
-try {
-	var data = firebase.getData();
-} catch (exception) {
-  return exception;
-}
+firebase.getData("users");
 ```
