@@ -1,4 +1,9 @@
-var config = require("firebase/config");
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
+ var config = require("firebase/config");
 var httpClient = require("firebase/httpclient");
 
 /**
@@ -25,7 +30,6 @@ Firebase.prototype.getData = function(tree) {
   var req = {};
 
   req.url = this.projectName + tree + ".json";
-  req.headers = { "Content-Type": "application/json" };
   req.method = "GET";
   
   var response  = this.httpClient.callApi(req);
@@ -36,5 +40,5 @@ Firebase.prototype.getData = function(tree) {
     }
   }
   
-  return "success";
-};
+  return response;
+};			
