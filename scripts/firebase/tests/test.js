@@ -14,4 +14,18 @@ try {
   test1 = exception;
 }
 
-return { "test getData": test1 };			
+var test2;
+try {
+  var data = {
+    "alanisawesome": {
+      "name": "Alan Turing",
+      "birthday": "June 23, 1912"
+    }
+  }
+  firebase.putData("users", data);
+  test2 = "success";
+} catch (exception) {
+  test2 = exception;
+}
+
+return { "test getData": test1, "test putData": test2 };			
