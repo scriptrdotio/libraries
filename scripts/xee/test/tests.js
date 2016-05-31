@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 /**
  * This is a very simple script that demonstrates all the features offered by the Xee connector
  * You will have to uncomment the feature you need to exercise

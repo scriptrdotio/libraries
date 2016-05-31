@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 var cryptomd5 = require("withings/lib/md5_min");
 var encodingLib = require("withings/lib/enc_base64_min");
 var cryptohmacsha1 = require("withings/lib/hmac_sha1_min");

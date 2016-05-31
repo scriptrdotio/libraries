@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 /**
  * Base class of all myfox device wrappers defined in the current connector
  * New wrapper classes shoud extend this class

@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 /**
  * API to invoke from a client application. Expects a voice command
  * that it converts into an API call

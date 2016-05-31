@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 var fitbitModule = require("fitbit/fitbitClient");
 var config = require("fitbit/config");
 

@@ -4,7 +4,7 @@ write=nobody
 execute=authenticated 
   **/ 
  var config = require("firebase/config");
-var httpClient = require("firebase/httpclient");
+var httpClient = require("./httpclient");
 
 /**
  * This is the main class to use to interact with Firebase

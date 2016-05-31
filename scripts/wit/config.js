@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 /**
  * this module contains the necessary configuration to enable
  * proper communication with wit.ai and other parameters required

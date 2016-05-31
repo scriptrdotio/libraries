@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 /**
  * This script is triggered every x minutes (depending on config.autoUpdateFrequency)
  * It receives the subscription handle, which is used to retrieve subscription data from the NotificationManager

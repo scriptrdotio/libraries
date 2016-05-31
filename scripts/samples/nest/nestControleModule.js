@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 // Require scriptr.io's Nest connector (note that that you first need 
 // to check it out from Github into your workspace)
 var clientModule = require("nest/nestClient");

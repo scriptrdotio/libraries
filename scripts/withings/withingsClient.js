@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 var config = require("withings/config");
 var mappings = require("withings/mappings");
 var client = require("withings/withingsClient");

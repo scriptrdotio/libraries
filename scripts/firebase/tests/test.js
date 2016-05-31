@@ -3,7 +3,7 @@
 write=nobody
 execute=authenticated 
   **/ 
- var firebaseModule = require('firebase/firebaseclient');
+ var firebaseModule = require('../firebaseclient');
 var firebase = new firebaseModule.Firebase();
 
 var test1;

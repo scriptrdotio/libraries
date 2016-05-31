@@ -3,6 +3,7 @@
 write=nobody
 execute=authenticated 
   **/ 
+ 
  function getNextAndPrevious(total, currentOffset, limit) {
   
   var paginationData = {};

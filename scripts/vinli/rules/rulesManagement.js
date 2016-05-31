@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 var config = require("vinli/oauth2/config");
 var util = require("vinli/util");
 var ruleModule = require("vinli/rules/rule");

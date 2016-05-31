@@ -3,6 +3,7 @@
 write=nobody
 execute=authenticated 
   **/ 
+ 
  /**
  * This module is in charge of obtaining an OAuth 2.0 access token, either from 
  * a provided code or from a provided refresh token, for a given user.

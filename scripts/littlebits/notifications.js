@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 var clientModule = require("littlebits/cloudbitsClient");
 var config = require("littlebits/config");
 var mappings = require("littlebits/mappings");

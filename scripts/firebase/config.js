@@ -4,4 +4,4 @@ write=nobody
 execute=authenticated 
   **/ 
  // your Firebase project name
-var projectName = '';			
+var projectName = 'https://currenttruck.firebaseio.com/';			

@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 var httpclient = require("keenio/httpclient");
 var config = require("keenio/config");
 

@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 // require the user module, main component of the Withings connector
 var userClient = require("withings/user");
 var common = require("withings/common");

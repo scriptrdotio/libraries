@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 var config = require("fitbit/config");
 var fitbitModule = require("fitbit/fitbitClient");
 
@@ -61,7 +66,7 @@ FitbitDevice.prototype.getAlarms = function() {
  *  {String} label : (optional)	Label for the alarm
  *  {Numeric} snoozeLength : (optional)	Minutes between alarms
  *	{Numeric} snoozeCount :	(optional)	Maximum snooze count
- * 	{String} vibe : (optional) Vibe pattern; only one value for now – DEFAULT
+ * 	{String} vibe : (optional) Vibe pattern; only one value for now â€“ DEFAULT
  * @return {Object} the alarm's data
  */
 FitbitDevice.prototype.addAlarm = function(params) {
@@ -100,7 +105,7 @@ FitbitDevice.prototype.addAlarm = function(params) {
  *  {String} label : (optional)	Label for the alarm
  *  {Numeric} snoozeLength : Minutes between alarms
  *	{Numeric} snoozeCount :	Maximum snooze count
- * 	{String} vibe : (optional) Vibe pattern; only one value for now – DEFAULT
+ * 	{String} vibe : (optional) Vibe pattern; only one value for now â€“ DEFAULT
  * @return {Object} the alarm's data
  */
 FitbitDevice.prototype.updateAlarm = function(params) {

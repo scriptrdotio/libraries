@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 var config = require("oauth2/config");
 
 var endpoint = config.apiUrl + "/" +  config.apiVer + "/site/$siteId/scenario/items";
