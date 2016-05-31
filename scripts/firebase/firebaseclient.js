@@ -3,7 +3,7 @@
 write=nobody
 execute=authenticated 
   **/ 
- var config = require("firebase/config");
+ var config = require("./config");
 var httpClient = require("./httpclient");
 
 /**
