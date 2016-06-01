@@ -25,12 +25,12 @@ function Keenio(projectId) {
  */
 Keenio.prototype.recordEvent = function(event) {
   
-  if (!event) {
+  if (!event || !event.collection || !event.data) {
     
     throw {
       
       errorCode: "Invalid_Parameter",
-      errorDetail: "Keenio.recordEvent: event cannot be null or empty"
+      errorDetail: "Keenio.recordEvent: event, event.collection and event.data cannot be null or empty"
     };
   }
   
