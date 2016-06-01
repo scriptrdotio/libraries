@@ -50,12 +50,15 @@ try {
 	 * Send a single event to Keen.io
 	 */
 	var anEvent = {
-
-		"category" : "magical animals",
-		"animal_type" : "unicorn",
-		"username" : "john_doe",
-		"payment_type" : "credit_card",
-		"price" : 12.00
+      
+      		collection: "chimeres",
+		data: {
+	          "category" : "magical animals",
+	          "animal_type" : "unicorn",
+	          "username" : "john_doe",
+	          "payment_type" : "credit_card",
+	          "price" : 12.00
+	        }
 	};
 	
 	// send the event
