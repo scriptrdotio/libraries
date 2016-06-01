@@ -12,10 +12,10 @@ var witApiUrl = "https://api.wit.ai/";
 var audioType = "audio/mpeg3";
 
 // The developer's application ID at wit.ai
-var appId = "54c92111-16e8-4bc7-861c-e087a1358042"; // example
+var appId = "54c92111-16e8-4bc9-851c-e007a1359041"; // example
 
 // The server to server wit.ai OAuth token
-var serverAccessToken = "JINQ8DH5MAIGOALWJTEWTSTVFLSNX6DA";  // example
+var serverAccessToken = "JINV7DH5NAIMOALWJTEWTSSSFLSNX6DA";  // example
 
 // fill this variable to associate a script name to an intent name and map the entities to the parameter names
 // (optional)
@@ -23,7 +23,7 @@ var serverAccessToken = "JINQ8DH5MAIGOALWJTEWTSTVFLSNX6DA";  // example
 var mapping = {
   
   "get_nearest_venue": { // this is the intent name
-    "script": "wit/test/getNearestVenue", // this is the full path to the script to invoke for the intent
+    "script": "./test/getNearestVenue", // this is the full path to the script to invoke for the intent
     "params": { // mapping of the entities to parameters
       "distance": "radius", // the distance entity is mapped to the radius parameter
       "local_search_query": "venue" // the local_search_query entity is mapped to the venue parameter
