@@ -22,7 +22,7 @@ application.
 - Deploy the aforementioned scripts in your scriptr account, in a folder named "xee",
 - Create a developer account and an application at [xee](https://developer.xee.com/),
 - Once done, make sure to copy/paste the values of your application Key and application secret in the corresponding
-variables of the "vinli/oauth2/config file" (respectively client_id and client_secret). Also replace"YOUR_AUTH_TOKEN" with your actual scriptr.io auth token in the "redirect_uri" variable,
+variables of the "xee/oauth2/config file" (respectively client_id and client_secret). Also replace"YOUR_AUTH_TOKEN" with your actual scriptr.io auth token in the "redirect_uri" variable,
 - Create an end user (driver) account (https://www.xee.com/customer/account/login/)  
 - Create a test script in scriptr, or use the script provided in xee/test/. 
 
