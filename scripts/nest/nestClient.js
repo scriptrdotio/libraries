@@ -54,7 +54,7 @@ NestClient.prototype.updateStructure = function(id, params) {
   
   var requestParams = {  
   	
- 	"url": storage.local.cachedStructuresURL ? storage.local.cachedStructuresURL : config.getStructuresUrl() + "/" + id + "?auth=" + config.token.access_token,
+ 	"url": config.getStructuresUrl() + "/" + id + "?auth=" + config.token.access_token,
     "bodyString": JSON.stringify(params ? params : ""),
     "method": "PUT",
     "headers": {"Content-Type": "application/json"}
