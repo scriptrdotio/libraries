@@ -3,6 +3,7 @@
 write=nobody
 execute=authenticated 
   **/ 
+ 
  var clientModule = require("xee/client");
 var util = require("xee/util");
 var notifications = require("xee/notifications/notificationsManager");

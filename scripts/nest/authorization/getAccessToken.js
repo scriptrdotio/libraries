@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 /**
  * this is step 2 of nest's oauth 2 process.
  * this script is automatically invoked as a call-back once the end user has entered his

@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 // require the lightManager module
 var lightManager = require("samples/littlebits/lightManager");
 

@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 // The name of the app you need to connect to, e.g, 'Nest'
 var app = "vinli";
 

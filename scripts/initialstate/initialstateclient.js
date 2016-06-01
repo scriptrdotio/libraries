@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 var config = require("initialstate/config");
 var httpClient = require("initialstate/httpclient");
 

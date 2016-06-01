@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 var tokenManager = require("oauth2/TokenManager");
 var config = require("oauth2/config");
 

@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 var c = require('initialstate/initialstateclient');
 
 var cc = new c.InitialState();

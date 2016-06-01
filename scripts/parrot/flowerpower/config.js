@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 
 // The URL of the flowerparrot 
 var flowerpowerUrl = "https://apiflowerpower.parrot.com";

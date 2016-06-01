@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 var foxModule = require("myfox/fox");
 var mappings = require("myfox/mappings");
 

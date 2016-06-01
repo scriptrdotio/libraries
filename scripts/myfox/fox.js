@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 var config = require("oauth2/config");
 var clientModule = require("myfox/foxClient");
 var mappings = require("myfox/mappings");

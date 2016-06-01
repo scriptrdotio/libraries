@@ -3,8 +3,7 @@
 write=nobody
 execute=authenticated 
   **/ 
-var http = require("http");
-var config = require("keenio/config");
+ var http = require("http");
 
 /**
  * A generic http client that handles the communication with remote APIs
@@ -25,48 +24,41 @@ function HttpClient(dto) {
  * This method can throw exceptions
  * @method callApi
  * @param {Object} params : the parameters of the http call to issue
- * 	{String} params.url : the url of the targeted API
+ * 	{String} params.endpoint : the url of the targeted API
  *	{String} params.method : (optional) the http method to use when invoking the API
  *	{Object} params.headers: (optional) the http headers to send to the API
  *	{Object} params.params: (optional) the parameters that are expected by the API
- * @param {String} key : the api key to use
  */
-HttpClient.prototype.callApi = function(params, key) {
+HttpClient.prototype.callApi = function(params) {
   
   try {   
-     return this._callApi(params, key);
-  }catch(response) {
+     return this._callApi(params);
+  } catch(response) {
      this._handleError(response);    
   }
 };
 
-HttpClient.prototype._callApi = function(params, key) {
+HttpClient.prototype._callApi = function(params) {
   
-  if (params.params && (!params.method || params.method == "GET")) {
-    params.params = this._paramsToString(params.params);
-  }
-  
-  if (params.params && params.method == "POST") {
-    
-    params.bodyString = JSON.stringify(params.params);
-    delete params.params;
-  }
-  
-  params.url = params.url.indexOf("http") > -1 ? params.url : config.url + params.url;
-  params.url += "?api_key=" +  key;
+  params.headers = { "Content-Type": "application/json" };
   
   console.log(JSON.stringify(params));
   var response = http.request(params);
- // console.log("Received following response  : " + JSON.stringify(response));
+  console.log("Received following response  : " + JSON.stringify(response));
   if (response.status >= "200" && response.status < "300") {
     
-    var responseBody = JSON.parse(response.body);
-    if (responseBody.message) {
-      throw response;
-    }else {
-      return responseBody;
+    if (response.body && response.body != null) {
+      var responseBody = JSON.parse(response.body);
+      if (responseBody.message) {
+        throw response;
+      } else {
+        return responseBody;
+      }
     }
-  }else {
+    else {
+      return response;
+    }
+  } else {
     throw response;
   }
 };
@@ -109,4 +101,4 @@ HttpClient.prototype._paramsToString = function(params) {
   }
   
   return newParams;
-};
+};			

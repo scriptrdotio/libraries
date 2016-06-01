@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 var tokenManager = require("fitbit/authorization/TokenManager");
 
 try {

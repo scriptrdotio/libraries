@@ -1,3 +1,8 @@
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
 var clientModule = require("carvoyant/client");
 var mappings = require("carvoyant/mappings");
 var config = require("oauth2/config");
