@@ -86,8 +86,7 @@ FitbitUser.prototype.getHeartRate = function(params) {
   var url =  config.fitbitApiUrl + "/" + config.apiVer + "/user/-/activities/heart/date/";
   var result = this._getActivityStats(params, url);
   var output = {
-    "stats": result["activities-heart"],
-    "total": this._getTotalMinutes(result["activities-heart"])
+    "stats": result["activities-heart"]
   };
  
   return output;
