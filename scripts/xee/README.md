@@ -119,5 +119,5 @@ vehicle.subscribeToNotification(engineSpeedAbove5000);
 *You can check the list of all available methods using the ```xee/test/tests``` script.*
 
 ### About notifications
-As mentioned, you can monitor the values of the components of a given vehicle and be notified whenever the values match the rules you specified. Use the vinli/config file to specify how often should the values be checked and how you need to be notified of the occurrence of events
+As mentioned, you can monitor the values of the components of a given vehicle and be notified whenever the values match the rules you specified. Use the xee/config file to specify how often should the values be checked and how you need to be notified of the occurrence of events
 
