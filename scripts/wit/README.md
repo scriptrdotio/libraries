@@ -26,19 +26,21 @@ function execute(params) {
 ```
 // The URL root to wit.ai's APIs
 var witApiUrl = "https://api.wit.ai/";
+// Default audio type of voice commands
+var audioType = "audio/mpeg3";
 // The developer's application ID at wit.ai
-var appId = "54c93112-16j8-4vc9-951c-e008a3458061"; // example
+var appId = "54c92111-16e8-4bc9-851c-e007a1359041Z"; // example
 // The server to server wit.ai OAuth token
-var serverAccessToken = "JFHN7KHMADIMQALZJTWITSSSDLSNX6DA"; // example 
+var serverAccessToken = "JINV7DH5NAIMOALWJTEWTSSSFLSNX6DA";  // example
 // fill this variable to associate a script name to an intent name and map the entities to the parameter names
 // (optional)
+// the content of the "mapping" variable below is an example of a mapping
 var mapping = {
-   
-  "get_nearest_venue": {
-    "script": "wit/test/getNearestVenue", // the get_nearest_venue intent is mapped to this script "wit/test/getNearestVenue"
-    "params": { // map the entities defined in the intent to parameters expected by the script
-      "distance": "radius", // map the "distance" entity to the "radius" parameter
-      "local_search_query": "venue" // map the "local_search_query" to the "venue" parameter
+  "get_nearest_venue": { // this is the intent name
+    "script": "./test/getNearestVenue", // this is the full path to the script to invoke for the intent
+    "params": { // mapping of the entities to parameters
+      "distance": "radius", // the distance entity is mapped to the radius parameter
+      "local_search_query": "venue" // the local_search_query entity is mapped to the venue parameter
     }
   }
 };
