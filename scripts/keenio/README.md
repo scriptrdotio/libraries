@@ -6,7 +6,7 @@
 The purpose of this connector is to simplify and streamline the way you access Keen.io's APIs from scriptr.io, by providing you with a few native objects that you can directly integrate into your own scripts to leverage the Keen.io service. Using the connector, it is very easy to send devices and applications data to your Keen.io account and run any query to generate actionable information.
 
 ## Components
-- keenio/keenioclient: this is the main object to interact with. It allows you to send events and collections of events, inspect your collections and create instances of the Analyses, MultiAnayses and Extraction classes in order to run analyses and/or extract your data 
+- keenio/keenioclient: this is the main object to interact with. It allows you to send events and collections of events, inspect your collections and create instances of the Analyses, MultiAnalyses and Extraction classes in order to run analyses and/or extract your data 
 - keenio/httplient: a generic http client that knows how to handle requests to/responses from Keen.io's APIs
 - keenio/config: the configuration file where you mainly specify your access Keys (Read, Write and Master)
 - keenio/analyses: wraps all available queries (sum, medium, percentile, count, count unique, etc.) and expose them through methods
