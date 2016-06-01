@@ -29,11 +29,11 @@ var response_type = "code";
 // 	sleep: Sleep logs and related sleep analysis
 // 	social: Friend-related features, such as friend list, invitations, and leaderboard
 // 	weight: Weight and related information, such as body mass index, body fat percentage, and goals 
-var scope = "activity heartrate nutrition profile sleep weight";
+var scope = "activity heartrate nutrition profile sleep weight settings";
 
 // Where Fitbit should send the user after the user grants or denies consent. 
 // Optional if you have only specified one callback URI for your application in the settings on
-var redirect_uri = "https://api.scriptr.io/fitbit/authorization/getAccessToken?auth_token=RzM1RkYwQzc4Mg==";
+var redirect_uri = "https://api.scriptr.io/modules/fitbit/authorization/getAccessToken?auth_token=RzM1RkYwQzc4Mg==";
 
 // 
 
