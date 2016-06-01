@@ -33,7 +33,7 @@ var scope = "user_get email_get car_get data_get location_get address_all accele
 
 // Where Xee should send the user after the user grants or denies consent. 
 // Optional if you have only specified one callback URI for your application in the settings on
-var redirect_uri = "https://api.scriptrapps.io/xee/oauth2/getAccessToken?auth_token=YOUR_SCRIPTR_AUTH_TOKEN";
+var redirect_uri = "https://api.scriptrapps.io/modules/xee/oauth2/getAccessToken?auth_token=YOUR_SCRIPTR_AUTH_TOKEN";
 
 // Some OAuth API do not redirect the parameters you send to the authorization URL so you have
 // to add them to the redirectUrl. Notably we need to send the "state" in order to match the
