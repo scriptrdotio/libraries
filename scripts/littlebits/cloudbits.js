@@ -22,7 +22,7 @@ function Cloudbits(dto) {
     
     throw {
       "errorCode": "Invalid_Parameter",
-      "errorDetail": "littlebitsUser - dto cannot be null or empty"
+      "errorDetail": "CloudbitsUser - dto cannot be null or empty"
     };
   }
   
