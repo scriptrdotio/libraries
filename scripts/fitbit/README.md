@@ -9,12 +9,13 @@ This will hopefully allow you to create sophisticated applications that can, for
 - fitbit/userClient: this is the main object to interact with. It provides access to data of a given user (the one for who you are passing an access token)
 - fitbit/deviceClient: you obtain an instance of this component from the former. It allows you to obtain all the actions that you can do on a user's device (e.g. set alarm)
 - fitbit/fitbitClient: a generic http client that knows how to handle requests to/responses from fitbit's APIs
-- fitbit/config: the configuration file where you mainly specify your fitbit app id and app secret
+- fitbit/config: the configuration file where you mainly specify your fitbit app id and app secret.
 - fitbit/authorization/getRequestCodeUrl: run this script on behalf of an end user from a front-end application in order to issue step1 of the OAuth 2.0 authorization process.
 The execution of this script returns an OAuth 2.0 authorization URL to invoke in order to obtain an access token for a given user.
 - fitbit/authorization/getAccessToken: this is the callback that is provided by the former script to fitbit. 
 Its is automatically called by fitbit when the end user successfully authenticates against fitbit and grants you with the requested
 permissions.
+- fitbit/authorization/TokenManager: this module is in charge of obtaining an OAuth 2.0 access token, either from a provided code or from a provided refresh token, for a given user. The module stores the access and refresh token in the global storage.
 
 ## How to use
 - Deploy the aforementioned scripts in your scriptr account, in a folder named "fitbit".
