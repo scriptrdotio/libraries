@@ -151,7 +151,7 @@ try {
   results.setHeater1On = heater1.turnOn();
   var heaterWithThermostat = myfox.getHeater({siteId: results.sites[0].siteId, id: results.heatersWithThermostat[1].deviceId});
   results.heaterWithThermostatInfo = heaterWithThermostat.getData();
-  results.seteaterWithThermostatModeToBoost = heaterWithThermostat.setMode(mappings.heaterModes.BOOST);
+  results.setHeaterWithThermostatModeToBoost = heaterWithThermostat.setMode(mappings.heaterModes.BOOST);
   */
   
   return results;
