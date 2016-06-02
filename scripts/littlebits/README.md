@@ -21,11 +21,12 @@ to write/read data to/from the actual device as well as to subscribe to events e
 - littlebits/notifications: handles subscriptions to events emitted by littlebits devices. Used by the device module 
 but can be used directly.
 - littlebits/mappings: configuration file used for internal purpose.
+- littlebits/userManager: simple module to read/write user data to/from the global storage.
 - littlebits/api/handleEvent: callback used as a default subscriber to events emitted by littlebits devices. 
 - littlebits/notificationHandlers/DefaultHandler: this is the default handler that is triggered upon the occurrence of any
 littlebits event.
+- littlebits/factory: factory that contains the logic to determine the appropriate event handler to use according to the event that is received.
 - littlebits/test/tests: a list of all the objects and corresponding methods, with examples on how to use them.
-
 
 ## How to use
 - Deploy the aforementioned scripts in your scriptr.io account, in a folder named "littlebits".
