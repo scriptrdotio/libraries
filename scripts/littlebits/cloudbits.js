@@ -22,7 +22,7 @@ function Cloudbits(dto) {
     
     throw {
       "errorCode": "Invalid_Parameter",
-      "errorDetail": "FitbitUser - dto cannot be null or empty"
+      "errorDetail": "littlebitsUser - dto cannot be null or empty"
     };
   }
   
