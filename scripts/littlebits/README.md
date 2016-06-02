@@ -9,7 +9,7 @@ The purpose of this connector is to simplify and streamline the way you access l
 the Cloudbits platform) from scriptr.io. the connector provides you with a few native objects that you can directly 
 integrate into your own scripts. This will hopefully allow you to extend what you can do with littlebits by adding 
 server-side logic and integrating with third party APIs and any of the devices that we support.
-Note that you need to have a cloudbit device among your littlebit components.
+Note that you need to have a cloudbit device among your littlebits components.
 
 ## Components
 - littlebits/cloudbits: the main entry point to communicate with the Cloudbits platform's APIs
@@ -18,7 +18,7 @@ Used by cloudbits, devices and notifications.
 - littlebits/config: used to configure the connector, mainly with littlebits data.
 - littlebits/device: contains the Device class that is an abstraction of a Littlebits device.  Use instances of this class
 to write/read data to/from the actual device as well as to subscribe to events emitted by the latter. 
-- littlebits/notifications: handles subscriptions to events emitted by littlebit devices. Used by the device module 
+- littlebits/notifications: handles subscriptions to events emitted by littlebits devices. Used by the device module 
 but can be used directly.
 - littlebits/mappings: configuration file used for internal purpose.
 - littlebits/api/handleEvent: callback used as a default subscriber to events emitted by littlebits devices. 
