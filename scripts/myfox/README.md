@@ -10,15 +10,15 @@ JavaScript objects that act as wrappers on top of the APIs.
 - myfox/fox: this is the main object to interact with. It provides an entry point to the creation of all the other objects.
 - myfox/device: the base class of all the objects that wrap actual myfox devices
 - myfox/cameras: allows you to manipulate myfox smart cameras 
-- myfox/foxModules: allows you to interact with myfox modules 
+- myfox/foxModule: allows you to interact with myfox modules 
 - myfox/gate: allows you to manipulate myfox gate controllers
 - myfox/heater: allows you to interact with myfox thermostats coupled with heaters
-- myfox/client: generic http client that handles the communication between scriptr.io and myfox
+- myfox/foxClient: generic http client that handles the communication between scriptr.io and myfox
 - myfox/light: wraps myfox light sensors
 - myfox/shutter: allows you to interact with shutters
 - myfox/shutterGroup: interact with groups of shutters defined using myfox control app
 - myfox/socket: allows you to interact with sockets
-- myfox/scenarios: allows you to enable, play or disable predefined usage scenarios
+- myfox/scenario: allows you to enable, play or disable predefined usage scenarios
 - myfox/test/tests: a list of all the objects and corresponding methods, for examples on how to use them.
 
 ## Dependencies
