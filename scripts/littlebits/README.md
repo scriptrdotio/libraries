@@ -15,16 +15,16 @@ Note that you need to have a cloudbit device among your littlebit components.
 - littlebits/cloudbits: the main entry point to communicate with the Cloudbits platform's APIs
 - littlebits/cloudbitsClient: generic http client that handles the communication between scriptr.io and the Cloudbits platform. 
 Used by cloudbits, devices and notifications.
+- littlebits/config: used to configure the connector, mainly with littlebits data.
 - littlebits/device: contains the Device class that is an abstraction of a Littlebits device.  Use instances of this class
 to write/read data to/from the actual device as well as to subscribe to events emitted by the latter. 
 - littlebits/notifications: handles subscriptions to events emitted by littlebit devices. Used by the device module 
 but can be used directly.
-- littlebits/mapping: configuration file used for internal purpose.
+- littlebits/mappings: configuration file used for internal purpose.
 - littlebits/api/handleEvent: callback used as a default subscriber to events emitted by littlebits devices. 
 - littlebits/notificationHandlers/DefaultHandler: this is the default handler that is triggered upon the occurrence of any
-littlebits event. 
+littlebits event.
 - littlebits/test/tests: a list of all the objects and corresponding methods, with examples on how to use them.
-- littlebits/config: used to configure the connector, mainly with littlebits data
 
 
 ## How to use
