@@ -21,10 +21,6 @@ JavaScript objects that act as wrappers on top of the APIs.
 - myfox/scenario: allows you to enable, play or disable predefined usage scenarios
 - myfox/test/tests: a list of all the objects and corresponding methods, for examples on how to use them.
 
-## Dependencies
-The current library requires you to use the [oauth2 utility library](https://github.com/scriptrdotio/libraries/tree/master/oauth2)
-regarding the acquisition of myfox authorization tokens for you or your users.
-
 ## How to use
 - Deploy the aforementioned scripts in your scriptr account, in a folder named "myfox"
 - Create a developer account and an application at [myfox](https://myfox.me/start)
@@ -35,6 +31,7 @@ variables of the "oauth2/config file" (respectively client_id and client_secret)
 - In the "oauth2/config" file, make sure to set the value of the "authorizationUrl" to the correct myfox endpoint (https://api.myfox.me/oauth2/authorize)
 - In the "oauth2/config" file, make sure to set the value of the "accessTokenUrl" to the correct myfox endpoint (https://api.myfox.me/oauth2/token)
 - In the "oauth2/config" file, make sure to set the value of the "app" variable to a name you choose (e.g. "myfox")
+- In the "oauth2/config" file, make sure to set the value of the "apiUrl" variable to "https://api.myfox.me"
 - In the "oauth2/config" file, make sure to set the value of the "apiVer" variable to "v2"
 - In the "oauth2/config" file, make sure to set the value of the "grantType" variable to "authorization_code"
 - In the "oauth2/config" file, replace the generci part at the end of the "redirect_uri" variable with your scriptr.io authentication token
