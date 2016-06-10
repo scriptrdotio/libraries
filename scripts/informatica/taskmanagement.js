@@ -32,7 +32,7 @@ function TaskManager(dto) {
  * List all Jobs in your Informatica Cloud Service account
  * @method listTasks
  * @param {Object} [dto]
- * @param {String} [dto.type] task type, on of 
+ * @param {String} [dto.type] task type, one of 
  * AVS. Contact validation task, DMASK. Data masking task, DNB_TASK. D&B360 task, DNB_WORKFLOW, D&B360 workflow,
  * DQA. Data assessment task, DRS. Data replication task, DSS. Data synchronization task, MTT. Mapping configuration task,
  * PCS. PowerCenter task.
@@ -40,6 +40,7 @@ function TaskManager(dto) {
  */
 TaskManager.prototype.listTasks = function(dto) {
   
+  dto = dto ? dto : {}
   var reqParams = {
     
     url: "https://icinq1.informaticacloud.com/saas/api/v2/task",
@@ -61,4 +62,26 @@ TaskManager.prototype.listTasks = function(dto) {
   }
   
   return taskList;
+};
+
+/**
+ * @method getTask
+ * @param {Object} [dto]
+ * @param {String} [dto.id] : task's id
+ * @param {String} [dto.name] : task's name
+ * @param {String} [dto.type] : task's type
+ * @return {Object} an instance of ./task.Task
+ */
+TaskManager.prototype.getTask = function(dto) {
+  
+  var field = dto.id ? "id" : "name";
+  var list = this.listTasks({type:dto.type});
+  for (var task in list) {
+    
+    if (list[task][field] ==  dto[field]) {
+      return list[task];
+    }
+  }
+  
+  return {};
 };			
