@@ -12,6 +12,7 @@ The supply process unfolds in four steps:
 # Application's requirements
 
 *   You need to own an account on [Informatica' Cloud](https://www.informatica.com/cloud.html)
+*   You need to create an ETL task in Informtica Cloud so it can be started from the code
 *   You need an API key from [Tomtom](developer.tomtom.com/)
 
 # Dependencies
