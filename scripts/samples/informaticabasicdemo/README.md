@@ -23,6 +23,7 @@ You need to import the [Informatica simple connector](https://github.com/scriptr
 
 *   supplychain: the orchestration that implements the automatic supply process
 *   traffic: a simple connector to Tomtom's API
+*   order: API to to be invoked by the ETL task
 
 # Configuration
 
