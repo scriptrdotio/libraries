@@ -15,8 +15,6 @@ var sessionMgt = require("../sessionmanagement");
 var taskMgt = require("../taskmanagement");
 
 var taskName = request.parameters.taskName;
-taskName = taskName ? taskName : "from_vm_to_salesforce_order";
-
 var sessionMgr = new sessionMgt.SessionManager();
 try {
   var user = sessionMgr.openSession();  
