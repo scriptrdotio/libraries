@@ -1,4 +1,9 @@
-/**
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=anonymous 
+  **/ 
+ /**
  * This API is automatically invoked by the Cloudbits platform once a event is emitted byn a littlebit device 
  * that is monitored by some subscribers.
  * The API retrieves the event object from the request, then, based on the handler configuration provided in the 
@@ -40,4 +45,4 @@ if (pathToHandler) {
   }catch(exception) {
     return exception;
   }
-}   				   				   				
+}			

@@ -1,8 +1,13 @@
-var clientModule = require("littlebits/cloudbitsClient");
-var deviceModule = require("littlebits/device");
-var config = require("littlebits/config");
-var userManager = require("littlebits/userManager");
-var notificationsModule = require("littlebits/notifications");
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
+ var clientModule = require("./cloudbitsClient");
+var deviceModule = require("./device");
+var config = require("./config");
+var userManager = require("./userManager");
+var notificationsModule = require("./notifications");
 
 /**
  * This class is the main entry point to communicating with the Cloudbits platform's APIs
@@ -95,4 +100,4 @@ Cloudbits.prototype._initialize = function() {
   if (!storage.global.littlebits) {
     storage.global.littlebits = {};
   }
-};   				   				   				   				
+};			

@@ -1,11 +1,16 @@
-/**
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
+ /**
  * This is the default handler to all types of notifications sent by the Cloudbits platform.
  * Notification handler need to expose a "handle" function that accepts a notification object.
  * @module DefaultHandler
  */
 
-var config = require("littlebits/config");
-var userManager = require("littlebits/userManager");
+var config = require("../config");
+var userManager = require("../userManager");
 
 /**
  * This method transforms the received notification into a readable form and sends it by email 
@@ -44,4 +49,4 @@ function _formatMailBody(notification) {
   }
   
   return bodyStr;
-}   				   				   				
+}			

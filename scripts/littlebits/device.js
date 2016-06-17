@@ -1,6 +1,11 @@
-var clientModule = require("littlebits/cloudbitsClient");
-var notificationsModule = require("littlebits/notifications");
-var config = require("littlebits/config");
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
+ var clientModule = require("./cloudbitsClient");
+var notificationsModule = require("./notifications");
+var config = require("./config");
 
 /**
  * This class is an abstraction of a Littlebits device (Cloud component mainly)
@@ -43,6 +48,7 @@ function Device(params) {
 /**
  * Output some value for the specified duration and amplitude to an online 
  * littlebit device.
+ * NOTE: numeric values should be passed as strings !
  * This method can throw exception
  * @method write
  * @param {Object} params (optional) {
@@ -171,4 +177,4 @@ Device.prototype._update = function(data) {
   this.app = data.ap;
   this.inputInterval = data.input_interval_ms;
   this.isConnected = data.is_connected;
-};   				   				
+};			

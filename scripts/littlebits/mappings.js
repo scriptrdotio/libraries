@@ -1,4 +1,9 @@
-/**
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
+ /**
  * Define any mapping between this connector and constant values used by the Cloudbits platform's APIs
  * @module mappings
  */
@@ -24,4 +29,4 @@ events.find = function(value) {
   }
   
   return "";
-}   				   				
+}			

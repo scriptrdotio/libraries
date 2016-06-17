@@ -1,5 +1,10 @@
-var http = require("http");
-var config = require("littlebits/config");
+/** Script ACLs do not delete 
+ read=nobody 
+write=nobody
+execute=authenticated 
+  **/ 
+ var http = require("http");
+var config = require("./config");
 
 /**
  * This class handles sending/receiving HTTP requests/response to/from the Cloudbits platform
@@ -47,7 +52,7 @@ CloudbitsClient.prototype.callApi = function(params) {
   var localParams = JSON.parse(JSON.stringify(params)); 
   var headers =  {
     "Authorization": "Bearer " +  this.token,
-    "Accept": "application/vnd.littlebits." + config.version + "json"
+    "Accept": "application/vnd.littlebits." + config.version + "+json"
   };
   
   if (localParams.headers) {
@@ -58,6 +63,7 @@ CloudbitsClient.prototype.callApi = function(params) {
   }
   
   localParams.headers = headers;  
+  console.log("Request " +  JSON.stringify(localParams));
   var response = http.request(localParams);
   if (response.metadata && response.metadata.status == "failure") {
     
@@ -67,7 +73,7 @@ CloudbitsClient.prototype.callApi = function(params) {
     };
   }
   
-  //console.log(JSON.stringify(response));
+  console.log("Response " + JSON.stringify(response));
   return this._parseResponseBody(response);
 };
 
@@ -93,4 +99,4 @@ CloudbitsClient.prototype._parseResponseBody = function(response) {
   }
 
   return jsonBody; 
-};   				   				   				
+};			
