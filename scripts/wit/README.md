@@ -4,7 +4,7 @@ The are many cases where an end user needs to send vocal instructions to a devic
 In this article, we will see how to use scriptr to provide you with the ability to trigger the execution of your APIs through vocal instructions.
 ##wit.ai
 wit.ai is a company that provides developers with means to map vocal commands to structured objects composed of intents (command) and entities (command targets and parameters). Using wit.ai is pretty straightforward and does not require much time from you to get started. In the remainder of this document, we will consider that we already have created an intent. Please refer to wit.ai's tutorials and documentation for more on how to create intent based on vocal commands.
-scriptr handler for wit.ai
+#scriptr handler for wit.ai
 ##Purpose
 The purpose of this handler is to allow you to trigger one of your APIs (scriptr scripts) from a vocal command. The latter is sent by your client app as an audio file (mp3) to the scriptr wit.ai handler, which will invoke wit.ai to identify the corresponding intent, then use the latter to trigger the targeted API. The sole constraints are to provide an "execute()" method in your script that accept a JSON object as a parameter (execute trigger the logic of your API). 
 ##Components
