@@ -309,7 +309,7 @@ Scriptr.prototype._get = function(method, dto) {
 	var request = https.request(
 		options, 
 		function(response) {
-			self._callback(self, dto.params, response);
+			self._callback(self, dto, response);
 		});
 	
 	request.end();
@@ -348,7 +348,7 @@ Scriptr.prototype._post = function(method, dto) {
 	var request = https.request(
 		options, 
 		function(response) {
-			self._callback(self, dto.params, response);
+			self._callback(self, dto, response);
 		});
 	
 	request.write(postData);
