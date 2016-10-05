@@ -396,7 +396,7 @@ Scriptr.prototype._handleResponse = function(data, onSuccess, onFailure) {
 		}break;
 		case "success" : {
 			
-			if (data.result && data.result.errorCode) {
+			if (data.response.result && data.response.result.errorCode) {
 				
 				console.log("Script execution failed " +  data);
 				if (onFailure) {			
@@ -404,9 +404,9 @@ Scriptr.prototype._handleResponse = function(data, onSuccess, onFailure) {
 				} 
 			}else {
 				
-				// console.log("Script execution succeeded " +  data);
-				if (onSuccess) {
-					onSuccess(data.result);
+				console.log("Script execution succeeded " +  data.response.result);
+				if (onSuccess) { console.log("calling ons")
+					onSuccess(data.response.result);
 				}
 			}
 		}
