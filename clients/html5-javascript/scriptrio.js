@@ -211,7 +211,7 @@ Scriptr.prototype._send = function() {
 Scriptr.prototype.publish = function(channel, message) {
 	
 	if (!this.pubsub) {		
-		this.pubsub = new PubSubClient(this.token, this.url);
+		this.pubsub = new PubSubClient(this.token, "wss://" + this.url + "/");
 	}
 	
 	this.pubsub.publish(channel, message);
