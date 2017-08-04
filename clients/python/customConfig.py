@@ -1,8 +1,10 @@
+#example: wss://api.scriptrapps.io
 websocket_url = ""
+#example: https://api.scriptrapps.io
 request_url = ""
-sec = 0
-method = ""
+#your scriptr token (either anonymous or access token)
 token = ""
+#the channel you want to subscribe to
 channel = ""
 
 #examples of callback functions
@@ -11,5 +13,5 @@ def xx(message,*args):
 
 def x(message,*args):
     print("different function "+message)
-#map of callback functions
+#initial map of callback functions
 callback_map = {}
